@@ -130,7 +130,16 @@ export default function ConsultationForm() {
         credentials: 'same-origin',
         headers: { Accept: 'application/json' },
       });
-      const data = await response.json();
+      const raw = await response.text();
+      let data: { success?: boolean; message?: string } | null = null;
+      try {
+        data = JSON.parse(raw);
+      } catch {
+        const match = raw.match(/\{[\s\S]*"success"[\s\S]*\}/);
+        if (match) {
+          data = JSON.parse(match[0]);
+        }
+      }
 
       if (data?.success) {
         setVipCode(`VIP-${Math.floor(100000 + Math.random() * 900000)}`);

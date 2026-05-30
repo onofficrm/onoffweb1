@@ -9,6 +9,10 @@ include_once dirname(__FILE__) . '/_bootstrap.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
+if (defined('ONOFF_PROC_JSON') && ob_get_level() > 0) {
+    ob_clean();
+}
+
 if (!defined('_GNUBOARD_')) {
     echo json_encode(array('success' => false, 'message' => '접근이 올바르지 않습니다.'), JSON_UNESCAPED_UNICODE);
     exit;

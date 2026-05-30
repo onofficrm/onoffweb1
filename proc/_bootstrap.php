@@ -6,5 +6,9 @@
 if (!defined('_GNUBOARD_')) {
     $g5_proc_root = dirname(__DIR__);
     chdir($g5_proc_root);
+    if (!defined('ONOFF_PROC_JSON')) {
+        define('ONOFF_PROC_JSON', true);
+        ob_start();
+    }
     include_once $g5_proc_root . '/_common.php';
 }

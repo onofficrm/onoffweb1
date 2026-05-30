@@ -35,6 +35,9 @@ function onoff_inquiry_json_response($success, $message, $redirect_url = '')
     }
 
     header('Content-Type: application/json; charset=utf-8');
+    if (defined('ONOFF_PROC_JSON') && ob_get_level() > 0) {
+        ob_clean();
+    }
     echo json_encode($payload, JSON_UNESCAPED_UNICODE);
     exit;
 }
@@ -217,15 +220,22 @@ if (onoff_inquiry_has_banned_word($name . ' ' . $message)) {
     onoff_inquiry_json_response(false, '접수할 수 없는 내용이 포함되어 있습니다.');
 }
 
-/* 게시판 확인 */
+/* 게시판 확인 (없으면 inquiry 자동 생성) */
 $bo_table = function_exists('g5site_cfg') ? g5site_cfg('inquiry_bo_table', 'inquiry') : 'inquiry';
 $bo_table = preg_replace('/[^a-z0-9_]/i', '', $bo_table);
 if ($bo_table === '') {
     $bo_table = 'inquiry';
 }
 
+if (is_file(G5_LIB_PATH . '/inquiry-board.lib.php')) {
+    include_once G5_LIB_PATH . '/inquiry-board.lib.php';
+    if (function_exists('onoff_ensure_inquiry_board')) {
+        onoff_ensure_inquiry_board($bo_table);
+    }
+}
+
 $board = sql_fetch(" select * from {$g5['board_table']} where bo_table = '" . sql_real_escape_string($bo_table) . "' ");
-if (!$board['bo_table']) {
+if (!is_array($board) || empty($board['bo_table'])) {
     onoff_inquiry_json_response(false, '문의 게시판이 준비되지 않았습니다. 관리자에게 문의해 주세요.');
 }
 
