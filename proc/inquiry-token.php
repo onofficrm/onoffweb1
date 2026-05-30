@@ -5,7 +5,7 @@
  */
 define('ONOFF_INQUIRY_TOKEN', true);
 
-include_once dirname(__FILE__) . '/../_common.php';
+include_once dirname(__FILE__) . '/_bootstrap.php';
 
 header('Content-Type: application/json; charset=utf-8');
 

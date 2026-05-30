@@ -42,6 +42,16 @@ export default function ConsultationForm() {
   };
 
   useEffect(() => {
+    const win = window as Window & { __ONOFF_INQUIRY__?: { token?: string; submit_url?: string } };
+    const injected = win.__ONOFF_INQUIRY__;
+    if (injected?.token) {
+      setInquiryToken(injected.token);
+      if (injected.submit_url) {
+        setSubmitUrl(injected.submit_url);
+      }
+      return;
+    }
+
     fetch('/proc/inquiry-token.php', { credentials: 'same-origin' })
       .then((res) => res.json())
       .then((data) => {
@@ -53,7 +63,7 @@ export default function ConsultationForm() {
         }
       })
       .catch(() => {
-        /* 토큰 실패 시 제출 단계에서 안내 */
+        /* 제출 단계에서 안내 */
       });
   }, []);
 

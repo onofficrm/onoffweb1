@@ -577,6 +577,45 @@ if (!function_exists('onoff_builder_resolve_import_index_file')) {
     }
 }
 
+if (!function_exists('onoff_builder_inject_inquiry_config')) {
+    /**
+     * 빌더 standalone HTML에 상담 폼 CSRF 토큰 주입 (React ConsultationForm)
+     */
+    function onoff_builder_inject_inquiry_config($html)
+    {
+        if (!function_exists('get_session') || !function_exists('set_session')) {
+            return $html;
+        }
+
+        if (!get_session('onoff_inquiry_token')) {
+            set_session('onoff_inquiry_token', md5(uniqid((string) mt_rand(), true)));
+        }
+
+        $token = get_session('onoff_inquiry_token');
+        if ($token === '') {
+            return $html;
+        }
+
+        $submit_url = (defined('G5_URL') ? G5_URL : '') . '/proc/inquiry-submit.php';
+        $payload = json_encode(array(
+            'token'      => $token,
+            'submit_url' => $submit_url,
+        ), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
+
+        if ($payload === false) {
+            return $html;
+        }
+
+        $script = '<script>window.__ONOFF_INQUIRY__=' . $payload . ';</script>';
+
+        if (preg_match('#</head>#i', $html)) {
+            return preg_replace('#</head>#i', $script . '</head>', $html, 1);
+        }
+
+        return $script . $html;
+    }
+}
+
 if (!function_exists('onoff_builder_render_import_page')) {
     function onoff_builder_render_import_page($id)
     {
@@ -608,6 +647,7 @@ if (!function_exists('onoff_builder_render_import_page')) {
 
         $html = onoff_builder_remove_base_tags($html);
         $html = onoff_builder_rewrite_asset_paths($html, $id, $entry);
+        $html = onoff_builder_inject_inquiry_config($html);
 
         header('Content-Type: text/html; charset=utf-8');
         echo $html;
