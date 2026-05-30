@@ -1,0 +1,6 @@
+{
+  "name": "천안 업성 푸르지오 레이크시티",
+  "description": "천안 업성 푸르지오 레이크시티 프리미엄 아파트 공식 분양홍보관. 호수공원 영구 조망권과 최고급 브랜드 대단지의 특별 분양 정보 및 실시간 청약 상담 서비스를 제공합니다.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

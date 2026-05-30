@@ -1,5 +1,12 @@
 [
   {
+    "id": "onoffweb1",
+    "name": "천안 업성 푸르지오 레이크시티 메인",
+    "path": "onoffweb1",
+    "entry": "index.html",
+    "created_at": "2026-05-30 16:48:00"
+  },
+  {
     "id": "sample-landing",
     "name": "[샘플] 랜딩 페이지 (비활성)",
     "path": "sample-landing",

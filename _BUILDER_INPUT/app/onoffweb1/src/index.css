@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Noto Sans KR", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cinzel", "Playfair Display", serif;
+  
+  --color-gold-50: #fefcf3;
+  --color-gold-100: #fbf5df;
+  --color-gold-200: #f5e4bd;
+  --color-gold-300: #eccc91;
+  --color-gold-400: #e1b162;
+  --color-gold-500: #cb8f34;
+  --color-gold-600: #b47826;
+  --color-gold-700: #935e1d;
+  --color-gold-800: #74481c;
+  --color-gold-900: #5f3a1a;
+  
+  --color-navy-900: #0a1128;
+  --color-navy-950: #050a1a;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Custom fade effects and luxury shadow classes */
+.shadow-premium {
+  box-shadow: 0 10px 40px -10px rgba(180, 120, 38, 0.08), 0 2px 10px rgba(0, 0, 0, 0.02);
+}
+
+.shadow-gold-glow {
+  box-shadow: 0 0 20px rgba(225, 177, 98, 0.2);
+}
+
+.bg-shimmer {
+  background: linear-gradient(135deg, #fdfbf7 0%, #ffffff 50%, #f7f3e8 100%);
+}
+
+.text-gold-gradient {
+  background: linear-gradient(135deg, #b47826 0%, #e1b162 50%, #935e1d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@keyframes scaleUp {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-scaleUp {
+  animation: scaleUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.25s ease-out forwards;
+}
+
+
