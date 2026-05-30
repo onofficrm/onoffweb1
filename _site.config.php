@@ -17,7 +17,7 @@ $site_config = array(
     'business_no'         => '000-00-00000',
     'phone'               => '1688-4522',
     'kakao_url'           => 'https://open.kakao.com/o/sPrugioLake',
-    'email'               => 'help@example.com',
+    'email'               => 'jong8040@gmail.com',
     'address'             => '충청남도 천안시 서북구 업성동 일원 (업성지구 도시개발구역)',
     'primary_color'       => '#b47826',
     'secondary_color'     => '#0a1128',
@@ -34,7 +34,7 @@ $site_config = array(
     /* 문의 폼 → inquiry 게시판 (proc/inquiry-submit.php) */
     'inquiry_bo_table'        => 'inquiry',
     'inquiry_notify_enabled'  => true,
-    'inquiry_notify_email'    => 'admin@example.com',  /* 운영 시 실제 수신 주소로 변경 */
+    'inquiry_notify_email'    => 'jong8040@gmail.com',
     'inquiry_notify_name'     => '관리자',
     /* 텔레그램 알림 — 운영 시 토큰·채팅 ID 입력 후 enabled true */
     'inquiry_notify_telegram_enabled'  => false,

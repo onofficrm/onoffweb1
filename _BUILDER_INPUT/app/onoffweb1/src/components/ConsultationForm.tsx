@@ -15,13 +15,10 @@ import {
   Star, 
   Calendar, 
   Sparkles, 
-  ShieldCheck, 
-  Trash2,
   Lock
 } from 'lucide-react';
 
 export default function ConsultationForm() {
-  // LocalState for Form entry
   const [name, setName] = useState('');
   const [phone, setPhone] = useState('');
   const [timeSlot, setTimeSlot] = useState('오전 (10:00 - 12:00)');
@@ -30,53 +27,34 @@ export default function ConsultationForm() {
   const [agreeMarketing, setAgreeMarketing] = useState(true);
   const [agreePrivacy, setAgreePrivacy] = useState(true);
 
-  // Validation States
-  const [errors, setErrors] = useState<{ name?: string; phone?: string; agreePrivacy?: string }>({});
-
-  // Submission Status
+  const [errors, setErrors] = useState<{ name?: string; phone?: string; agreePrivacy?: string; submit?: string }>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [vipCode, setVipCode] = useState('');
+  const [inquiryToken, setInquiryToken] = useState('');
+  const [submitUrl, setSubmitUrl] = useState('/proc/inquiry-submit.php');
 
-  // Local Storage List for Manager view
-  const [submissions, setSubmissions] = useState<ConsultationRequest[]>([]);
-  const [showManager, setShowManager] = useState(false);
+  const typeLabels: Record<ConsultationRequest['type'], string> = {
+    subscription: '청약 가점진단 / 특별공급 조건 체크',
+    visit: '홍보관 한시적 모델하우스 관람 (예약)',
+    general: '단지배치 및 호수 영구 조망동 선점',
+    investment: '삼성 SDI 배후 및 GTX 입지 투자가치 리포트',
+  };
 
-  // Load submissions on mount
   useEffect(() => {
-    const saved = localStorage.getItem('prugio_consultations');
-    if (saved) {
-      try {
-        setSubmissions(JSON.parse(saved));
-      } catch (e) {
-        console.error(e);
-      }
-    } else {
-      // Seed some starter premium demo submissions so the list is beautiful instantly
-      const demoSubmissions: ConsultationRequest[] = [
-        {
-          id: 'sub-1',
-          name: '한상우',
-          phone: '010-4491-XXXX',
-          timeSlot: '오전 (10:00 - 12:00)',
-          type: 'subscription',
-          agreeMarketing: true,
-          memo: '특별공급 신혼부부 자격 요건 및 필요한 구비서류 체크리스트 희망합니다.',
-          createdAt: '2026-05-28 09:12'
-        },
-        {
-          id: 'sub-2',
-          name: '이지민',
-          phone: '010-9082-XXXX',
-          timeSlot: '오후 (14:00 - 16:00)',
-          type: 'visit',
-          agreeMarketing: false,
-          memo: '가족들과 모델하우스를 방문할 예정인데 동반인 제한이 있는지 궁금합니다.',
-          createdAt: '2026-05-28 09:44'
+    fetch('/proc/inquiry-token.php', { credentials: 'same-origin' })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.success && data.token) {
+          setInquiryToken(data.token);
+          if (data.submit_url) {
+            setSubmitUrl(data.submit_url);
+          }
         }
-      ];
-      localStorage.setItem('prugio_consultations', JSON.stringify(demoSubmissions));
-      setSubmissions(demoSubmissions);
-    }
+      })
+      .catch(() => {
+        /* 토큰 실패 시 제출 단계에서 안내 */
+      });
   }, []);
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -90,11 +68,23 @@ export default function ConsultationForm() {
     setPhone(formatted);
   };
 
-  const currentLocalTime = "2026-05-28 10:13:20"; // Supplied metadata time
+  const buildMessage = () => {
+    const lines = [
+      '[VIP 상담 신청 — 천안 업성 푸르지오 레이크시티]',
+      '',
+      `상담 목적: ${typeLabels[type]}`,
+      `통화 희망 시간: ${timeSlot}`,
+      `마케팅 정보 수신: ${agreeMarketing ? '동의' : '미동의'}`,
+      '',
+      '추가 요구 사항:',
+      memo.trim() || '빠른 방문 예약 원합니다.',
+    ];
+    return lines.join('\n');
+  };
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const newErrors: { name?: string; phone?: string; agreePrivacy?: string } = {};
+    const newErrors: { name?: string; phone?: string; agreePrivacy?: string; submit?: string } = {};
 
     if (!name.trim()) newErrors.name = '성함을 정확히 입력해 주세요.';
     if (!phone.trim() || phone.replace(/[^0-9]/g, '').length < 10) {
@@ -103,6 +93,9 @@ export default function ConsultationForm() {
     if (!agreePrivacy) {
       newErrors.agreePrivacy = '개인정보 수집 및 동의 항목에 동의해 주세요.';
     }
+    if (!inquiryToken) {
+      newErrors.submit = '보안 토큰을 불러오지 못했습니다. 페이지를 새로고침한 뒤 다시 시도해 주세요.';
+    }
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
@@ -110,31 +103,37 @@ export default function ConsultationForm() {
     }
 
     setErrors({});
-    const randomVipId = `VIP-${Math.floor(100000 + Math.random() * 900000)}`;
+    setIsSubmitting(true);
 
-    const newRequest: ConsultationRequest = {
-      id: `sub-${Date.now()}`,
-      name,
-      phone,
-      timeSlot,
-      type,
-      agreeMarketing,
-      memo: memo || '빠른 방문 예약 원합니다.',
-      createdAt: currentLocalTime.slice(0, 16)
-    };
+    const formData = new FormData();
+    formData.append('onoff_inquiry_token', inquiryToken);
+    formData.append('name', name.trim());
+    formData.append('phone', phone.trim());
+    formData.append('message', buildMessage());
+    formData.append('privacy_agree', '1');
+    formData.append('referer_page', window.location.href);
 
-    const updatedSubmissions = [newRequest, ...submissions];
-    localStorage.setItem('prugio_consultations', JSON.stringify(updatedSubmissions));
-    setSubmissions(updatedSubmissions);
+    try {
+      const response = await fetch(submitUrl, {
+        method: 'POST',
+        body: formData,
+        credentials: 'same-origin',
+        headers: { Accept: 'application/json' },
+      });
+      const data = await response.json();
 
-    setVipCode(randomVipId);
-    setIsSubmitted(true);
-  };
+      if (data?.success) {
+        setVipCode(`VIP-${Math.floor(100000 + Math.random() * 900000)}`);
+        setIsSubmitted(true);
+        return;
+      }
 
-  const handleDeleteSubmission = (id: string) => {
-    const updated = submissions.filter(item => item.id !== id);
-    localStorage.setItem('prugio_consultations', JSON.stringify(updated));
-    setSubmissions(updated);
+      setErrors({ submit: data?.message || '접수에 실패했습니다. 잠시 후 다시 시도해 주세요.' });
+    } catch {
+      setErrors({ submit: '네트워크 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetForm = () => {
@@ -142,6 +141,7 @@ export default function ConsultationForm() {
     setPhone('');
     setMemo('');
     setIsSubmitted(false);
+    setErrors({});
   };
 
   return (
@@ -391,12 +391,16 @@ export default function ConsultationForm() {
                 </div>
 
                 {/* Submits key cta */}
-                <div className="pt-2">
+                <div className="pt-2 space-y-2">
+                  {errors.submit && (
+                    <p className="text-[11px] text-red-500 font-medium">{errors.submit}</p>
+                  )}
                   <button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-700 hover:to-gold-600 text-white font-extrabold text-sm py-4 rounded-xl shadow-lg hover:shadow-gold-glow transition-all duration-200 cursor-pointer"
+                    disabled={isSubmitting}
+                    className="w-full bg-gradient-to-r from-gold-600 to-gold-500 hover:from-gold-700 hover:to-gold-600 disabled:opacity-60 disabled:cursor-not-allowed text-white font-extrabold text-sm py-4 rounded-xl shadow-lg hover:shadow-gold-glow transition-all duration-200 cursor-pointer"
                   >
-                    🚀 사전 VIP 예약 및 전문 무료상담 신청 완료
+                    {isSubmitting ? '접수 중...' : '🚀 사전 VIP 예약 및 전문 무료상담 신청 완료'}
                   </button>
                 </div>
               </form>
@@ -404,72 +408,6 @@ export default function ConsultationForm() {
 
           </div>
 
-        </div>
-
-        {/* Private Administrative Dashboard for interactive CRM evaluation */}
-        <div className="mt-16 border-t border-gold-250 pt-10 border-gold-200">
-          <div className="flex items-center justify-between">
-            <p className="text-xs text-gray-400 font-sans">
-              ※ 천안 업성 푸르지오 분양 웹사이트의 실시간 폼 작동 상태를 평가 및 확인하기 위해 관리자 CRM을 활성화할 수 있습니다.
-            </p>
-            <button
-              onClick={() => setShowManager(!showManager)}
-              className="inline-flex items-center space-x-1 text-xs font-bold text-gold-600 hover:text-gold-700 bg-gold-50 px-3 py-1.5 rounded-lg border border-gold-200 transition-colors cursor-pointer"
-            >
-              <ShieldCheck className="h-4 w-4" />
-              <span>{showManager ? "관리자 CRM 패널 닫기" : "내부 CRM 접수 데이터 보기"}</span>
-            </button>
-          </div>
-
-          {showManager && (
-            <div className="mt-4 bg-gray-900 text-gray-100 p-6 rounded-2xl border border-gray-800 shadow-inner text-left font-sans animate-slideUp">
-              <div className="flex items-center justify-between border-b border-gray-800 pb-3 mb-4">
-                <div className="flex items-center space-x-2">
-                  <div className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-400 font-mono">
-                    CHUNAN PRUGIO CRM PIPELINE STATUS: ACTIVE
-                  </span>
-                </div>
-                <div className="text-[11px] text-gray-500">
-                  총 예약인원: <strong className="text-gold-400">{submissions.length}명</strong>
-                </div>
-              </div>
-
-              {submissions.length === 0 ? (
-                <p className="text-xs text-gray-500 py-4 text-center">현재 접수된 문의 내역이 없습니다. 양식을 작성해 데이터를 추가해 주세요.</p>
-              ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[300px] overflow-y-auto pr-2">
-                  {submissions.map((sub) => (
-                    <div 
-                      key={sub.id} 
-                      className="bg-gray-950 p-4 rounded-xl border border-gray-800 flex items-start justify-between space-x-2 text-xs"
-                    >
-                      <div className="space-y-1.5">
-                        <div className="flex items-center space-x-2">
-                          <span className="font-extrabold text-white text-sm">{sub.name}</span>
-                          <span className="text-[10px] bg-gold-900/60 text-gold-400 px-2 py-0.5 rounded border border-gold-800/60 uppercase">
-                            {sub.type === 'subscription' ? '청약청구' : sub.type === 'visit' ? '방문예정' : sub.type === 'general' ? '조망동' : '투자 자문'}
-                          </span>
-                        </div>
-                        <p className="text-gray-300 font-mono">연락처: {sub.phone}</p>
-                        <p className="text-gray-400">희망시간: {sub.timeSlot}</p>
-                        {sub.memo && <p className="text-gray-500 bg-gray-900/40 p-2 rounded border border-gray-800/40 leading-snug">의견: {sub.memo}</p>}
-                        <span className="text-[10px] text-gray-600 block pt-1 font-mono">{sub.createdAt} 접수완료</span>
-                      </div>
-                      
-                      <button
-                        onClick={() => handleDeleteSubmission(sub.id)}
-                        className="p-1.5 rounded text-gray-500 hover:text-red-400 hover:bg-gray-900 transition-colors"
-                        aria-label="Delete booking entry"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              )}
-            </div>
-          )}
         </div>
 
       </div>

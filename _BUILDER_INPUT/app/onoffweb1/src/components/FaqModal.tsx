@@ -17,23 +17,15 @@ export default function FaqModal({ isOpen, onClose }: FaqModalProps) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [openFaqId, setOpenFaqId] = useState<string | null>("faq-1");
 
-  if (!isOpen) return null;
-
   const categories = ["전체", "청약 요건", "분양가 안내", "단지 정보", "교육·트래픽", "체험/예약"];
-
-  const toggleFaq = (id: string) => {
-    setOpenFaqId(openFaqId === id ? null : id);
-  };
 
   const filteredFaqs = useMemo(() => {
     let result = FAQ_DATA;
-    
-    // Category Filter
+
     if (selectedCategory !== "전체") {
       result = result.filter(item => item.category === selectedCategory);
     }
-    
-    // Search Query Filter
+
     if (searchQuery.trim() !== "") {
       const normalizedQuery = searchQuery.toLowerCase().replace(/\s+/g, '');
       result = result.filter(item => {
@@ -42,9 +34,15 @@ export default function FaqModal({ isOpen, onClose }: FaqModalProps) {
         return questionText.includes(normalizedQuery) || answerText.includes(normalizedQuery);
       });
     }
-    
+
     return result;
   }, [selectedCategory, searchQuery]);
+
+  if (!isOpen) return null;
+
+  const toggleFaq = (id: string) => {
+    setOpenFaqId(openFaqId === id ? null : id);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto">
