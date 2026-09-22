@@ -1,244 +1,185 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-
-// Layout & Global Components
-import { Header } from './components/layout/Header';
-import { Footer } from './components/layout/Footer';
-import { FloatingBar } from './components/layout/FloatingBar';
-import { ConsultationModal } from './components/common/ConsultationModal';
-import { ScrollToTop } from './components/common/ScrollToTop';
-
-// Pages
-import { HomePage } from './pages/HomePage';
-import { AboutIntroPage } from './pages/about/AboutIntroPage';
-import { AboutGreetingPage } from './pages/about/AboutGreetingPage';
-import { AboutProcessPage } from './pages/about/AboutProcessPage';
-import { AboutLocationPage } from './pages/about/AboutLocationPage';
-import { CategoryViewPage } from './pages/category/CategoryViewPage';
-import { ProductViewPage } from './pages/product/ProductViewPage';
-import { NoticesPage } from './pages/support/NoticesPage';
-import { NewsPage } from './pages/support/NewsPage';
-import { CertInfoPage } from './pages/support/CertInfoPage';
-import { CasesPage } from './pages/support/CasesPage';
-import { FaqPage } from './pages/support/FaqPage';
-import { InquiryPage } from './pages/support/InquiryPage';
-import { ConsultationPage } from './pages/consultation/ConsultationPage';
-import { LoginPage } from './pages/auth/LoginPage';
-import { RegisterPage } from './pages/auth/RegisterPage';
-import { ForgotPasswordPage } from './pages/auth/ForgotPasswordPage';
-import { ResetPasswordPage } from './pages/auth/ResetPasswordPage';
-import { MyPage } from './pages/member/MyPage';
-import { ProfileEditPage } from './pages/member/ProfileEditPage';
-import { BoardListPage } from './pages/board/BoardListPage';
-import { BoardDetailPage } from './pages/board/BoardDetailPage';
-import { BoardWritePage } from './pages/board/BoardWritePage';
-import { BoardEditPage } from './pages/board/BoardEditPage';
-import { AuthProvider } from './context/AuthContext';
+import { Header } from './components/Header.tsx';
+import { HeroSection } from './components/HeroSection.tsx';
+import { TrustBar } from './components/TrustBar.tsx';
+import { SituationSection } from './components/SituationSection.tsx';
+import { ComparisonSection } from './components/ComparisonSection.tsx';
+import { GuideSection } from './components/GuideSection.tsx';
+import { ProcessSection } from './components/ProcessSection.tsx';
+import { ServicesSection } from './components/ServicesSection.tsx';
+import { CasesSection } from './components/CasesSection.tsx';
+import { PostSupportSection } from './components/PostSupportSection.tsx';
+import { InsightsSection } from './components/InsightsSection.tsx';
+import { FaqSection } from './components/FaqSection.tsx';
+import { InteractiveDiagnosisSection } from './components/InteractiveDiagnosisSection.tsx';
+import { FinalConversionSection } from './components/FinalConversionSection.tsx';
+import { FloatingCtas } from './components/FloatingCtas.tsx';
+import { Footer } from './components/Footer.tsx';
+import { DiagnosisModal } from './components/DiagnosisModal.tsx';
+import { ConsultationModal } from './components/ConsultationModal.tsx';
+import { DiagnosisFormData, ConsultationFormData, MultiStepDiagnosisData } from './types.ts';
 
 export default function App() {
-  const [isConsultModalOpen, setIsConsultModalOpen] = useState(false);
-  const [consultDefaultService, setConsultDefaultService] = useState<string | undefined>();
+  const [isDiagnosisOpen, setIsDiagnosisOpen] = useState(false);
+  const [isConsultationOpen, setIsConsultationOpen] = useState(false);
+  const [consultationCategory, setConsultationCategory] = useState('법인설립');
+  const [initialDiagnosisType, setInitialDiagnosisType] = useState('예비창업자 신규 법인설립');
+  const [inlineInitialSituation, setInlineInitialSituation] = useState('처음 사업을 시작합니다');
 
-  const handleOpenConsultation = (defaultService?: string) => {
-    setConsultDefaultService(defaultService);
-    setIsConsultModalOpen(true);
+  const scrollToDiagnosis = () => {
+    const el = document.getElementById('diagnosis');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      setIsDiagnosisOpen(true);
+    }
   };
 
-  const handleCloseConsultation = () => {
-    setIsConsultModalOpen(false);
-    setConsultDefaultService(undefined);
+  const handleOpenDiagnosis = (situationType?: string) => {
+    if (situationType) {
+      setInitialDiagnosisType(situationType);
+      setInlineInitialSituation(situationType);
+    }
+    scrollToDiagnosis();
+  };
+
+  const handleOpenConsultation = (category = '법인설립') => {
+    setConsultationCategory(category);
+    setIsConsultationOpen(true);
+  };
+
+  const handleSelectSituation = (situationTitle: string) => {
+    // Map situation titles to diagnosis types
+    let mappedType = '예비창업자 신규 법인설립';
+    if (situationTitle.includes('개인사업자')) {
+      mappedType = '개인사업자 법인전환';
+    } else if (situationTitle.includes('공동창업')) {
+      mappedType = '공동창업을 준비하고 있습니다';
+    } else if (situationTitle.includes('이미 법인')) {
+      mappedType = '현재 법인을 운영하고 있습니다';
+    }
+    setInitialDiagnosisType(mappedType);
+    setInlineInitialSituation(situationTitle);
+    scrollToDiagnosis();
+  };
+
+  const handleDiagnosisSuccess = (_data: DiagnosisFormData) => {
+    // Handled in modal state
+  };
+
+  const handleInlineDiagnosisSuccess = (_data: MultiStepDiagnosisData) => {
+    // Successfully recorded
+  };
+
+  const handleConsultationSuccess = (_data: ConsultationFormData) => {
+    // Handled in modal state
   };
 
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <div className="flex flex-col min-h-screen bg-[#F7F9FC] text-[#172033] antialiased">
-          {/* Sticky Header with MegaMenu & Mobile Drawer */}
-          <Header onOpenConsultation={() => handleOpenConsultation()} />
+    <div className="min-h-screen flex flex-col bg-[#F7F9FC] text-slate-800 antialiased selection:bg-blue-100 selection:text-blue-900">
+      {/* 1. Header (Sticky) */}
+      <Header
+        onOpenConsultation={() => handleOpenConsultation('법인설립')}
+        onOpenDiagnosis={() => handleOpenDiagnosis()}
+      />
 
-          {/* Main Content Area */}
-          <main className="flex-1 w-full">
-            <Routes>
-              {/* Home */}
-              <Route
-                path="/"
-                element={<HomePage onOpenConsultation={() => handleOpenConsultation()} />}
-              />
-
-              {/* Unified Board System (게시판 시스템) */}
-              <Route
-                path="/board"
-                element={<BoardListPage onOpenConsultation={() => handleOpenConsultation()} />}
-              />
-              <Route
-                path="/board/write"
-                element={<BoardWritePage onOpenConsultation={() => handleOpenConsultation()} />}
-              />
-              <Route
-                path="/board/:id"
-                element={<BoardDetailPage onOpenConsultation={() => handleOpenConsultation()} />}
-              />
-              <Route
-                path="/board/:id/edit"
-                element={<BoardEditPage onOpenConsultation={() => handleOpenConsultation()} />}
-              />
-
-            {/* About (회사소개) */}
-            <Route
-              path="/about"
-              element={<AboutIntroPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-            <Route
-              path="/about/greeting"
-              element={<AboutGreetingPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-            <Route
-              path="/about/process"
-              element={<AboutProcessPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-            <Route
-              path="/about/location"
-              element={<AboutLocationPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-
-            {/* Policy Funds (정책자금) */}
-            <Route
-              path="/funding"
-              element={<CategoryViewPage categoryId="funding" onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-            <Route
-              path="/funding/:productId"
-              element={<ProductViewPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-            <Route
-              path="/policy-fund"
-              element={<Navigate to="/funding" replace />}
-            />
-            <Route
-              path="/policy-fund/:serviceId"
-              element={<ProductViewPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-
-            {/* Enterprise Certification (기업인증) */}
-            <Route
-              path="/certification"
-              element={<CategoryViewPage categoryId="certification" onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-            <Route
-              path="/certification/:productId"
-              element={<ProductViewPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-
-            {/* Management Consulting (경영컨설팅) */}
-            <Route
-              path="/consulting"
-              element={<CategoryViewPage categoryId="consulting" onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-            <Route
-              path="/consulting/:productId"
-              element={<ProductViewPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-
-            {/* Customer Support & Resources (고객센터) */}
-            <Route
-              path="/support"
-              element={<Navigate to="/support/notices" replace />}
-            />
-            <Route
-              path="/support/notices"
-              element={<NoticesPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-            <Route
-              path="/support/news"
-              element={<NewsPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-            <Route
-              path="/support/cert-info"
-              element={<CertInfoPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-            <Route
-              path="/support/cases"
-              element={<CasesPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-            <Route
-              path="/support/faq"
-              element={<FaqPage onOpenConsultation={() => handleOpenConsultation()} />}
-            />
-            <Route
-              path="/support/inquiry"
-              element={<ConsultationPage />}
-            />
-            <Route
-              path="/consultation"
-              element={<ConsultationPage />}
-            />
-
-            {/* Auth & Member Area */}
-            <Route
-              path="/login"
-              element={<LoginPage />}
-            />
-            <Route
-              path="/auth/login"
-              element={<LoginPage />}
-            />
-            <Route
-              path="/signup"
-              element={<RegisterPage />}
-            />
-            <Route
-              path="/auth/register"
-              element={<RegisterPage />}
-            />
-            <Route
-              path="/forgot-password"
-              element={<ForgotPasswordPage />}
-            />
-            <Route
-              path="/auth/forgot-password"
-              element={<ForgotPasswordPage />}
-            />
-            <Route
-              path="/reset-password"
-              element={<ResetPasswordPage />}
-            />
-            <Route
-              path="/mypage"
-              element={<MyPage />}
-            />
-            <Route
-              path="/member/mypage"
-              element={<MyPage />}
-            />
-            <Route
-              path="/mypage/profile"
-              element={<ProfileEditPage />}
-            />
-            <Route
-              path="/member/profile"
-              element={<ProfileEditPage />}
-            />
-
-            {/* Fallback */}
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-        </main>
-
-        {/* Floating Quick Action & Scroll-to-Top */}
-        <FloatingBar onOpenConsultation={() => handleOpenConsultation()} />
-
-        {/* Global Corporate Footer */}
-        <Footer />
-
-        {/* Universal 1:1 Consultation Modal */}
-        <ConsultationModal
-          isOpen={isConsultModalOpen}
-          onClose={handleCloseConsultation}
-          defaultService={consultDefaultService}
+      {/* Main Content */}
+      <main className="flex-1">
+        {/* 2. Hero Section */}
+        <HeroSection
+          onOpenDiagnosis={() => handleOpenDiagnosis()}
+          onOpenConsultation={() => handleOpenConsultation('법인설립')}
         />
-      </div>
-    </BrowserRouter>
-  </AuthProvider>
+
+        {/* 3. Trust Bar Area */}
+        <TrustBar
+          onOpenConsultation={() => handleOpenConsultation('법인설립')}
+        />
+
+        {/* 4. Section 1: 혹시 이런 고민 때문에 법인설립을 알아보고 계신가요? */}
+        <SituationSection
+          onSelectSituation={handleSelectSituation}
+        />
+
+        {/* 5. Section 2: 개인사업자 vs 법인 */}
+        <ComparisonSection
+          onOpenConsultation={() => handleOpenConsultation('법인전환')}
+        />
+
+        {/* 6. Section 3: 법인설립 기간 · 준비사항 · 비용 */}
+        <GuideSection
+          onOpenConsultation={() => handleOpenConsultation('설립비용')}
+        />
+
+        {/* 7. STEP 3 - Section 1: HOW IT WORKS (5 STEP Process) */}
+        <ProcessSection
+          onOpenConsultation={() => handleOpenConsultation('법인설립')}
+        />
+
+        {/* 8. STEP 3 - Section 2: BUSINESS SERVICES (4 Core Services) */}
+        <ServicesSection
+          onSelectService={(category) => handleOpenConsultation(category)}
+        />
+
+        {/* 9. STEP 5 - SECTION 1: 실제 컨설팅 진행 사례 (CONSULTING CASES) */}
+        <CasesSection
+          onOpenConsultation={(category) => handleOpenConsultation(category)}
+        />
+
+        {/* 10. STEP 5 - SECTION 2: 법인설립 이후 기업지원 (AFTER INCORPORATION) */}
+        <PostSupportSection
+          onOpenConsultation={(category) => handleOpenConsultation(category)}
+        />
+
+        {/* 11. STEP 4: 3분 법인설립 무료진단 Multi-Step Form */}
+        <InteractiveDiagnosisSection
+          initialSituation={inlineInitialSituation}
+          onSuccessSubmit={handleInlineDiagnosisSuccess}
+        />
+
+        {/* 12. STEP 5 - SECTION 3: 최신 기업정보 (BUSINESS INSIGHTS) */}
+        <InsightsSection
+          onOpenConsultation={(category) => handleOpenConsultation(category)}
+        />
+
+        {/* 13. STEP 5 - SECTION 4: 자주 묻는 질문 (FAQ Accordion) */}
+        <FaqSection
+          onOpenConsultation={(category) => handleOpenConsultation(category)}
+        />
+
+        {/* 14. STEP 6: Final Conversion Section (아직 법인설립을 결정하지 못하셨나요?) */}
+        <FinalConversionSection
+          onOpenDiagnosis={() => handleOpenDiagnosis()}
+          onOpenConsultation={() => handleOpenConsultation('법인설립')}
+        />
+      </main>
+
+      {/* Footer */}
+      <Footer
+        onOpenConsultation={() => handleOpenConsultation('법인설립')}
+        onOpenDiagnosis={() => handleOpenDiagnosis()}
+      />
+
+      {/* Floating CTAs (Mobile Fixed Bottom Bar & Desktop Quick Floating Button) */}
+      <FloatingCtas
+        onOpenConsultation={() => handleOpenConsultation('법인설립')}
+        onOpenDiagnosis={() => handleOpenDiagnosis()}
+      />
+
+      {/* Modals for Unified CTAs */}
+      <DiagnosisModal
+        isOpen={isDiagnosisOpen}
+        onClose={() => setIsDiagnosisOpen(false)}
+        onSuccess={handleDiagnosisSuccess}
+        initialBusinessType={initialDiagnosisType}
+      />
+
+      <ConsultationModal
+        isOpen={isConsultationOpen}
+        onClose={() => setIsConsultationOpen(false)}
+        onSuccess={handleConsultationSuccess}
+        defaultCategory={consultationCategory}
+      />
+    </div>
   );
 }

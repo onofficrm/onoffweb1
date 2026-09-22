@@ -4,36 +4,36 @@ if (!defined('_GNUBOARD_')) exit;
 include_once(G5_PATH.'/section/_helpers.php');
 
 /**
- * 메인 최신글 — 정책자금 소식(news) / 기업인증 정보(cert)
+ * 메인 최신글 — 법인설립/기업성장 인사이트 (news) / 기업인증·성장 (cert)
  * 관리자에서 게시판 ID를 동일하게 생성하세요. (스킨: basic-notice 또는 basic-modern 권장)
  */
 $g5_latest_boards = array(
     array(
         'bo_table'    => 'news',
-        'label'       => '최신 정책자금 소식',
+        'label'       => '법인설립 · 기업성장 인사이트',
         'rows'        => 3,
         'subject_len' => 48,
         'skin'        => 'card',
         'tone'        => 'blue',
-        'more_label'  => '정책자금 게시판 바로가기 →',
+        'more_label'  => '인사이트 게시판 바로가기 →',
     ),
     array(
         'bo_table'    => 'cert',
-        'label'       => '기업인증 정보',
+        'label'       => '기업인증 · 정책자금 정보',
         'rows'        => 3,
         'subject_len' => 48,
         'skin'        => 'card',
         'tone'        => 'gold',
-        'more_label'  => '기업인증 정보 전체보기 →',
+        'more_label'  => '기업인증·정책자금 전체보기 →',
     ),
 );
 ?>
 <section class="section section-latest section-latest--bizontop section--alt" id="section-latest">
   <div class="section-inner">
     <div class="section-head reveal">
-      <p class="section-eyebrow">LATEST INSIGHTS &amp; ANNOUNCEMENTS</p>
-      <h2 class="section-title">최신 정책자금 및 기업인증 정보</h2>
-      <p class="section-desc">급변하는 정부 정책 트렌드와 기업인증 제도 변경 사항을 신속하게 안내해 드립니다.</p>
+      <p class="section-eyebrow">BUSINESS INSIGHTS</p>
+      <h2 class="section-title">법인설립과 기업운영에 필요한<br>정보를 쉽게 알려드립니다.</h2>
+      <p class="section-desc">복잡한 법률·세무·정책 용어를 창업자의 눈높이에 맞춰 정리한 실무 아티클입니다.</p>
     </div>
     <div class="section-content">
       <div class="latest-grid latest-grid--2">
@@ -70,8 +70,8 @@ $g5_latest_boards = array(
       </div>
       <div class="latest-board-links">
         <a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=notice" class="btn btn-outline">공지사항</a>
-        <a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=news" class="btn btn-outline">정책자금 소식</a>
-        <a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=cert" class="btn btn-outline">기업인증 정보</a>
+        <a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=news" class="btn btn-outline">법인설립 인사이트</a>
+        <a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=cert" class="btn btn-outline">기업인증 · 정책자금</a>
         <a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=faq" class="btn btn-outline">FAQ</a>
         <a href="<?php echo G5_BBS_URL; ?>/login.php" class="btn btn-primary">회원 로그인</a>
       </div>

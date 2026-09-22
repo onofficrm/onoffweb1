@@ -1,80 +1,72 @@
 <?php
 if (!defined('_GNUBOARD_')) exit;
-include_once(G5_PATH.'/section/_helpers.php');
 
 $g5_services = array(
     array(
-        'img'    => 'service-funding.jpg',
-        'badge'  => '정책자금 (Funding)',
-        'title'  => '맞춤형 정부 정책자금 조달',
-        'desc'   => '소상공인시장진흥공단, 중진공, 기보, 신보 등 기업 상황에 가장 적합한 정부 정책자금을 발굴하고 최적 조건의 저금리 융자를 연계합니다.',
-        'items'  => array(
-            '소상공인 및 초기 스타트업 창업지원자금',
-            '중소 제조·유통기업 맞춤 운전자금',
-            '공장·사옥 매입 및 기계설비 시설자금',
-        ),
-        'href'   => G5_URL.'/page/service.php?cat=funding',
-        'cta'    => '정책자금 자세히 보기',
-        'tone'   => 'blue',
+        'badge'     => 'SERVICE 01',
+        'name'      => '법인설립',
+        'title'     => '사업에 맞는 법인 구조 설계',
+        'desc'      => '법인을 단순히 설립하는 데 그치지 않고 사업형태와 향후 계획을 고려해 기본 구조를 함께 검토합니다.',
+        'features'  => array('신규 법인설립', '1인 법인', '공동창업 법인', '주주 및 임원구조', '사업목적 구성'),
+        'highlight' => true,
+        'tone'      => 'blue',
     ),
     array(
-        'img'    => 'service-cert.jpg',
-        'badge'  => '기업인증 (Certification)',
-        'title'  => '국가 공인 기업인증 획득',
-        'desc'   => '벤처기업확인, 기업부설연구소, 이노비즈, 메인비즈, ISO 등 파격적인 조세 감면과 공공조달 입찰 가점을 확보하는 공인 인증을 취득합니다.',
-        'items'  => array(
-            '벤처기업확인 (법인세 최대 50% 감면)',
-            '기업부설연구소 / 연구전담부서 (R&D 25% 공제)',
-            '이노비즈 · 메인비즈 · ISO 국제표준인증',
-        ),
-        'href'   => G5_URL.'/page/service.php?cat=cert',
-        'cta'    => '기업인증 자세히 보기',
-        'tone'   => 'gold',
+        'badge'     => 'SERVICE 02',
+        'name'      => '법인전환',
+        'title'     => '개인사업자의 법인전환',
+        'desc'      => '사업규모 증가에 따라 법인전환을 고려하는 경우 현재 사업상황을 검토하고 적절한 전환 방향을 상담합니다.',
+        'features'  => array('법인전환 상담', '기존 사업현황 검토', '전환 방식 검토'),
+        'highlight' => false,
+        'tone'      => 'sky',
     ),
     array(
-        'img'    => 'service-consulting.jpg',
-        'badge'  => '경영컨설팅 (Consulting)',
-        'title'  => '전략적 경영자문 및 리스크 개선',
-        'desc'   => '법인설립 및 전환, 가지급금 정리, 정관 개정, 사옥 매입 시설자금 등 기업의 안정적인 영속과 재무 리스크를 선제적으로 해결합니다.',
-        'items'  => array(
-            '개인사업자 절세형 법인설립 및 법인전환',
-            '자가 사옥 및 공장 매입 부동산 시설자금',
-            '가지급금 정리 및 기업 신용평가등급 개선',
-        ),
-        'href'   => G5_URL.'/page/service.php?cat=consulting',
-        'cta'    => '경영컨설팅 자세히 보기',
-        'tone'   => 'navy',
+        'badge'     => 'SERVICE 03',
+        'name'      => '기업지원',
+        'title'     => '정책자금 · 기업인증',
+        'desc'      => '기업의 업력, 업종, 재무상황 등을 확인하여 활용 가능한 기업지원제도를 검토합니다.',
+        'features'  => array('정책자금', '벤처기업확인', '기업부설연구소', '연구개발전담부서', '이노비즈', '메인비즈'),
+        'highlight' => false,
+        'tone'      => 'indigo',
+    ),
+    array(
+        'badge'     => 'SERVICE 04',
+        'name'      => '경영컨설팅',
+        'title'     => '기업 성장 단계별 컨설팅',
+        'desc'      => '법인설립 이후 기업이 성장하면서 필요한 다양한 경영 이슈를 함께 검토합니다.',
+        'features'  => array('기업 성장전략', '재무구조', '조직 및 운영', '기업인증 연계'),
+        'highlight' => false,
+        'tone'      => 'teal',
     ),
 );
 ?>
-<section class="section section-service section-service--bizontop section--alt" id="section-service">
+<section class="section section-service section-service--incorp" id="section-service">
   <div class="section-inner">
     <div class="section-head reveal">
-      <p class="section-eyebrow">CORE THREE DOMAINS</p>
-      <h2 class="section-title">비즈온탑의 핵심 서비스</h2>
-      <p class="section-desc">재무 건전성 확충부터 조세 감면, 지배구조 개선까지 전문 영역별 체계적인 컨설팅을 제공합니다.</p>
+      <p class="section-eyebrow">BUSINESS SERVICES</p>
+      <h2 class="section-title">법인설립부터<br>기업의 성장까지 함께합니다.</h2>
+      <p class="section-desc">단순 법인등기 대행에 머무르지 않고, 개인사업자 전환부터 정책자금,<br>각종 기업인증 및 경영 전략까지 원스톱으로 지원합니다.</p>
     </div>
     <div class="section-content">
-      <div class="service-core-grid">
+      <div class="service-incorp-grid">
         <?php foreach ($g5_services as $item) { ?>
-        <article class="service-core-card service-core-card--<?php echo htmlspecialchars($item['tone'], ENT_QUOTES, 'UTF-8'); ?> reveal">
-          <div class="service-core-card__thumb">
-            <?php g5_sample_main_media($item['img'], $item['title'], 'service-core-card__img', 'card'); ?>
-            <span class="service-core-card__badge"><?php echo get_text($item['badge']); ?></span>
+        <article class="service-incorp-card service-incorp-card--<?php echo htmlspecialchars($item['tone'], ENT_QUOTES, 'UTF-8'); ?><?php echo !empty($item['highlight']) ? ' is-highlight' : ''; ?> reveal">
+          <div class="service-incorp-card__meta">
+            <span class="service-incorp-card__badge"><?php echo get_text($item['badge']); ?></span>
+            <span class="service-incorp-card__name"><?php echo get_text($item['name']); ?></span>
+            <?php if (!empty($item['highlight'])) { ?>
+            <span class="service-incorp-card__core">핵심 서비스</span>
+            <?php } ?>
           </div>
-          <div class="service-core-card__body">
-            <h3 class="service-core-card__title"><?php echo get_text($item['title']); ?></h3>
-            <p class="service-core-card__desc"><?php echo get_text($item['desc']); ?></p>
-            <p class="service-core-card__list-label">대표 서비스 상품</p>
-            <ul class="service-core-card__list">
-              <?php foreach ($item['items'] as $li) { ?>
-              <li><?php echo get_text($li); ?></li>
-              <?php } ?>
-            </ul>
-          </div>
-          <div class="service-core-card__foot">
-            <a href="<?php echo htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-outline"><?php echo get_text($item['cta']); ?></a>
-          </div>
+          <h3 class="service-incorp-card__title"><?php echo get_text($item['title']); ?></h3>
+          <p class="service-incorp-card__desc"><?php echo get_text($item['desc']); ?></p>
+          <p class="service-incorp-card__label">주요 제공 서비스</p>
+          <ul class="service-incorp-card__features">
+            <?php foreach ($item['features'] as $feature) { ?>
+            <li><?php echo get_text($feature); ?></li>
+            <?php } ?>
+          </ul>
+          <a href="#section-contact" class="btn <?php echo !empty($item['highlight']) ? 'btn-accent' : 'btn-outline'; ?>">자세히 보기</a>
         </article>
         <?php } ?>
       </div>

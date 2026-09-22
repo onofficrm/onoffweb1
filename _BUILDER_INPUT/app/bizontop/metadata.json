@@ -1,6 +1,6 @@
 {
-  "name": "비즈온탑 (BIZ ON TOP)",
-  "description": "정책자금, 기업인증, 경영컨설팅 전문 기업 비즈온탑 공식 홈페이지. 기업 성장의 든든한 파트너로서 맞춤형 자금 조달 및 기업 가치 향상 솔루션을 제공합니다.",
+  "name": "비즈온탑 | 법인설립 전문 컨설팅",
+  "description": "사업에 맞는 법인 구조부터 설립 이후 기업 성장까지, 비즈온탑 법인설립 전문 컨설팅",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

@@ -48,14 +48,18 @@ include_once(G5_PATH.'/head.php');
  */
 $g5_main_sections = array(
     'hero',       // 메인 히어로
-    'needs',      // 기업 고민 카드
-    'service',    // 핵심 서비스 3종
-    'advantage',  // 핵심 가치
+    'trust',      // 신뢰/핵심 영역 4카드
+    'situation',  // 상황별 고민 카드
+    'comparison', // 개인사업자 vs 법인
+    'guide',      // 기간·준비사항·비용
     'process',    // 5단계 프로세스
+    'service',    // 핵심 서비스 4종
     'cases',      // 컨설팅 사례
-    'latest',     // 정책자금·기업인증 게시판 최신글
+    'support',    // 설립 이후 기업지원
+    'diagnosis',  // 3분 법인설립 무료진단
+    'latest',     // 법인설립·기업성장 인사이트
     'faq',        // FAQ
-    'contact',    // 무료 상담 신청
+    'contact',    // 최종 전환 + 무료 상담 신청
 );
 ?>
 

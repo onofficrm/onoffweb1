@@ -2,47 +2,80 @@
 if (!defined('_GNUBOARD_')) exit;
 
 $g5_process_steps = array(
-    array('no' => '01', 'title' => '상담 신청', 'desc' => '온라인 간편 상담 또는 유선을 통해 기업 기본 정보 및 당면 과제를 접수합니다.', 'tone' => 'blue'),
-    array('no' => '02', 'title' => '기업 현황 진단', 'desc' => '재무제표, 매출 추이, 업력, 기술력을 정밀 분석하여 지원 적격성을 검토합니다.', 'tone' => 'blue'),
-    array('no' => '03', 'title' => '맞춤 솔루션 제안', 'desc' => '기관별 자금 트랙과 세제 감면 인증 등 최적의 맞춤 실행 계획을 제안합니다.', 'tone' => 'gold'),
-    array('no' => '04', 'title' => '계약 및 컨설팅 진행', 'desc' => '전담 수석 컨설턴트 배정 후 사업계획서 편철, 현장 실사 및 PT를 밀착 지도합니다.', 'tone' => 'navy'),
-    array('no' => '05', 'title' => '결과 확인 및 사후관리', 'desc' => '자금 실행 및 인증 취득 완료 후 후속 연계 과제와 정기 사후관리를 지속합니다.', 'tone' => 'green'),
+    array(
+        'no'       => '01',
+        'title'    => '현재 상황 진단',
+        'desc'     => '사업내용과 현재 상황, 법인을 설립하려는 목적을 먼저 확인합니다.',
+        'keywords' => array('사업형태', '예상매출', '설립목적'),
+    ),
+    array(
+        'no'       => '02',
+        'title'    => '법인 구조 설계',
+        'desc'     => '법인 운영에 필요한 기본 구조를 정리합니다.',
+        'keywords' => array('상호', '자본금', '주주', '임원', '지분', '사업목적'),
+    ),
+    array(
+        'no'       => '03',
+        'title'    => '법인설립 진행',
+        'desc'     => '필요한 서류와 절차를 확인하고 법인설립을 진행합니다.',
+        'keywords' => array('서류준비', '법인등기'),
+    ),
+    array(
+        'no'       => '04',
+        'title'    => '사업 시작 준비',
+        'desc'     => '법인설립 이후 사업자등록 등 사업운영에 필요한 사항을 안내합니다.',
+        'keywords' => array('사업자등록', '세무', '노무'),
+    ),
+    array(
+        'no'       => '05',
+        'title'    => '기업 성장 지원',
+        'desc'     => '필요한 기업은 정책자금, 기업인증, 연구소, 벤처기업 등 추가적인 기업 성장제도를 검토합니다.',
+        'keywords' => array('정책자금', '기업인증', '기업부설연구소', '벤처기업'),
+    ),
 );
 ?>
 <section class="section section-process section--alt" id="section-process">
   <div class="section-inner">
     <div class="section-head reveal">
-      <p class="section-eyebrow">5-STEP ROADMAP</p>
-      <h2 class="section-title">체계적인 5단계 컨설팅 프로세스</h2>
-      <p class="section-desc">사전 상담부터 최종 사후관리까지 전담 컨설턴트와 함께 단계별로 명확하게 진행됩니다.</p>
+      <p class="section-eyebrow">HOW IT WORKS</p>
+      <h2 class="section-title">복잡한 법인설립,<br>5단계로 쉽게 진행합니다.</h2>
+      <p class="section-desc">처음 법인을 만드는 분도 현재 어느 단계인지 쉽게 알 수 있도록<br>법인설립 과정을 체계적으로 안내합니다.</p>
     </div>
     <div class="section-content">
-      <ol class="process-timeline process-timeline--pc reveal">
+      <ol class="process-steps process-steps--pc reveal">
         <?php foreach ($g5_process_steps as $step) { ?>
-        <li class="process-timeline__item process-timeline__item--<?php echo htmlspecialchars($step['tone'], ENT_QUOTES, 'UTF-8'); ?>">
-          <div class="process-timeline__num">
-            <span class="process-timeline__step-label">STEP</span>
-            <span class="process-timeline__step-no"><?php echo get_text($step['no']); ?></span>
+        <li class="process-steps__item">
+          <span class="process-steps__no"><?php echo get_text($step['no']); ?></span>
+          <span class="process-steps__label">STEP <?php echo get_text($step['no']); ?></span>
+          <h3 class="process-steps__title"><?php echo get_text($step['title']); ?></h3>
+          <p class="process-steps__desc"><?php echo get_text($step['desc']); ?></p>
+          <div class="process-steps__tags">
+            <?php foreach ($step['keywords'] as $kw) { ?>
+            <span>#<?php echo get_text($kw); ?></span>
+            <?php } ?>
           </div>
-          <h3 class="process-timeline__title"><?php echo get_text($step['title']); ?></h3>
-          <p class="process-timeline__desc"><?php echo get_text($step['desc']); ?></p>
         </li>
         <?php } ?>
       </ol>
-      <ol class="process-timeline process-timeline--mo">
-        <?php foreach ($g5_process_steps as $i => $step) { ?>
-        <li class="process-timeline__mo-item reveal">
-          <span class="process-timeline__mo-num"><?php echo (int) ($i + 1); ?></span>
-          <div class="process-timeline__mo-body">
-            <span class="process-timeline__mo-label">STEP <?php echo get_text($step['no']); ?></span>
+      <ol class="process-steps process-steps--mo">
+        <?php foreach ($g5_process_steps as $step) { ?>
+        <li class="process-steps__mo-item reveal">
+          <span class="process-steps__mo-no"><?php echo get_text($step['no']); ?></span>
+          <div class="process-steps__mo-body">
+            <span class="process-steps__label">STEP <?php echo get_text($step['no']); ?></span>
             <h3><?php echo get_text($step['title']); ?></h3>
             <p><?php echo get_text($step['desc']); ?></p>
+            <div class="process-steps__tags">
+              <?php foreach ($step['keywords'] as $kw) { ?>
+              <span>#<?php echo get_text($kw); ?></span>
+              <?php } ?>
+            </div>
           </div>
         </li>
         <?php } ?>
       </ol>
       <div class="section-actions section-actions--center">
-        <a href="<?php echo G5_URL; ?>/page/about.php" class="btn btn-outline">프로세스 상세 내용 확인하기 →</a>
+        <a href="#section-contact" class="btn btn-accent">무료상담 신청하기</a>
       </div>
     </div>
   </div>
