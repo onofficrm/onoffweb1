@@ -44,7 +44,7 @@
   --line-height-relaxed: 1.75;
 
   /* Layout */
-  --container: 1200px;
+  --container: 1240px;
   --container-padding: 1.5rem;
   --header-height: 72px;
   --section-padding-y: 6rem;
@@ -1824,6 +1824,47 @@
 /* ==========================================================================
    그누보드 위젯 — 메인에서 숨김 (기능 호출은 tail.php 유지)
    ========================================================================== */
+
+/* 메인: default.css #container width:930px / min-width:1200px 해제 → 풀폭 */
+html.page-index #hd,
+html.page-index #wrapper,
+html.page-index #ft {
+  min-width: 0 !important;
+  width: 100%;
+  max-width: none;
+}
+
+html.page-index #wrapper {
+  margin: 0;
+  padding: 0;
+}
+
+html.page-index #container_wr {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  float: none !important;
+}
+
+html.page-index #container {
+  float: none !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-height: 0 !important;
+  height: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+html.page-index #container > .site-main {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
 html.page-index .site-aside,
 html.page-index .site-g5-widgets--tail {
   position: absolute;

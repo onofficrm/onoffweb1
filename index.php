@@ -62,6 +62,7 @@ $g5_main_sections = array(
     'contact',    // 최종 전환 + 무료 상담 신청
 );
 ?>
+<script>document.documentElement.classList.add('page-index');</script>
 
 <h2 class="sound_only">메인</h2>
 
