@@ -1,6 +1,6 @@
 <?php
 /**
- * 사이트 공통 설정 — 비즈온탑 (BIZ ON TOP)
+ * 사이트 공통 설정 - 비즈온탑 (BIZ ON TOP)
  * 경로: /_site.config.php
  */
 if (!defined('_GNUBOARD_')) {
@@ -8,33 +8,33 @@ if (!defined('_GNUBOARD_')) {
 }
 
 $site_config = array(
-    /* 홈(/) — 비우면 section 메인 사용 (빌더 bridge 비활성) */
+    /* 홈(/) - 비우면 section 메인 사용 (빌더 bridge 비활성) */
     'home_builder_bridge_id' => '',
     'site_name'           => '비즈온탑 (BIZ ON TOP)',
-    'site_desc'           => '정책자금, 기업인증, 경영컨설팅 전문 — 기업 성장의 든든한 파트너',
+    'site_desc'           => '정책자금, 기업인증, 경영컨설팅 전문 - 기업 성장의 든든한 파트너',
     'company_name'        => '비즈온탑 경영컨설팅',
     'ceo_name'            => '대표자명',
     'business_no'         => '000-00-00000',
     'phone'               => '02-0000-0000',
     'kakao_url'           => 'https://open.kakao.com/o/sBizOnTop',
-    'email'               => 'consult@bizontop.kr
+    'email'               => 'consult@bizontop.kr',
     'address'             => '주소는 관리자 설정값으로 입력해 주세요',
     'primary_color'       => '#2563EB',
     'secondary_color'     => '#102B50',
     'logo_path'           => '/img/logo/logo.svg',
     'og_image'            => '/img/common/og-image.jpg',
     /* SEO */
-    'seo_title'           => '비즈온탑 | 정책자금·기업인증·경영컨설팅',
+    'seo_title'           => '비즈온탑 | 정책자금,기업인증,경영컨설팅',
     'seo_description'     => '정책자금부터 기업인증, 경영컨설팅까지. 기업별 정밀 진단으로 최적의 조달 전략과 성장 로드맵을 제시합니다.',
     'main_keyword'        => '정책자금, 기업인증, 벤처기업확인, 기업부설연구소, 경영컨설팅, 법인설립',
     'sub_keywords'        => '운전자금, 시설자금, 이노비즈, 메인비즈',
     'robots'              => 'index,follow',
     'consultation_text'   => '무료 상담 신청',
     'footer_desc'         => '비즈온탑은 중소기업과 소상공인의 든든한 성장 파트너로서, 정책자금 융자 연계, 필수 기업인증 취득, 종합 경영컨설팅까지 원스톱 맞춤 솔루션을 제공합니다.',
-    /* 문의 폼 → inquiry 게시판 */
+    /* 문의 폼 -> inquiry 게시판 */
     'inquiry_bo_table'        => 'inquiry',
     'inquiry_notify_enabled'  => true,
-    'inquiry_notify_email'    => 'consult@bizontop',
+    'inquiry_notify_email'    => 'consult@bizontop.kr',
     'inquiry_notify_name'     => '비즈온탑 상담팀',
     'inquiry_notify_telegram_enabled'  => false,
     'inquiry_notify_telegram_bot_token' => '',
@@ -171,7 +171,7 @@ if (!function_exists('g5site_cfg_url')) {
 }
 
 /**
- * 전화번호 → tel: 링크
+ * 전화번호 -> tel: 링크
  *
  * @param string $phone
  * @return string
