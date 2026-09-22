@@ -47,14 +47,15 @@ include_once(G5_PATH.'/head.php');
  * - 파일 경로: /section/{이름}.php
  */
 $g5_main_sections = array(
-    'hero',
-    'service',
-    'advantage',
-    'portfolio',
-    'latest',   // 게시판 최신글 (story, news, sample) — section/latest.php
-    'review',
-    'faq',
-    'contact',
+    'hero',       // 메인 히어로
+    'needs',      // 기업 고민 카드
+    'service',    // 핵심 서비스 3종
+    'advantage',  // 핵심 가치
+    'process',    // 5단계 프로세스
+    'cases',      // 컨설팅 사례
+    'latest',     // 정책자금·기업인증 게시판 최신글
+    'faq',        // FAQ
+    'contact',    // 무료 상담 신청
 );
 ?>
 

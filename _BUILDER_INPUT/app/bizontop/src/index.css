@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --primary: #102B50;
+    --primary-dark: #0B1E38;
+    --primary-light: #1A3E6D;
+    --sub: #2563EB;
+    --sub-hover: #1D4ED8;
+    --accent: #D5A64B;
+    --accent-hover: #BF9137;
+    --accent-light: #FDF9F0;
+    --bg-page: #F7F9FC;
+    --text-primary: #172033;
+    --text-secondary: #4B5563;
+    --text-muted: #6B7280;
+  }
+
+  body {
+    font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Noto Sans KR", "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", sans-serif;
+    color: #172033;
+    background-color: #F7F9FC;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+/* Custom utility classes */
+.container-custom {
+  width: 100%;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .container-custom {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}

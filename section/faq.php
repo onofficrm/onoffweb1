@@ -3,43 +3,41 @@ if (!defined('_GNUBOARD_')) exit;
 
 include_once G5_PATH . '/section/_helpers.php';
 
-/**
- * FAQ 데이터 — 화면 아코디언 + FAQPage Schema 공통
- *
- * ★ 이 배열만 수정하세요. 화면에 보이는 항목 = Schema에 출력되는 항목입니다.
- * - 숨김·초안·미표시 FAQ는 넣지 마세요.
- * - 키: question, answer (구형 q/a 도 헬퍼에서 호환)
- */
 $g5_faq_items = array(
     array(
-        'question' => '제작 기간은 얼마나 걸리나요?',
-        'answer'   => '페이지 규모와 기능에 따라 다르며, 일반 기업 홈페이지는 2~4주를 기준으로 안내드립니다.',
+        'question' => '정책자금 신청 시 컨설팅을 받으면 어떤 점이 유리한가요?',
+        'answer'   => '정부 정책자금은 한정된 예산 속에서 기관별 엄격한 기술성, 사업성, 재무 평가를 거쳐 선정됩니다. 탈락 시 통상 6개월간 재신청이 제한되므로, 비즈온탑은 사전 정밀 진단을 통해 승인 가능성이 가장 높은 트랙을 매칭하고 사업계획서 고도화 및 실사 인터뷰 코칭까지 밀착 지원하여 성공 가능성을 극대화합니다.',
     ),
     array(
-        'question' => '그누보드 기본 기능은 유지되나요?',
-        'answer'   => '네. 게시판·회원·관리자 기능은 그대로 두고 레이아웃·디자인만 템플릿 구조에 맞게 적용합니다.',
+        'question' => '기존 대출이 많거나 담보가 부족한데도 자금 조달이 가능한가요?',
+        'answer'   => '네, 가능합니다. 정부 정책자금은 일반 시중은행과 달리 부동산 담보뿐만 아니라 신용보증재단, 신용보증기금, 기술보증기금의 보증서를 바탕으로 실행됩니다. 기술력, 고용 실적, 사업 모델의 혁신성을 입증하면 무담보 신용 보증으로 자금을 확보할 수 있습니다.',
     ),
     array(
-        'question' => '이미지만 교체해도 되나요?',
-        'answer'   => 'img/main/ 경로에 동일 파일명으로 업로드하면 섹션에 자동 반영됩니다. 없으면 플레이스홀더가 표시됩니다.',
+        'question' => '벤처기업확인과 기업부설연구소를 함께 진행하면 좋은 이유는 무엇인가요?',
+        'answer'   => '기업부설연구소를 설립하면 연구개발비의 25%를 세액공제 받을 뿐만 아니라, 연구 인력과 과제 실적이 벤처기업 인증 심사에서 강력한 기술성 가점으로 인정됩니다. 두 가지 인증을 패키지로 진행하면 세제 감면 효과를 극대화하고 심사 통과 기간을 단축할 수 있습니다.',
     ),
     array(
-        'question' => '유지보수는 어떻게 진행되나요?',
-        'answer'   => '월 단위 또는 건별로 콘텐츠·기능 업데이트, 보안·백업 점검을 지원합니다.',
+        'question' => '비즈온탑의 초기 무료 상담은 어떻게 진행되나요?',
+        'answer'   => '온라인 간편 상담 신청 또는 대표번호로 접수해 주시면, 전문 수석 컨설턴트가 기업의 업종, 업력, 재무 현황을 1차 유선 분석한 뒤 사전 기업진단 보고서를 무료로 제공해 드립니다. 심층 자문이나 대면 방문 상담 역시 대표님의 편의에 맞춰 진행됩니다.',
+    ),
+    array(
+        'question' => '메인비즈와 이노비즈의 주된 차이점은 무엇인가요?',
+        'answer'   => '메인비즈(MAIN-BIZ)는 마케팅, 조직, 유통 등 경영 시스템 전반의 혁신을 평가하는 제도로 비제조업 및 서비스업에 유리합니다. 반면 이노비즈(INNO-BIZ)는 R&D 역량과 생산 기술력을 중점 평가하는 제도로 제조업 및 IT 개발 기업에 적합합니다.',
+    ),
+    array(
+        'question' => '법인 설립 및 전환 시 정관 작성이 왜 중요한가요?',
+        'answer'   => '법인 정관에 임원 퇴직금 지급 규정, 유족보상 규정, 차등배당 규정이 미비하면 추후 세무조사 시 손금불산입되어 막대한 법인세와 가산세가 부과될 수 있습니다. 비즈온탑은 세무와 법무 리스크가 원천 차단된 맞춤형 정관을 설계해 드립니다.',
     ),
 );
 
-/* 하위 호환: 기존 $g5_faqs 참조 */
 $g5_faqs = $g5_faq_items;
-
-$faq_schema_items = g5_sample_faq_schema_items($g5_faq_items);
 ?>
 <section class="section section-faq section--alt" id="section-faq">
   <div class="section-inner">
     <div class="section-head reveal">
       <p class="section-eyebrow">FAQ</p>
       <h2 class="section-title">자주 묻는 질문</h2>
-      <p class="section-desc">질문·답변은 아래 <code>$g5_faq_items</code> 배열에서 관리합니다. 화면과 FAQ Schema가 동일한 내용을 사용합니다.</p>
+      <p class="section-desc">정책자금·기업인증·경영컨설팅 상담 전 가장 많이 문의하시는 내용입니다.</p>
     </div>
     <div class="section-content reveal">
       <?php if (!empty($g5_faq_items)) { ?>
@@ -62,14 +60,11 @@ $faq_schema_items = g5_sample_faq_schema_items($g5_faq_items);
         <?php } ?>
       </div>
       <?php } ?>
+      <?php
+      if (!empty($g5_faq_items)) {
+          g5_sample_faq_output_schema($g5_faq_items);
+      }
+      ?>
     </div>
   </div>
 </section>
-<?php
-/* FAQPage JSON-LD — 화면에 표시된 FAQ와 동일 배열 ($faq_schema_items) */
-if (!empty($faq_schema_items)) {
-    $schema_file = G5_PATH . '/components/schema/faq.php';
-    if (is_file($schema_file)) {
-        include $schema_file;
-    }
-}

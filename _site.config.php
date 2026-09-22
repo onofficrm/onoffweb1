@@ -1,6 +1,6 @@
 <?php
 /**
- * 사이트 공통 설정 (새 프로젝트마다 이 파일만 우선 수정)
+ * 사이트 공통 설정 — 비즈온탑 (BIZ ON TOP)
  * 경로: /_site.config.php
  */
 if (!defined('_GNUBOARD_')) {
@@ -8,73 +8,65 @@ if (!defined('_GNUBOARD_')) {
 }
 
 $site_config = array(
-    /* 홈(/) URL — onoff-builder-bridge 프로젝트 ID (비우면 section 메인 사용) */
-    'home_builder_bridge_id' => 'onoffweb1',
-    'site_name'           => '천안 업성 푸르지오 레이크시티',
-    'site_desc'           => '업성호수공원, 영구 조망과 푸르지오 프리미엄의 압도적 만남',
-    'company_name'        => '대우건설 (푸르지오 PRUGIO)',
+    /* 홈(/) — 비우면 section 메인 사용 (빌더 bridge 비활성) */
+    'home_builder_bridge_id' => '',
+    'site_name'           => '비즈온탑 (BIZ ON TOP)',
+    'site_desc'           => '정책자금, 기업인증, 경영컨설팅 전문 — 기업 성장의 든든한 파트너',
+    'company_name'        => '비즈온탑 경영컨설팅',
     'ceo_name'            => '대표자명',
     'business_no'         => '000-00-00000',
-    'phone'               => '1688-4522',
-    'kakao_url'           => 'https://open.kakao.com/o/sPrugioLake',
-    'email'               => 'jong8040@gmail.com',
-    'address'             => '충청남도 천안시 서북구 업성동 일원 (업성지구 도시개발구역)',
-    'primary_color'       => '#b47826',
-    'secondary_color'     => '#0a1128',
+    'phone'               => '02-0000-0000',
+    'kakao_url'           => 'https://open.kakao.com/o/sBizOnTop',
+    'email'               => 'consult@bizontop.kr
+    'address'             => '주소는 관리자 설정값으로 입력해 주세요',
+    'primary_color'       => '#2563EB',
+    'secondary_color'     => '#102B50',
     'logo_path'           => '/img/logo/logo.svg',
     'og_image'            => '/img/common/og-image.jpg',
-    /* SEO (components/seo-meta.php) */
-    'seo_title'           => '천안 업성 푸르지오 레이크시티 | 업성호수공원 영구 조망 프리미엄',
-    'seo_description'     => '업성호수공원, 영구 조망과 푸르지오 프리미엄의 압도적 만남. 천안 서북구 업성지구 대단지 분양 상담.',
-    'main_keyword'        => '천안 업성 푸르지오, 업성호수공원 아파트, 천안 아파트 분양',
-    'sub_keywords'        => '',
+    /* SEO */
+    'seo_title'           => '비즈온탑 | 정책자금·기업인증·경영컨설팅',
+    'seo_description'     => '정책자금부터 기업인증, 경영컨설팅까지. 기업별 정밀 진단으로 최적의 조달 전략과 성장 로드맵을 제시합니다.',
+    'main_keyword'        => '정책자금, 기업인증, 벤처기업확인, 기업부설연구소, 경영컨설팅, 법인설립',
+    'sub_keywords'        => '운전자금, 시설자금, 이노비즈, 메인비즈',
     'robots'              => 'index,follow',
-    'consultation_text'   => '상담문의',
-    'footer_desc'         => '고객의 성장을 돕는 웹사이트 제작 베이스입니다.',
-    /* 문의 폼 → inquiry 게시판 (proc/inquiry-submit.php) */
+    'consultation_text'   => '무료 상담 신청',
+    'footer_desc'         => '비즈온탑은 중소기업과 소상공인의 든든한 성장 파트너로서, 정책자금 융자 연계, 필수 기업인증 취득, 종합 경영컨설팅까지 원스톱 맞춤 솔루션을 제공합니다.',
+    /* 문의 폼 → inquiry 게시판 */
     'inquiry_bo_table'        => 'inquiry',
     'inquiry_notify_enabled'  => true,
-    'inquiry_notify_email'    => 'jong8040@gmail.com',
-    'inquiry_notify_name'     => '관리자',
-    /* 텔레그램 알림 — 운영 시 토큰·채팅 ID 입력 후 enabled true */
+    'inquiry_notify_email'    => 'consult@bizontop',
+    'inquiry_notify_name'     => '비즈온탑 상담팀',
     'inquiry_notify_telegram_enabled'  => false,
     'inquiry_notify_telegram_bot_token' => '',
     'inquiry_notify_telegram_chat_id'   => '',
-    /* 웹훅 알림 (Slack/Discord 등) — 추후 확장 */
     'inquiry_notify_webhook_enabled' => false,
     'inquiry_notify_webhook_url'     => '',
-    /* 문의 접수 완료 페이지 (상대 경로) */
     'inquiry_thanks_url'      => '/page/inquiry-thanks.php',
-    /* 전환·방문 추적 ID — 비우면 출력 안 함 */
     'gtm_id'              => '',
     'ga4_id'              => '',
     'meta_pixel_id'       => '',
     'naver_analytics_id'  => '',
     'kakao_pixel_id'      => '',
-    /* 선택 항목 (비워 두면 기본값 사용) */
     'fax'                 => '',
     'sales_no'            => '',
-    'privacy_manager'     => '',
+    'privacy_manager'     => '개인정보보호책임자',
     'kakao_map_key'       => '',
     'kakao_map_lat'       => '37.5665',
     'kakao_map_lng'       => '126.9780',
-    /* Google Maps — 내 주변 찾기 (components/maps, page/map-locator.php) */
     'google_maps_api_key'       => '',
-    'map_default_lat'           => '10.3157',
-    'map_default_lng'           => '123.8854',
+    'map_default_lat'           => '37.5665',
+    'map_default_lng'           => '126.9780',
     'map_default_zoom'          => 13,
     'map_use_current_location'  => true,
     'map_default_radius_km'     => 5,
     'map_unit'                  => 'km',
     'map_placeholder_title'     => 'Google Maps API 키가 설정되지 않았습니다.',
     'map_placeholder_desc'      => '_site.config.php에서 google_maps_api_key 값을 입력하면 지도가 표시됩니다.',
-    /* iCRM final_url (lib/icrm.lib.php, /icrm/final-url.php) — 사이트 복사마다 토큰만 다름, 도메인은 G5_URL 자동 */
     'icrm_builtin'              => true,
-    'icrm_site_base_url'        => '',  /* 비우면 G5_DOMAIN/G5_URL. CDN 등 예외 시만 https://고객도메인 */
-    'icrm_secret_token'         => '',  /* 비우면 data/icrm.config.php(자동 생성) 사용 */
-    'icrm_allowed_ips'          => '',  /* iCRM 서버 IP, 쉼표 구분 (token 대신 가능) */
-    'icrm_css_only_when_markup' => false, /* true: 본문에 icrm-* 있을 때만 icrm-template.css 로드 */
-    /* 자동댓글 (plugin/auto_comment + extend/auto_comment.extend.php) — false 시 비활성 */
+    'icrm_site_base_url'        => '',
+    'icrm_secret_token'         => '',
+    'icrm_allowed_ips'          => '',
+    'icrm_css_only_when_markup' => false,
     'auto_comment_builtin'      => true,
 );
 

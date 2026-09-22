@@ -1,51 +1,106 @@
 <?php
 if (!defined('_GNUBOARD_')) exit;
 
-/** 상담 연락처 — tail.php 설정과 맞추려면 동일 값으로 수정 */
-$g5_contact_tel_display = '02-123-4567';
-$g5_contact_tel_link    = 'tel:021234567';
+if (!get_session('onoff_inquiry_token')) {
+    set_session('onoff_inquiry_token', md5(uniqid((string) mt_rand(), true)));
+}
+$g5_inquiry_token = get_session('onoff_inquiry_token');
+$g5_inquiry_action = G5_URL . '/proc/inquiry-submit.php';
+$g5_contact_tel = function_exists('g5site_cfg') ? g5site_cfg('phone', '02-0000-0000') : '02-0000-0000';
+$g5_contact_tel_link = function_exists('g5site_tel_link') ? g5site_tel_link($g5_contact_tel) : 'tel:0200000000';
+$g5_contact_email = function_exists('g5site_cfg') ? g5site_cfg('email', 'consult@bizontop') : 'consult@bizontop';
 ?>
-<section class="section section-contact section--dark" id="section-contact">
-  <div class="section-inner">
+<section class="section section-contact section-contact--bizontop" id="section-contact">
+  <div class="section-inner section-inner--narrow">
     <div class="section-head reveal">
-      <p class="section-eyebrow">Contact</p>
-      <h2 class="section-title">지금 바로 상담해 보세요</h2>
-      <p class="section-desc">프로젝트 규모와 일정을 알려주시면 맞춤 제안서를 보내드립니다. 부담 없이 문의해 주세요.</p>
+      <p class="section-eyebrow">1:1 FREE CONSULTATION</p>
+      <h2 class="section-title">비즈온탑 1:1 무료 상담 신청</h2>
+      <p class="section-desc">초기 비용 없이 신용도 영향 없는 비공개 사전 진단을 제공합니다.<br>접수 즉시 5단계 프로세스의 <strong>1단계 [상담 신청]</strong>이 완료됩니다.</p>
     </div>
     <div class="section-content reveal">
-      <div class="contact-cta">
-        <a href="<?php echo $g5_contact_tel_link; ?>" class="btn btn-primary contact-cta__tel">
-          <i class="fa fa-phone" aria-hidden="true"></i>
-          <?php echo get_text($g5_contact_tel_display); ?>
-        </a>
-        <button type="button" class="btn btn-outline consult-modal-open contact-cta__form" data-target="#consultModal">
-          <i class="fa fa-envelope" aria-hidden="true"></i>
-          온라인 문의
-        </button>
-        <a href="<?php echo G5_BBS_URL; ?>/qalist.php" class="btn btn-secondary contact-cta__link">1:1 문의 게시판</a>
+      <div class="consult-form-card">
+        <form class="biz-consult-form cmp-consult-form" action="<?php echo htmlspecialchars($g5_inquiry_action, ENT_QUOTES, 'UTF-8'); ?>" method="post" novalidate>
+          <input type="hidden" name="onoff_inquiry_token" value="<?php echo htmlspecialchars($g5_inquiry_token, ENT_QUOTES, 'UTF-8'); ?>">
+          <input type="hidden" name="referer_page" value="<?php echo htmlspecialchars(G5_URL.'/#section-contact', ENT_QUOTES, 'UTF-8'); ?>">
+          <div class="cmp-form-row cmp-form-row--hp" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden;">
+            <label for="biz_consult_website">웹사이트</label>
+            <input type="text" id="biz_consult_website" name="website_url" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="consult-form-grid">
+            <div class="cmp-form-row">
+              <label class="cmp-form-label" for="biz_consult_company">기업명 (상호명) <span class="cmp-form-required">*</span></label>
+              <input type="text" id="biz_consult_company" class="cmp-form-input" placeholder="예: (주)비즈온테크" autocomplete="organization" required>
+            </div>
+            <div class="cmp-form-row">
+              <label class="cmp-form-label" for="biz_consult_name">이름 (신청자 / 직책) <span class="cmp-form-required">*</span></label>
+              <input type="text" id="biz_consult_name" name="name" class="cmp-form-input" placeholder="예: 홍길동 대표" autocomplete="name" required>
+            </div>
+            <div class="cmp-form-row">
+              <label class="cmp-form-label" for="biz_consult_phone">연락처 (휴대전화) <span class="cmp-form-required">*</span></label>
+              <input type="tel" id="biz_consult_phone" name="phone" class="cmp-form-input" placeholder="예: 010-1234-5678" autocomplete="tel" required>
+            </div>
+            <div class="cmp-form-row">
+              <label class="cmp-form-label" for="biz_consult_service">관심 서비스</label>
+              <select id="biz_consult_service" class="cmp-form-input">
+                <option value="정책자금 조달">정책자금 조달 (운전자금 / 창업자금)</option>
+                <option value="기업인증 취득">기업인증 취득 (벤처 / 연구소 / 메인·이노비즈)</option>
+                <option value="경영컨설팅">경영컨설팅 (법인설립 / 법인전환 / 정관)</option>
+                <option value="시설자금 및 사옥매입">시설자금 및 사옥·공장 매입</option>
+                <option value="종합 패키지">종합 패키지 컨설팅 (자금 + 인증 + 자문)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="cmp-form-row">
+            <label class="cmp-form-label" for="biz_consult_extra">추가 문의내용 <span class="cmp-form-optional">(선택)</span></label>
+            <textarea id="biz_consult_extra" class="cmp-form-input cmp-form-textarea" rows="3" placeholder="현재 업종, 업력, 희망 자금 규모 등을 적어 주시면 진단이 더 정확해집니다."></textarea>
+          </div>
+
+          <textarea name="message" id="biz_consult_message_payload" class="sound_only" rows="2" required aria-hidden="true">관심 서비스: 정책자금 조달 / 기업명: (입력 대기) / 추가 내용: (없음)</textarea>
+
+          <div class="cmp-form-row cmp-privacy-agree">
+            <label class="cmp-privacy-agree__label">
+              <input type="checkbox" id="biz_consult_privacy" name="privacy_agree" value="1" required>
+              <span>[필수] 개인정보 수집 및 이용에 동의합니다.</span>
+            </label>
+            <p class="cmp-privacy-agree__note">수집 목적: 1:1 맞춤형 정책자금 및 기업인증 무료 상담 안내 / 수집 항목: 기업명, 이름, 연락처 / 보유 기간: 상담 종료 시 즉시 파기 (관계 법령 준수)</p>
+          </div>
+
+          <button type="submit" class="btn btn-accent consult-form-submit cmp-consult-form__submit">무료 상담 신청 접수하기 (1단계 시작)</button>
+          <p class="consult-form-note">※ 입력하신 정보는 안전하게 처리되며 신용등급 평가에 어떠한 영향도 미치지 않습니다.</p>
+          <p class="cmp-consult-form__status" role="status" aria-live="polite" hidden></p>
+        </form>
+
+        <ul class="contact-info contact-info--inline">
+          <li><strong>전화</strong> <a href="<?php echo htmlspecialchars($g5_contact_tel_link, ENT_QUOTES, 'UTF-8'); ?>"><?php echo get_text($g5_contact_tel); ?></a></li>
+          <li><strong>이메일</strong> <?php echo get_text($g5_contact_email); ?></li>
+          <li><strong>운영시간</strong> 평일 09:00 – 18:00</li>
+        </ul>
       </div>
-      <ul class="contact-info">
-        <li><strong>이메일</strong> info@example.com</li>
-        <li><strong>운영시간</strong> 평일 09:00 – 18:00</li>
-        <li><strong>응답</strong> 영업일 기준 24시간 이내 회신</li>
-      </ul>
     </div>
   </div>
 </section>
 
-<div id="consultModal" class="consult-modal" aria-hidden="true" role="dialog" aria-labelledby="consultModalTitle">
-  <div class="consult-modal-overlay"></div>
-  <div class="consult-modal__panel">
-    <h3 id="consultModalTitle" class="consult-modal__title">상담 문의</h3>
-    <p class="consult-modal__desc">아래 내용을 확인하신 후 1:1 문의 게시판 또는 전화로 연락해 주세요.</p>
-    <ul class="consult-modal__list">
-      <li>프로젝트명·희망 일정</li>
-      <li>참고 사이트·기능 요구사항</li>
-      <li>예산 범위(선택)</li>
-    </ul>
-    <div class="consult-modal__actions">
-      <a href="<?php echo G5_BBS_URL; ?>/qalist.php" class="btn btn-primary">문의 게시판 이동</a>
-      <button type="button" class="btn btn-outline consult-modal-close">닫기</button>
-    </div>
-  </div>
-</div>
+<script>
+(function () {
+  var form = document.querySelector('.biz-consult-form');
+  if (!form) return;
+  var syncMessage = function () {
+    var company = (document.getElementById('biz_consult_company') || {}).value || '';
+    var service = (document.getElementById('biz_consult_service') || {}).value || '';
+    var extra = (document.getElementById('biz_consult_extra') || {}).value || '';
+    var payload = [
+      '관심 서비스: ' + (service || '미선택'),
+      '기업명: ' + (company.trim() || '미입력'),
+      '추가 내용: ' + (extra.trim() || '(없음)')
+    ].join('\n');
+    var hidden = document.getElementById('biz_consult_message_payload');
+    if (hidden) hidden.value = payload;
+  };
+  form.addEventListener('input', syncMessage);
+  form.addEventListener('change', syncMessage);
+  form.addEventListener('submit', syncMessage, true);
+  syncMessage();
+})();
+</script>

@@ -90,9 +90,9 @@ if ($g5_site_title === '') {
     $g5_site_title = get_text($config['cf_title']);
 }
 
-// 상담문의 URL (메인: contact 섹션 / 그 외: Q&A)
-$g5_inquiry_url = defined('_INDEX_') ? G5_URL.'/#section-contact' : G5_BBS_URL.'/qalist.php';
-$g5_consult_label = function_exists('g5site_cfg') ? g5site_cfg('consultation_text', '상담문의') : '상담문의';
+// 상담문의 URL (메인: contact 섹션 / 그 외: 메인 앵커)
+$g5_inquiry_url = defined('_INDEX_') ? G5_URL.'/#section-contact' : G5_URL.'/#section-contact';
+$g5_consult_label = function_exists('g5site_cfg') ? g5site_cfg('consultation_text', '무료 상담 신청') : '무료 상담 신청';
 
 // site_config 브랜드 색 → :root (hex만 허용)
 $g5_css_brand = '';

@@ -28,7 +28,17 @@
 
 ---
 
-## 주의사항
+## 현재 적용 상태
+
+| 앱 폴더 | 상태 |
+|---------|------|
+| `app/bizontop/` | 구글 스튜디오 빌더 **비즈온탑** 원본 (2026-09 적용) |
+| `app/onoffweb1/` | 이전 샘플(푸르지오) 빌더 입력 — 참고용 |
+
+적용 결과: 루트 `section/*.php`, `css/custom.css`, `_site.config.php`, `skin/member/basic/login.skin.php`  
+상세: [docs/BIZONTOP-SETUP.md](../docs/BIZONTOP-SETUP.md)
+
+---
 
 - 이 폴더는 **작업용**입니다. 사이트 동작에 필수가 아닙니다.
 - 고객 개인정보, API 키, 비밀번호, **FTP·DB 정보**는 넣지 마세요.

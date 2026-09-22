@@ -2,64 +2,60 @@
 include_once(dirname(__FILE__).'/_init.php');
 include_once(G5_PATH.'/section/_helpers.php');
 
-g5_page_start('회사소개');
+g5_page_start('비즈온탑 소개');
 ?>
 <div class="page-template page-about">
   <header class="page-hero reveal">
     <div class="page-inner">
-      <p class="page-eyebrow">About</p>
-      <h1 class="page-title">회사 소개</h1>
-      <p class="page-desc">고객의 비즈니스 성장을 돕는 웹·디지털 파트너입니다. 빌더 디자인으로 이 영역을 교체할 수 있습니다.</p>
+      <p class="page-eyebrow">About BIZ ON TOP</p>
+      <h1 class="page-title">비즈온탑 소개</h1>
+      <p class="page-desc">정책자금·기업인증·경영컨설팅으로 기업 성장의 든든한 파트너가 됩니다.</p>
     </div>
   </header>
 
   <section class="page-section page-section--vision reveal">
     <div class="page-inner">
-      <h2 class="page-section__title">비전과 미션</h2>
-      <p class="page-section__desc">기술과 디자인의 균형으로 신뢰할 수 있는 디지털 경험을 만듭니다.</p>
+      <h2 class="page-section__title">3대 핵심 가치</h2>
+      <p class="page-section__desc">기업의 현재를 진단하고 미래의 성장을 설계합니다.</p>
       <div class="card-grid card-grid--3">
         <article class="base-card icon-card">
-          <div class="icon-card__icon" aria-hidden="true">V</div>
-          <h3 class="base-card-title">Vision</h3>
-          <p class="base-card-desc">모든 기업이 온라인에서 가치를 전달할 수 있는 환경을 만듭니다.</p>
+          <div class="icon-card__icon" aria-hidden="true">01</div>
+          <h3 class="base-card-title">기업별 맞춤 진단</h3>
+          <p class="base-card-desc">업종·재무·기술력·고용 실적을 분석해 최적의 조달 트랙과 인증 요건을 도출합니다.</p>
         </article>
         <article class="base-card icon-card">
-          <div class="icon-card__icon" aria-hidden="true">M</div>
-          <h3 class="base-card-title">Mission</h3>
-          <p class="base-card-desc">그누보드 기반의 안정적인 플랫폼과 맞춤 디자인을 제공합니다.</p>
+          <div class="icon-card__icon" aria-hidden="true">02</div>
+          <h3 class="base-card-title">체계적 프로세스</h3>
+          <p class="base-card-desc">사전 검토부터 사업계획서·실사·질의응답까지 전담 수석 컨설턴트가 밀착 조력합니다.</p>
         </article>
         <article class="base-card icon-card">
-          <div class="icon-card__icon" aria-hidden="true">C</div>
-          <h3 class="base-card-title">Core Value</h3>
-          <p class="base-card-desc">소통, 품질, 지속 가능한 유지보수를 핵심 가치로 합니다.</p>
+          <div class="icon-card__icon" aria-hidden="true">03</div>
+          <h3 class="base-card-title">지속 사후관리</h3>
+          <p class="base-card-desc">인증 유지·연구노트·후속 정책과제 연계까지 스케일업을 지원합니다.</p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="page-section page-section--story page-section--alt reveal">
-    <div class="page-inner page-inner--split">
-      <div class="page-section__text">
-        <h2 class="page-section__title">우리의 이야기</h2>
-        <p class="page-section__desc">2010년 설립 이후 500건 이상의 웹 프로젝트를 수행했습니다. 기획·디자인·개발·운영을 한 팀에서 진행해 커뮤니케이션 비용을 줄입니다.</p>
-        <ul class="page-list">
-          <li>그누보드·영카트 기반 구축 경험</li>
-          <li>반응형·접근성·SEO 기본 적용</li>
-          <li>런칭 이후 유지보수·콘텐츠 지원</li>
-        </ul>
-      </div>
-      <div class="page-section__media">
-        <?php g5_sample_main_media('about.jpg', '회사 소개 이미지', 'page-section__img', 'wide'); ?>
-      </div>
+  <section class="page-section page-section--alt reveal">
+    <div class="page-inner">
+      <h2 class="page-section__title">5단계 컨설팅 프로세스</h2>
+      <ol class="page-steps">
+        <li class="page-steps__item"><strong>01. 상담 신청</strong><span>온라인·유선으로 기업 과제 접수</span></li>
+        <li class="page-steps__item"><strong>02. 기업 현황 진단</strong><span>재무·업력·기술력 정밀 분석</span></li>
+        <li class="page-steps__item"><strong>03. 맞춤 솔루션 제안</strong><span>자금 트랙·세제 인증 실행안</span></li>
+        <li class="page-steps__item"><strong>04. 계약 및 컨설팅</strong><span>사업계획서·실사·PT 밀착 지도</span></li>
+        <li class="page-steps__item"><strong>05. 결과·사후관리</strong><span>자금 실행·인증 유지·후속 과제</span></li>
+      </ol>
     </div>
   </section>
 
   <section class="page-section page-cta reveal">
     <div class="page-inner page-cta__inner">
-      <h2 class="page-cta__title">함께 일할 파트너를 찾고 계신가요?</h2>
-      <p class="page-cta__desc">프로젝트 규모와 관계없이 편하게 문의해 주세요.</p>
+      <h2 class="page-cta__title">1:1 무료 상담이 필요하신가요?</h2>
+      <p class="page-cta__desc">신용도 영향 없는 비공개 사전 진단을 제공합니다.</p>
       <div class="page-cta__actions">
-        <a href="<?php echo G5_URL; ?>/page/contact.php" class="btn btn-primary">문의하기</a>
+        <a href="<?php echo G5_URL; ?>/#section-contact" class="btn btn-primary">무료 상담 신청</a>
         <a href="<?php echo G5_URL; ?>/page/service.php" class="btn btn-outline">서비스 보기</a>
       </div>
     </div>

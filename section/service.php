@@ -3,31 +3,77 @@ if (!defined('_GNUBOARD_')) exit;
 include_once(G5_PATH.'/section/_helpers.php');
 
 $g5_services = array(
-    array('img' => 'service-01.jpg', 'title' => '홈페이지 제작', 'desc' => '기업·브랜드 맞춤 반응형 웹사이트를 기획부터 퍼블리싱까지 제공합니다.'),
-    array('img' => 'service-02.jpg', 'title' => '유지보수·운영', 'desc' => '콘텐츠 업데이트, 보안 패치, 성능 점검으로 안정적인 운영을 지원합니다.'),
-    array('img' => 'service-03.jpg', 'title' => 'SEO 최적화', 'desc' => '검색 노출을 위한 구조·메타·속도 개선으로 방문자 유입을 돕습니다.'),
-    array('img' => 'service-04.jpg', 'title' => '브랜딩 디자인', 'desc' => '로고·키비주얼·가이드라인을 정립해 일관된 브랜드 경험을 만듭니다.'),
-    array('img' => 'service-05.jpg', 'title' => '쇼핑몰 연동', 'desc' => '그누보드·영카트 기반 쇼핑 기능과 결제·배송 흐름을 설계합니다.'),
-    array('img' => 'service-06.jpg', 'title' => '컨설팅', 'desc' => '현황 분석과 로드맵 제안으로 프로젝트 방향을 명확히 합니다.'),
+    array(
+        'img'    => 'service-funding.jpg',
+        'badge'  => '정책자금 (Funding)',
+        'title'  => '맞춤형 정부 정책자금 조달',
+        'desc'   => '소상공인시장진흥공단, 중진공, 기보, 신보 등 기업 상황에 가장 적합한 정부 정책자금을 발굴하고 최적 조건의 저금리 융자를 연계합니다.',
+        'items'  => array(
+            '소상공인 및 초기 스타트업 창업지원자금',
+            '중소 제조·유통기업 맞춤 운전자금',
+            '공장·사옥 매입 및 기계설비 시설자금',
+        ),
+        'href'   => G5_URL.'/page/service.php?cat=funding',
+        'cta'    => '정책자금 자세히 보기',
+        'tone'   => 'blue',
+    ),
+    array(
+        'img'    => 'service-cert.jpg',
+        'badge'  => '기업인증 (Certification)',
+        'title'  => '국가 공인 기업인증 획득',
+        'desc'   => '벤처기업확인, 기업부설연구소, 이노비즈, 메인비즈, ISO 등 파격적인 조세 감면과 공공조달 입찰 가점을 확보하는 공인 인증을 취득합니다.',
+        'items'  => array(
+            '벤처기업확인 (법인세 최대 50% 감면)',
+            '기업부설연구소 / 연구전담부서 (R&D 25% 공제)',
+            '이노비즈 · 메인비즈 · ISO 국제표준인증',
+        ),
+        'href'   => G5_URL.'/page/service.php?cat=cert',
+        'cta'    => '기업인증 자세히 보기',
+        'tone'   => 'gold',
+    ),
+    array(
+        'img'    => 'service-consulting.jpg',
+        'badge'  => '경영컨설팅 (Consulting)',
+        'title'  => '전략적 경영자문 및 리스크 개선',
+        'desc'   => '법인설립 및 전환, 가지급금 정리, 정관 개정, 사옥 매입 시설자금 등 기업의 안정적인 영속과 재무 리스크를 선제적으로 해결합니다.',
+        'items'  => array(
+            '개인사업자 절세형 법인설립 및 법인전환',
+            '자가 사옥 및 공장 매입 부동산 시설자금',
+            '가지급금 정리 및 기업 신용평가등급 개선',
+        ),
+        'href'   => G5_URL.'/page/service.php?cat=consulting',
+        'cta'    => '경영컨설팅 자세히 보기',
+        'tone'   => 'navy',
+    ),
 );
 ?>
-<section class="section section-service section--alt" id="section-service">
+<section class="section section-service section-service--bizontop section--alt" id="section-service">
   <div class="section-inner">
     <div class="section-head reveal">
-      <p class="section-eyebrow">Service</p>
-      <h2 class="section-title">제공 서비스</h2>
-      <p class="section-desc">필요한 항목만 골라 사용하거나, 카드 수·문구를 자유롭게 수정할 수 있습니다.</p>
+      <p class="section-eyebrow">CORE THREE DOMAINS</p>
+      <h2 class="section-title">비즈온탑의 핵심 서비스</h2>
+      <p class="section-desc">재무 건전성 확충부터 조세 감면, 지배구조 개선까지 전문 영역별 체계적인 컨설팅을 제공합니다.</p>
     </div>
     <div class="section-content">
-      <div class="card-grid card-grid--auto">
+      <div class="service-core-grid">
         <?php foreach ($g5_services as $item) { ?>
-        <article class="base-card media-card reveal">
-          <div class="media-card__thumb">
-            <?php g5_sample_main_media($item['img'], $item['title'], 'media-card__img', 'card'); ?>
+        <article class="service-core-card service-core-card--<?php echo htmlspecialchars($item['tone'], ENT_QUOTES, 'UTF-8'); ?> reveal">
+          <div class="service-core-card__thumb">
+            <?php g5_sample_main_media($item['img'], $item['title'], 'service-core-card__img', 'card'); ?>
+            <span class="service-core-card__badge"><?php echo get_text($item['badge']); ?></span>
           </div>
-          <div class="media-card__body">
-            <h3 class="base-card-title"><?php echo get_text($item['title']); ?></h3>
-            <p class="base-card-desc"><?php echo get_text($item['desc']); ?></p>
+          <div class="service-core-card__body">
+            <h3 class="service-core-card__title"><?php echo get_text($item['title']); ?></h3>
+            <p class="service-core-card__desc"><?php echo get_text($item['desc']); ?></p>
+            <p class="service-core-card__list-label">대표 서비스 상품</p>
+            <ul class="service-core-card__list">
+              <?php foreach ($item['items'] as $li) { ?>
+              <li><?php echo get_text($li); ?></li>
+              <?php } ?>
+            </ul>
+          </div>
+          <div class="service-core-card__foot">
+            <a href="<?php echo htmlspecialchars($item['href'], ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-outline"><?php echo get_text($item['cta']); ?></a>
           </div>
         </article>
         <?php } ?>
