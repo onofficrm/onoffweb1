@@ -21,7 +21,7 @@ export const FinalConversionSection: React.FC<FinalConversionSectionProps> = ({
         aria-hidden="true"
       />
 
-      <div className="relative z-10 max-w-[960px] mx-auto px-5 sm:px-6 lg:px-8 text-center">
+      <div className="relative z-10 w-full max-w-[1360px] 2xl:max-w-[1520px] mx-auto px-5 sm:px-8 lg:px-12 text-center">
         {/* Subtle Pill Tag */}
         <div
           id="final-cta-tag"
@@ -34,7 +34,7 @@ export const FinalConversionSection: React.FC<FinalConversionSectionProps> = ({
         {/* Big Heading */}
         <h2
           id="final-cta-heading"
-          className="text-[30px] sm:text-[40px] md:text-[46px] font-black tracking-tight leading-[1.25] text-white mb-6"
+          className="text-[36px] sm:text-[46px] md:text-[52px] font-black tracking-tight leading-[1.2] text-white mb-6"
         >
           아직 법인설립을
           <br />
@@ -42,8 +42,8 @@ export const FinalConversionSection: React.FC<FinalConversionSectionProps> = ({
         </h2>
 
         {/* Body Text */}
-        <div className="text-[16px] sm:text-[18px] text-slate-300 leading-relaxed max-w-2xl mx-auto mb-5 space-y-1.5">
-          <p className="font-semibold text-white">괜찮습니다.</p>
+        <div className="text-[17px] sm:text-[19px] text-slate-300 leading-relaxed max-w-2xl mx-auto mb-6 space-y-1.5">
+          <p className="font-semibold text-white text-[19px] sm:text-[21px]">괜찮습니다.</p>
           <p>
             현재 사업상황을 알려주시면
             <br className="sm:hidden" />
@@ -54,7 +54,7 @@ export const FinalConversionSection: React.FC<FinalConversionSectionProps> = ({
         {/* Highlight Emphasized Line */}
         <p
           id="final-cta-highlight"
-          className="text-[15px] sm:text-[16.5px] font-bold text-blue-300 mb-9 sm:mb-11"
+          className="text-[16px] sm:text-[17.5px] font-bold text-blue-300 mb-9 sm:mb-11"
         >
           3분이면 기본 상담 신청이 완료됩니다.
         </p>

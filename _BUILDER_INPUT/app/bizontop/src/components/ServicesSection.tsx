@@ -204,21 +204,21 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
   return (
     <section
       id="services"
-      className="w-full bg-white py-16 sm:py-20 lg:py-24 border-b border-slate-200/80 scroll-mt-20"
+      className="w-full bg-white py-18 sm:py-24 lg:py-28 border-b border-slate-200/80 scroll-mt-20"
     >
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-4xl mx-auto mb-14 sm:mb-18">
           <div
             id="services-eyebrow"
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[12px] sm:text-[13px] font-semibold tracking-wider mb-3.5"
+            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[12.5px] sm:text-[13.5px] font-semibold tracking-wider mb-4"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+            <span className="w-2 h-2 rounded-full bg-blue-600" />
             <span>BUSINESS SERVICES</span>
           </div>
           <h2
             id="services-main-title"
-            className="text-[28px] sm:text-[36px] md:text-[40px] font-black text-[#0B1F3A] tracking-tight leading-[1.25] mb-4"
+            className="text-[32px] sm:text-[42px] md:text-[46px] font-black text-[#0B1F3A] tracking-tight leading-[1.2] mb-5"
           >
             법인설립부터
             <br />
@@ -226,7 +226,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onSelectServic
           </h2>
           <p
             id="services-description"
-            className="text-[15px] sm:text-[16.5px] text-slate-600 leading-relaxed max-w-2xl mx-auto"
+            className="text-[16px] sm:text-[18px] text-slate-600 leading-relaxed max-w-3xl mx-auto"
           >
             단순 법인등기 대행에 머무르지 않고, 개인사업자 전환부터 정책자금,
             <br className="hidden sm:inline" />

@@ -26,9 +26,9 @@ export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onOpenDiagno
   };
 
   return (
-    <footer id="main-footer" className="w-full bg-[#0B1F3A] text-white pt-14 pb-24 sm:pb-14 border-t border-slate-800">
-      <div className="max-w-[1240px] mx-auto px-5 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-slate-800/80">
+    <footer id="main-footer" className="w-full bg-[#0B1F3A] text-white pt-16 pb-24 sm:pb-16 border-t border-slate-800">
+      <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-12 border-b border-slate-800/80">
           {/* Left: 비즈온탑 로고 & 설명 */}
           <div className="md:col-span-4">
             <div className="flex items-center gap-2.5 mb-3.5">

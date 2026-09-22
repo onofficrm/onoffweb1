@@ -28,7 +28,7 @@
   --color-on-primary: #ffffff;
 
   /* Typography */
-  --font-main: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', dotum, sans-serif;
+  --font-main: 'Pretendard', 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', sans-serif;
   --font-size-sm: 0.875rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
@@ -43,10 +43,10 @@
   --line-height-base: 1.6;
   --line-height-relaxed: 1.75;
 
-  /* Layout */
-  --container: 1240px;
-  --container-padding: 1.5rem;
-  --header-height: 72px;
+  /* Layout — 빌더 max-w-[1560px] 기준 */
+  --container: 1560px;
+  --container-padding: 2rem;
+  --header-height: 76px;
   --section-padding-y: 6rem;
   --section-gap: 2rem;
 
@@ -1472,6 +1472,7 @@
 #hd {
   min-width: 0;
   height: auto;
+  background: #ffffff !important;
 }
 
 .site-header {
@@ -1479,17 +1480,18 @@
   top: 0;
   z-index: 1000;
   width: 100%;
-  background-color: transparent;
-  border-bottom: 1px solid transparent;
+  background-color: #ffffff;
+  border-bottom: 1px solid #f1f5f9;
   transition: background-color var(--transition-base),
               border-color var(--transition-base),
               box-shadow var(--transition-base);
 }
 
 .site-header.is-scrolled {
-  background-color: var(--color-bg);
-  border-bottom-color: var(--color-line);
-  box-shadow: var(--shadow-soft);
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom-color: rgba(226, 232, 240, 0.9);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+  backdrop-filter: blur(8px);
 }
 
 .site-header__skip a {
@@ -1531,6 +1533,66 @@
   text-decoration: none;
 }
 
+.site-header__brand {
+  gap: 0.75rem;
+  padding: 0.15rem 0;
+}
+
+.site-header__brand-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.75rem;
+  background: #0B1F3A;
+  color: #60A5FA;
+  flex-shrink: 0;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.site-header__brand:hover .site-header__brand-mark {
+  background: #2563EB;
+  color: #fff;
+}
+
+.site-header__brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  line-height: 1.2;
+}
+
+.site-header__brand-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+}
+
+.site-header__brand-name {
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: #0B1F3A;
+}
+
+.site-header__brand-badge {
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #2563EB;
+  background: #EFF6FF;
+  padding: 0.1rem 0.4rem;
+  border-radius: 0.2rem;
+}
+
+.site-header__brand-sub {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: #64748b;
+  letter-spacing: -0.01em;
+}
+
 .site-header__logo-img {
   display: block;
   max-height: 40px;
@@ -1565,15 +1627,19 @@
 
 .site-header__gnb-link {
   display: block;
-  padding: var(--space-sm) 0;
-  font-weight: var(--font-weight-medium);
-  color: var(--color-text);
+  padding: 0.5rem 0.85rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: #475569;
   text-decoration: none;
+  border-radius: 0.5rem;
+  white-space: nowrap;
 }
 
 .site-header__gnb-link:hover,
 .site-header__gnb-link:focus {
-  color: var(--color-primary);
+  color: #0f172a;
+  background: #f8fafc;
 }
 
 .site-header__gnb-sub {
@@ -1628,25 +1694,51 @@
 }
 
 .site-header__search form {
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
+  position: relative;
+  display: block;
 }
 
 .site-header__search-input {
-  width: 140px;
-  padding: var(--space-sm) var(--space-md);
-  font-size: var(--font-size-sm);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-sm);
+  width: 13rem;
+  padding: 0.5rem 0.75rem 0.5rem 2.25rem;
+  font-size: 0.8125rem;
+  color: #1e293b;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  background: #f8fafc;
+}
+
+.site-header__search {
+  position: relative;
 }
 
 .site-header__search-btn {
-  padding: var(--space-sm) var(--space-md);
-  border: 1px solid var(--color-line);
-  border-radius: var(--radius-sm);
-  background: var(--color-surface);
+  position: absolute;
+  left: 0.55rem;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #94a3b8;
   cursor: pointer;
+}
+
+.site-header__diag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.5rem 0.85rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+  text-decoration: none;
+  border-radius: 0.5rem;
+  white-space: nowrap;
+}
+
+.site-header__diag:hover {
+  color: #2563EB;
+  background: #f8fafc;
 }
 
 .site-header__account {
@@ -1796,12 +1888,16 @@
 }
 
 /* Header — tablet */
-@media (max-width: 1024px) {
+@media (max-width: 1200px) {
   .site-header__gnb {
     display: none;
   }
 
   .site-header__search {
+    display: none;
+  }
+
+  .site-header__diag {
     display: none;
   }
 
@@ -1819,30 +1915,57 @@
   .site-header__cta {
     display: none;
   }
+
+  .site-header__brand-sub {
+    display: none;
+  }
 }
 
 /* ==========================================================================
    그누보드 위젯 — 메인에서 숨김 (기능 호출은 tail.php 유지)
    ========================================================================== */
 
-/* 메인: default.css #container width:930px / min-width:1200px 해제 → 풀폭 */
+/* 메인: default.css #container width:930px / min-width:1200px / #hd 다크 해제 → 풀폭·흰 헤더·Pretendard */
+html.page-index {
+  font-size: 16px;
+}
+
+html.page-index,
+html.page-index body {
+  font-family: var(--font-main) !important;
+  -webkit-font-smoothing: antialiased;
+  background: #F7F9FC !important;
+  color: #172033;
+}
+
 html.page-index #hd,
 html.page-index #wrapper,
 html.page-index #ft {
   min-width: 0 !important;
-  width: 100%;
-  max-width: none;
+  width: 100% !important;
+  max-width: none !important;
+}
+
+html.page-index #hd {
+  background: #ffffff !important;
 }
 
 html.page-index #wrapper {
-  margin: 0;
-  padding: 0;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #F7F9FC !important;
+}
+
+html.page-index #hd_pop,
+html.page-index #hd_wrapper,
+html.page-index #container_wr,
+html.page-index #ft_wr {
+  width: 100% !important;
+  max-width: none !important;
 }
 
 html.page-index #container_wr {
   display: block !important;
-  width: 100% !important;
-  max-width: none !important;
   margin: 0 !important;
   padding: 0 !important;
   float: none !important;
@@ -1856,6 +1979,7 @@ html.page-index #container {
   height: auto !important;
   margin: 0 !important;
   padding: 0 !important;
+  font-size: 1rem !important;
 }
 
 html.page-index #container > .site-main {
@@ -1863,6 +1987,11 @@ html.page-index #container > .site-main {
   max-width: none;
   margin: 0;
   padding: 0;
+  font-family: var(--font-main);
+}
+
+html.page-index .site-header__account {
+  display: none;
 }
 
 html.page-index .site-aside,
@@ -3800,6 +3929,19 @@ html:has(.site-dock) {
   background: #fff;
   color: #0B1F3A;
   border-color: #cbd5e1;
+}
+.site-main .section-hero--incorp .btn-primary {
+  background: #2563EB;
+  border-color: #2563EB;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.28);
+}
+.site-main .section-hero--incorp .btn-primary:hover,
+.site-main .section-hero--incorp .btn-primary:focus {
+  background: #1D4ED8;
+  border-color: #1D4ED8;
+  color: #fff;
 }
 .site-main .section-hero__subcaption {
   margin: 0.85rem 0 0;

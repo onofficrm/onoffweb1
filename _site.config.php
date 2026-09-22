@@ -29,7 +29,7 @@ $site_config = array(
     'main_keyword'        => '법인설립, 법인전환, 1인법인, 공동창업, 정책자금, 기업인증, 벤처기업확인',
     'sub_keywords'        => '주식회사설립, 개인사업자법인전환, 기업부설연구소, 이노비즈, 메인비즈',
     'robots'              => 'index,follow',
-    'consultation_text'   => '무료 상담 신청',
+    'consultation_text'   => '무료상담 신청하기',
     'footer_desc'         => '비즈온탑은 법인설립 전문 컨설팅 파트너로서, 신규 설립·법인전환부터 정책자금·기업인증·경영컨설팅까지 기업 성장에 필요한 원스톱 솔루션을 제공합니다.',
     /* 문의 폼 -> inquiry 게시판 */
     'inquiry_bo_table'        => 'inquiry',

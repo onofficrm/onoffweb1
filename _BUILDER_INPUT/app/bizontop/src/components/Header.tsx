@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, PhoneCall, Building2, ChevronRight } from 'lucide-react';
+import { Menu, X, PhoneCall, Building2, ChevronRight, Search } from 'lucide-react';
 
 interface HeaderProps {
   onOpenConsultation: () => void;
@@ -10,6 +10,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenDiagno
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeMenu, setActiveMenu] = useState('법인설립');
+  const [searchKeyword, setSearchKeyword] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -18,6 +19,14 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenDiagno
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
+
+  const handleSearchSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const faqSection = document.getElementById('faq');
+    if (faqSection) {
+      faqSection.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
 
   const menuItems = [
     { label: '법인설립', href: '#incorporation', isPrimary: true },
@@ -34,26 +43,26 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenDiagno
       id="main-header"
       className={`sticky top-0 z-40 w-full transition-all duration-200 ${
         isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-200/80 py-3.5'
-          : 'bg-white border-b border-slate-100 py-4.5'
+          ? 'bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-200/80 py-3 sm:py-3.5'
+          : 'bg-white border-b border-slate-100 py-4 sm:py-4.5'
       }`}
     >
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
+      <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between gap-4">
         {/* Left: Brand Logo */}
         <a
           href="/"
           id="brand-logo"
-          className="flex items-center gap-3 group focus:outline-hidden focus:ring-2 focus:ring-blue-500 rounded-lg p-1"
+          className="flex items-center gap-3 shrink-0 group focus:outline-hidden focus:ring-2 focus:ring-blue-500 rounded-lg p-1"
         >
           <div className="w-10 h-10 rounded-xl bg-[#0B1F3A] flex items-center justify-center text-white shadow-xs group-hover:bg-[#2563EB] transition-colors">
             <Building2 className="w-5 h-5 text-blue-400 group-hover:text-white transition-colors" />
           </div>
           <div className="flex flex-col">
             <div className="flex items-baseline gap-1.5">
-              <span className="font-bold text-xl tracking-tight text-[#0B1F3A]">
+              <span className="font-extrabold text-[21px] tracking-tight text-[#0B1F3A]">
                 비즈온탑
               </span>
-              <span className="text-[10px] font-semibold tracking-wider text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded-sm">
+              <span className="text-[10px] font-bold tracking-wider text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded-sm">
                 BIZ ON TOP
               </span>
             </div>
@@ -66,7 +75,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenDiagno
         {/* Center: Navigation Menu (Desktop) */}
         <nav
           id="desktop-nav"
-          className="hidden md:flex items-center gap-1 lg:gap-2 text-[15px] font-medium text-slate-700"
+          className="hidden xl:flex items-center gap-1.5 2xl:gap-2 text-[15px] font-medium text-slate-700"
         >
           {menuItems.map((item) => {
             const isActive = activeMenu === item.label;
@@ -83,9 +92,9 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenDiagno
                     targetEl.scrollIntoView({ behavior: 'smooth' });
                   }
                 }}
-                className={`relative px-3.5 py-2 rounded-lg transition-colors ${
+                className={`relative px-3.5 py-2 rounded-lg transition-colors whitespace-nowrap ${
                   isActive
-                    ? 'text-blue-600 font-semibold bg-blue-50/70'
+                    ? 'text-blue-600 font-bold bg-blue-50/80'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
                 }`}
               >
@@ -98,13 +107,28 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenDiagno
           })}
         </nav>
 
+        {/* Search Bar for Desktop */}
+        <form
+          onSubmit={handleSearchSubmit}
+          className="hidden lg:flex items-center relative w-52 xl:w-64"
+        >
+          <input
+            type="text"
+            placeholder="궁금한 내용 검색..."
+            value={searchKeyword}
+            onChange={(e) => setSearchKeyword(e.target.value)}
+            className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white focus:bg-white text-[13px] text-slate-800 placeholder:text-slate-400 focus:outline-hidden focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all"
+          />
+          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+        </form>
+
         {/* Right: CTA Buttons */}
-        <div className="hidden sm:flex items-center gap-3">
+        <div className="hidden sm:flex items-center gap-3 shrink-0">
           <button
             id="header-diagnosis-btn"
             type="button"
             onClick={onOpenDiagnosis}
-            className="text-[14px] font-semibold text-slate-600 hover:text-blue-600 px-3 py-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer"
+            className="text-[14.5px] font-semibold text-slate-700 hover:text-blue-600 px-3.5 py-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer whitespace-nowrap"
           >
             3분 법인설립 진단
           </button>
@@ -112,7 +136,7 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenDiagno
             id="header-consultation-btn"
             type="button"
             onClick={onOpenConsultation}
-            className="inline-flex items-center gap-2 px-4.5 py-2.5 rounded-lg text-[14px] font-bold text-white bg-[#2563EB] hover:bg-blue-700 active:bg-blue-800 shadow-xs hover:shadow-sm transition-all focus:ring-2 focus:ring-blue-500/20 cursor-pointer"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-[14.5px] font-bold text-white bg-[#2563EB] hover:bg-blue-700 active:bg-blue-800 shadow-sm hover:shadow-md transition-all focus:ring-2 focus:ring-blue-500/20 cursor-pointer whitespace-nowrap"
           >
             <PhoneCall className="w-4 h-4" />
             <span>무료상담 신청하기</span>

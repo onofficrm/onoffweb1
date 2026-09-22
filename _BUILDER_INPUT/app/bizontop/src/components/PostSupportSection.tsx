@@ -80,22 +80,22 @@ export const PostSupportSection: React.FC<PostSupportSectionProps> = ({ onOpenCo
   return (
     <section
       id="post-support"
-      className="w-full bg-gradient-to-b from-[#0B1F3A] to-[#0A192F] text-white py-16 sm:py-20 lg:py-24 border-b border-slate-800 scroll-mt-20"
+      className="w-full bg-gradient-to-b from-[#0B1F3A] to-[#0A192F] text-white py-18 sm:py-24 lg:py-28 border-b border-slate-800 scroll-mt-20"
     >
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
         {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12 sm:mb-16">
+        <div className="text-center max-w-4xl mx-auto mb-14 sm:mb-18">
           <div
             id="post-support-eyebrow"
-            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-[12px] sm:text-[13px] font-semibold tracking-wider mb-3.5"
+            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-[12.5px] sm:text-[13.5px] font-semibold tracking-wider mb-4"
           >
-            <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
             <span>AFTER INCORPORATION</span>
           </div>
 
           <h2
             id="post-support-main-title"
-            className="text-[28px] sm:text-[36px] md:text-[40px] font-black text-white tracking-tight leading-[1.25] mb-4"
+            className="text-[32px] sm:text-[42px] md:text-[46px] font-black text-white tracking-tight leading-[1.2] mb-5"
           >
             법인설립이 끝이 아닙니다.
             <br />
@@ -104,7 +104,7 @@ export const PostSupportSection: React.FC<PostSupportSectionProps> = ({ onOpenCo
 
           <p
             id="post-support-description"
-            className="text-[15px] sm:text-[16.5px] text-slate-300 leading-relaxed max-w-2xl mx-auto"
+            className="text-[16px] sm:text-[18px] text-slate-300 leading-relaxed max-w-3xl mx-auto"
           >
             기업의 업종, 업력, 재무상태, 연구개발 현황 등에 따라 활용할 수 있는
             기업지원제도가 달라집니다.

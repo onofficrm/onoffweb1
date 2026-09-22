@@ -55,6 +55,8 @@ if (function_exists('g5site_cfg')) {
     }
 }
 
+// Pretendard (빌더 index.html 과 동일 CDN)
+add_stylesheet('<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">', 5);
 // 템플릿 전용 CSS/JS (default.css·common.js 이후 로드)
 add_stylesheet('<link rel="stylesheet" href="'.G5_CSS_URL.'/custom.css">', 10);
 if ($g5_css_brand !== '') {
@@ -105,11 +107,32 @@ if ($g5_site_title === '') {
 
 // 상담문의 URL (메인: contact 섹션 / 그 외: 메인 앵커)
 $g5_inquiry_url = defined('_INDEX_') ? G5_URL.'/#section-contact' : G5_URL.'/#section-contact';
-$g5_consult_label = function_exists('g5site_cfg') ? g5site_cfg('consultation_text', '무료 상담 신청') : '무료 상담 신청';
+$g5_diagnosis_url = defined('_INDEX_') ? G5_URL.'/#section-diagnosis' : G5_URL.'/#section-diagnosis';
+$g5_consult_label = function_exists('g5site_cfg') ? g5site_cfg('consultation_text', '무료상담 신청하기') : '무료상담 신청하기';
 
-// 메뉴 (PC / 모바일)
+// 빌더 헤더 메뉴 (관리자 메뉴 비어 있어도 랜딩과 동일하게 표시)
+$g5_bizontop_nav = array(
+    array('me_name' => '법인설립', 'me_link' => G5_URL.'/#section-hero', 'me_target' => 'self'),
+    array('me_name' => '법인전환', 'me_link' => G5_URL.'/#section-comparison', 'me_target' => 'self'),
+    array('me_name' => '진행사례', 'me_link' => G5_URL.'/#section-cases', 'me_target' => 'self'),
+    array('me_name' => '기업지원', 'me_link' => G5_URL.'/#section-support', 'me_target' => 'self'),
+    array('me_name' => '3분 무료진단', 'me_link' => G5_URL.'/#section-diagnosis', 'me_target' => 'self'),
+    array('me_name' => '최신정보', 'me_link' => G5_URL.'/#section-latest', 'me_target' => 'self'),
+    array('me_name' => 'FAQ', 'me_link' => G5_URL.'/#section-faq', 'me_target' => 'self'),
+);
+
+// 메뉴 (PC / 모바일) — 관리자 메뉴 없으면 빌더 메뉴 사용
 $menu_datas_pc = get_menu_db(0, true);
 $menu_datas_mo = get_menu_db(1, true);
+$g5_menu_pc_count = 0;
+foreach ((array) $menu_datas_pc as $g5_menu_row) {
+    if (!empty($g5_menu_row)) {
+        $g5_menu_pc_count++;
+    }
+}
+if ($g5_menu_pc_count === 0) {
+    $menu_datas_pc = $g5_bizontop_nav;
+}
 if (!is_array($menu_datas_mo) || !count($menu_datas_mo)) {
     $menu_datas_mo = $menu_datas_pc;
 }
@@ -131,12 +154,17 @@ if (!is_array($menu_datas_mo) || !count($menu_datas_mo)) {
 
         <div class="site-header__inner">
             <div class="site-header__logo">
-                <a href="<?php echo G5_URL; ?>" class="site-header__logo-link">
-                    <?php if ($g5_logo_url) { ?>
-                    <img src="<?php echo $g5_logo_url; ?>" alt="<?php echo $g5_site_title; ?>" class="site-header__logo-img">
-                    <?php } else { ?>
-                    <span class="site-header__logo-text"><?php echo $g5_site_title; ?></span>
-                    <?php } ?>
+                <a href="<?php echo G5_URL; ?>" class="site-header__logo-link site-header__brand" id="brand-logo">
+                    <span class="site-header__brand-mark" aria-hidden="true">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 21h18M5 21V7l7-4 7 4v14M9 21v-6h6v6M9 10h.01M15 10h.01" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </span>
+                    <span class="site-header__brand-text">
+                        <span class="site-header__brand-row">
+                            <span class="site-header__brand-name">비즈온탑</span>
+                            <span class="site-header__brand-badge">BIZ ON TOP</span>
+                        </span>
+                        <span class="site-header__brand-sub">법인설립 · 기업성장 전문 컨설팅</span>
+                    </span>
                 </a>
             </div>
 
@@ -186,13 +214,15 @@ if (!is_array($menu_datas_mo) || !count($menu_datas_mo)) {
                             <input type="hidden" name="sfl" value="wr_subject||wr_content">
                             <input type="hidden" name="sop" value="and">
                             <label for="sch_stx" class="sound_only">검색어 필수</label>
-                            <input type="text" name="stx" id="sch_stx" maxlength="20" placeholder="검색" class="site-header__search-input">
+                            <input type="text" name="stx" id="sch_stx" maxlength="20" placeholder="궁금한 내용 검색..." class="site-header__search-input">
                             <button type="submit" id="sch_submit" value="검색" class="site-header__search-btn">
                                 <i class="fa fa-search" aria-hidden="true"></i><span class="sound_only">검색</span>
                             </button>
                         </form>
                     </fieldset>
                 </div>
+
+                <a href="<?php echo $g5_diagnosis_url; ?>" class="site-header__diag">3분 법인설립 진단</a>
 
                 <ul class="site-header__account hd_login">
                     <?php if ($is_member) { ?>

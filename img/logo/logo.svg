@@ -1,7 +1,7 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 48" role="img" aria-label="BIZ ON TOP">
-  <rect x="0" y="4" width="40" height="40" rx="10" fill="#102B50"/>
-  <text x="8" y="31" font-family="Arial, sans-serif" font-size="18" font-weight="800" fill="#D5A64B">B</text>
-  <text x="22" y="31" font-family="Arial, sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">T</text>
-  <text x="52" y="22" font-family="Arial, sans-serif" font-size="16" font-weight="800" fill="#102B50">BIZ ON TOP</text>
-  <text x="52" y="38" font-family="Arial, sans-serif" font-size="9" font-weight="500" fill="#64748B">0≈ 1•X ‡‡\ ∏</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 48" role="img" aria-label="???? BIZ ON TOP">
+  <rect x="0" y="4" width="40" height="40" rx="10" fill="#0B1F3A"/>
+  <path d="M12 34h16M14 34V16l10-6 10 6v18M18 34v-8h8v8M18 20h.01M26 20h.01" fill="none" stroke="#60A5FA" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="52" y="22" font-family="Pretendard, Arial, sans-serif" font-size="18" font-weight="800" fill="#0B1F3A">????</text>
+  <text x="128" y="20" font-family="Pretendard, Arial, sans-serif" font-size="9" font-weight="700" fill="#2563EB">BIZ ON TOP</text>
+  <text x="52" y="38" font-family="Pretendard, Arial, sans-serif" font-size="10" font-weight="500" fill="#64748B">???? ? ???? ?? ???</text>
 </svg>

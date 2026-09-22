@@ -31,7 +31,7 @@ $g5_hero_steps = array(
       </ul>
 
       <div class="section-actions">
-        <a href="#section-diagnosis" class="btn btn-accent">3분 법인설립 진단하기</a>
+        <a href="#section-diagnosis" class="btn btn-primary">3분 법인설립 진단하기</a>
         <a href="#section-contact" class="btn btn-outline">무료상담 신청하기</a>
       </div>
       <p class="section-hero__subcaption">법인설립 준비서류 · 예상기간 · 절차 · 설립 이후 준비사항 안내</p>
