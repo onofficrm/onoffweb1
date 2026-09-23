@@ -1,11 +1,19 @@
 import React from 'react';
-import { ArrowRight, CheckCircle, Clock, ShieldCheck, Sparkles, PhoneCall } from 'lucide-react';
+import { ArrowRight, CheckCircle2, PhoneCall } from 'lucide-react';
 import { InteractiveProcessCard } from './InteractiveProcessCard';
 
 interface HeroSectionProps {
   onOpenDiagnosis: () => void;
   onOpenConsultation: () => void;
 }
+
+const TRUST_ITEMS = [
+  '쉬운 해설',
+  '비대면 전자등기',
+  '창업세액감면 검토',
+];
+
+const MOBILE_STEPS = ['준비', '구조', '등기', '사업자', '성장'];
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   onOpenDiagnosis,
@@ -14,103 +22,110 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <section
       id="hero-section"
-      className="relative pt-8 pb-14 sm:pt-14 sm:pb-20 lg:pt-16 lg:pb-24 bg-gradient-to-b from-white via-[#F7F9FC] to-[#F7F9FC] overflow-hidden"
+      className="relative pt-10 pb-12 sm:pt-16 sm:pb-20 lg:pt-20 lg:pb-24 overflow-hidden"
     >
-      {/* Background subtle ambient geometry */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-[1400px] h-[550px] pointer-events-none -z-10">
-        <div className="absolute top-10 left-10 w-96 h-96 bg-blue-100/40 rounded-full blur-3xl" />
-        <div className="absolute top-40 right-10 w-[420px] h-[420px] bg-slate-200/40 rounded-full blur-3xl" />
-      </div>
+      {/* Atmosphere */}
+      <div className="absolute inset-0 -z-10 bg-[linear-gradient(165deg,#FFFFFF_0%,#F4F8FF_42%,#EEF3FA_100%)]" />
+      <div className="absolute inset-0 -z-10 opacity-[0.35] [background-image:radial-gradient(#94A3B8_0.7px,transparent_0.7px)] [background-size:18px_18px]" />
+      <div className="absolute -top-24 left-[-10%] w-[55vw] max-w-[520px] h-[55vw] max-h-[520px] rounded-full bg-[#2563EB]/12 blur-3xl pointer-events-none -z-10" />
+      <div className="absolute top-32 right-[-8%] w-[48vw] max-w-[460px] h-[48vw] max-h-[460px] rounded-full bg-[#0B1F3A]/10 blur-3xl pointer-events-none -z-10" />
 
       <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-          
-          {/* Left Column: Hero Content */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
+          {/* Copy */}
           <div className="lg:col-span-7 flex flex-col justify-center text-left">
-            
-            {/* Small Eyebrow: CORPORATE STARTUP CONSULTING | 법인설립 전문 컨설팅 */}
-            <div className="inline-flex items-center gap-2 mb-4 max-w-full">
-              <span className="inline-flex flex-wrap items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-[13px] font-bold tracking-wide bg-blue-50 text-[#2563EB] border border-blue-200/70 shadow-2xs max-w-full">
-                <span className="w-2 h-2 rounded-full bg-[#2563EB] shrink-0" />
-                <span className="hidden sm:inline uppercase tracking-wide">
-                  CORPORATE STARTUP CONSULTING
-                </span>
-                <span className="hidden sm:inline text-slate-300 font-light">|</span>
-                <span className="text-[#0B1F3A] font-semibold tracking-tight">
-                  법인설립 전문 컨설팅
-                </span>
-              </span>
-            </div>
+            <p className="inline-flex items-center gap-2 self-start mb-5 sm:mb-6 text-[12px] sm:text-[13px] font-semibold tracking-[0.04em] text-[#2563EB]">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB]" />
+              비즈온탑 · 법인설립 전문 컨설팅
+            </p>
 
-            {/* Main Title: 법인설립, 어렵게 시작하지 마세요. */}
-            <h1 className="text-3xl sm:text-4xl lg:text-[46px] font-black text-[#0B1F3A] tracking-tight leading-[1.25] sm:leading-[1.2]">
-              법인설립, <br className="hidden sm:inline" />
-              <span className="text-[#0B1F3A]">어렵게 시작하지 마세요.</span>
+            <h1 className="text-[34px] sm:text-5xl lg:text-[52px] font-black text-[#0B1F3A] tracking-[-0.03em] leading-[1.18]">
+              법인설립,
+              <br />
+              <span className="bg-gradient-to-r from-[#0B1F3A] via-[#1D4ED8] to-[#2563EB] bg-clip-text text-transparent">
+                어렵게 시작하지 마세요.
+              </span>
             </h1>
 
-            {/* Highlight Sentence: 사업에 맞는 법인 구조부터 설립 이후 기업 성장까지 함께합니다. */}
-            <p className="mt-4 sm:mt-5 text-lg sm:text-xl font-bold text-[#2563EB] tracking-tight">
-              사업에 맞는 법인 구조부터 설립 이후 기업 성장까지 함께합니다.
+            <p className="mt-5 sm:mt-6 text-[17px] sm:text-xl font-bold text-[#0B1F3A]/85 tracking-tight leading-snug max-w-[34rem]">
+              사업에 맞는 법인 구조부터
+              <br className="sm:hidden" /> 설립 이후 성장까지 함께합니다.
             </p>
 
-            {/* Description Paragraph */}
-            <p className="mt-3.5 sm:mt-4 text-base sm:text-[17px] text-slate-600 font-normal leading-relaxed max-w-[620px]">
-              상호, 자본금, 주주, 임원, 사업목적 등 법인설립에 필요한 준비사항을 알기 쉽게 안내하고,
-              설립 이후 필요한 정책자금과 기업인증까지 함께 검토합니다.
+            <p className="mt-3.5 sm:mt-4 text-[14px] sm:text-[16px] text-slate-600 leading-relaxed max-w-[34rem]">
+              상호·자본금·주주·임원 구성을 쉽게 안내하고,
+              정책자금과 기업인증까지 이어서 검토합니다.
             </p>
 
-            {/* Key Value Micro-pills for First-time Founders */}
-            <div className="mt-5 flex flex-wrap items-center gap-y-2 gap-x-4 text-xs sm:text-[13px] text-slate-600 font-medium">
-              <div className="flex items-center gap-1.5">
-                <CheckCircle className="w-4 h-4 text-[#2563EB]" />
-                <span>복잡한 법무용어 쉬운 해설</span>
+            {/* Mobile visual anchor: compact 5-step strip */}
+            <div className="mt-6 lg:hidden rounded-2xl border border-slate-200/90 bg-white/80 backdrop-blur-sm p-3.5 shadow-sm">
+              <div className="flex items-center justify-between mb-2.5 px-0.5">
+                <span className="text-[11px] font-bold text-[#0B1F3A]">설립 5단계</span>
+                <span className="text-[10px] font-medium text-slate-500">평균 5~7일 흐름</span>
               </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle className="w-4 h-4 text-[#2563EB]" />
-                <span>비대면 100% 전자등기 가능</span>
-              </div>
-              <div className="flex items-center gap-1.5">
-                <CheckCircle className="w-4 h-4 text-[#F4A62A]" />
-                <span>창업세액감면(최대 100%) 사전 검토</span>
+              <div className="grid grid-cols-5 gap-1.5">
+                {MOBILE_STEPS.map((label, i) => (
+                  <div key={label} className="flex flex-col items-center gap-1.5">
+                    <span
+                      className={`w-8 h-8 rounded-full text-[11px] font-black flex items-center justify-center ${
+                        i === 0
+                          ? 'bg-[#2563EB] text-white'
+                          : 'bg-slate-100 text-slate-600'
+                      }`}
+                    >
+                      {String(i + 1).padStart(2, '0')}
+                    </span>
+                    <span className="text-[10px] font-semibold text-slate-600">{label}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* CTA Buttons: Primary & Secondary */}
-            <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 sm:gap-4">
-              {/* Primary CTA: [3분 법인설립 진단하기] */}
+            {/* Trust chips */}
+            <div className="mt-5 sm:mt-6 flex flex-wrap gap-2">
+              {TRUST_ITEMS.map((item) => (
+                <span
+                  key={item}
+                  className="inline-flex items-center gap-1.5 rounded-full bg-white/90 border border-slate-200 px-3 py-1.5 text-[12px] sm:text-[13px] font-semibold text-slate-700 shadow-xs"
+                >
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#2563EB] shrink-0" />
+                  {item}
+                </span>
+              ))}
+            </div>
+
+            {/* CTA: one primary + quieter secondary */}
+            <div className="mt-7 sm:mt-8 flex flex-col sm:flex-row items-stretch sm:items-center gap-3">
               <button
                 type="button"
                 id="hero-cta-diagnosis"
                 onClick={onOpenDiagnosis}
-                className="group relative inline-flex items-center justify-center gap-2.5 bg-[#0B1F3A] hover:bg-[#142d50] active:bg-[#071426] text-white font-bold text-base sm:text-[16px] px-6 py-3.5 sm:py-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 focus:outline-hidden focus:ring-2 focus:ring-[#0B1F3A]/40"
+                className="group inline-flex items-center justify-center gap-2.5 min-h-[52px] bg-[#0B1F3A] hover:bg-[#142d50] active:bg-[#071426] text-white font-bold text-[15px] sm:text-base px-6 rounded-2xl shadow-[0_10px_28px_rgba(11,31,58,0.22)] transition-all focus:outline-hidden focus:ring-2 focus:ring-[#0B1F3A]/35"
               >
                 <span>3분 법인설립 진단하기</span>
-                <ArrowRight className="w-4 h-4 text-[#F4A62A] group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-4 h-4 text-[#F4A62A] group-hover:translate-x-0.5 transition-transform" />
               </button>
 
-              {/* Secondary CTA: [전문가 무료상담] */}
               <button
                 type="button"
                 id="hero-cta-consultation"
                 onClick={onOpenConsultation}
-                className="inline-flex items-center justify-center gap-2 bg-[#2563EB] hover:bg-[#1d4ed8] active:bg-[#1e40af] text-white font-bold text-base sm:text-[16px] px-6 py-3.5 sm:py-4 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 focus:outline-hidden focus:ring-2 focus:ring-[#2563EB]/40"
+                className="inline-flex items-center justify-center gap-2 min-h-[52px] bg-white/90 hover:bg-white text-[#0B1F3A] font-bold text-[15px] sm:text-base px-6 rounded-2xl border border-slate-200 shadow-xs transition-all focus:outline-hidden focus:ring-2 focus:ring-[#2563EB]/25"
               >
-                <PhoneCall className="w-4 h-4 text-white" />
+                <PhoneCall className="w-4 h-4 text-[#2563EB]" />
                 <span>전문가 무료상담</span>
               </button>
             </div>
 
-            {/* Subtext beneath buttons */}
-            <p className="mt-3 text-xs sm:text-[13px] text-slate-500 font-medium tracking-tight">
-              법인설립 준비서류 · 예상기간 · 절차 · 설립 이후 준비사항 안내
+            <p className="mt-3.5 text-[12px] sm:text-[13px] text-slate-500 font-medium">
+              준비서류 · 기간 · 절차 · 설립 이후 안내까지
             </p>
           </div>
 
-          {/* Right Column: Hero Visual - Interactive 5-Step Process Card */}
-          <div className="lg:col-span-5 w-full flex justify-center">
+          {/* Desktop visual */}
+          <div className="hidden lg:flex lg:col-span-5 w-full justify-center">
             <InteractiveProcessCard />
           </div>
-
         </div>
       </div>
     </section>
