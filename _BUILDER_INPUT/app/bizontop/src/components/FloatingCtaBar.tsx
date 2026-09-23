@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, MessageSquare, ArrowUp, Sparkles, CheckCircle2, ChevronUp } from 'lucide-react';
+import { Phone, MessageSquare, Sparkles, ChevronUp } from 'lucide-react';
+import { SITE_CONTACTS } from '../lib/siteContacts';
 
 interface FloatingCtaBarProps {
   onOpenDiagnosis: () => void;
@@ -30,13 +31,17 @@ export const FloatingCtaBar: React.FC<FloatingCtaBarProps> = ({
   };
 
   const handlePhoneCall = () => {
-    // Graceful contact trigger for phone consultation
     onOpenConsultation('전화 빠른상담');
   };
 
   const handleKakaoChat = () => {
-    // KakaoTalk consultation trigger
-    onOpenConsultation('카카오톡 간편상담');
+    const url = SITE_CONTACTS.kakaoUrl.trim();
+    if (url) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    // 링크 연결 전: 상담 모달을 열지 않음
+    window.alert('카카오톡 상담 링크는 곧 연결됩니다.');
   };
 
   return (
@@ -74,10 +79,11 @@ export const FloatingCtaBar: React.FC<FloatingCtaBarProps> = ({
             <span>무료상담 신청</span>
           </button>
 
-          {/* Right: 카카오톡 (Col 4) */}
+          {/* Right: 카카오톡 (Col 4) — 외부 카톡 링크 (상담 모달 X) */}
           <button
             type="button"
             onClick={handleKakaoChat}
+            aria-label="카카오톡 상담 열기"
             className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl text-slate-700 hover:text-[#F4A62A] hover:bg-slate-50 active:bg-slate-100 transition-colors"
           >
             <div className="w-8 h-8 rounded-full bg-[#FEE500] flex items-center justify-center text-[#371D1E] mb-0.5 font-black text-xs">
