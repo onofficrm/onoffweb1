@@ -69,6 +69,15 @@ export interface ConsultingCaseItem {
   situation: string;
   concerns: string[];
   processSteps: string[];
+  /** 카드에 짧게 보이는 실제 사례 한 줄 */
+  casePreview: string;
+  /** 익명 실제 사례 본문 */
+  caseStory: {
+    background: string;
+    challenge: string;
+    approach: string[];
+    result: string;
+  };
 }
 
 export interface BusinessInsightSectionBlock {
