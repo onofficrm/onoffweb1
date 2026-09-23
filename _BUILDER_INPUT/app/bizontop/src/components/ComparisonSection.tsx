@@ -92,9 +92,13 @@ export const ComparisonSection: React.FC<ComparisonSectionProps> = ({
             </div>
 
             <div className="col-span-4 sm:col-span-5 py-4 sm:py-5 px-3 sm:px-6 flex items-center justify-center sm:justify-start gap-2 bg-blue-50/70 border-l border-blue-100 text-[#0B1F3A]">
-              <Building className="w-4 h-4 text-[#2563EB] hidden sm:inline" />
-              <span className="text-[#2563EB]">법인 (주식회사 등)</span>
-              <span className="hidden lg:inline text-[11px] font-semibold text-white bg-[#2563EB] px-2 py-0.5 rounded-full">
+              <Building className="w-4 h-4 text-[#2563EB] hidden sm:inline shrink-0" />
+              <span className="text-[#2563EB] text-center sm:text-left leading-snug">
+                법인
+                <br />
+                <span className="font-semibold text-[11px] sm:text-sm">(주식회사 등)</span>
+              </span>
+              <span className="hidden lg:inline text-[11px] font-semibold text-white bg-[#2563EB] px-2 py-0.5 rounded-full shrink-0">
                 성장 지향
               </span>
             </div>
