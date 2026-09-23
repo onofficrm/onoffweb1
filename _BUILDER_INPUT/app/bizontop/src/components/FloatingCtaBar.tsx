@@ -31,7 +31,13 @@ export const FloatingCtaBar: React.FC<FloatingCtaBarProps> = ({
   };
 
   const handlePhoneCall = () => {
-    onOpenConsultation('전화 빠른상담');
+    const tel = SITE_CONTACTS.phoneTel.trim();
+    if (tel) {
+      window.location.href = tel.startsWith('tel:') ? tel : `tel:${tel.replace(/\D/g, '')}`;
+      return;
+    }
+    // 번호 연결 전: 상담 모달을 열지 않음
+    window.alert('전화상담 번호는 곧 연결됩니다.');
   };
 
   const handleKakaoChat = () => {
@@ -61,9 +67,10 @@ export const FloatingCtaBar: React.FC<FloatingCtaBarProps> = ({
           <button
             type="button"
             onClick={handlePhoneCall}
-            className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl text-slate-700 hover:text-[#2563EB] hover:bg-slate-50 active:bg-slate-100 transition-colors"
+            aria-label="전화상담 걸기"
+            className="flex flex-col items-center justify-center py-1.5 px-1 rounded-xl text-slate-700 hover:text-[#16A34A] hover:bg-slate-50 active:bg-slate-100 transition-colors"
           >
-            <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-700 mb-0.5">
+            <div className="w-8 h-8 rounded-full bg-[#22C55E] flex items-center justify-center text-white mb-0.5 shadow-sm shadow-green-600/25">
               <Phone className="w-4 h-4" />
             </div>
             <span className="text-[11px] font-bold">전화상담</span>
