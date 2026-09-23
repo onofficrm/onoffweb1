@@ -71,6 +71,12 @@ export interface ConsultingCaseItem {
   processSteps: string[];
 }
 
+export interface BusinessInsightSectionBlock {
+  heading: string;
+  paragraphs: string[];
+  bullets?: string[];
+}
+
 export interface BusinessInsightItem {
   id: string;
   category: string;
@@ -79,6 +85,10 @@ export interface BusinessInsightItem {
   date: string;
   readTime: string;
   imageUrl?: string;
+  /** 자세히 보기 본문 */
+  summaryPoints: string[];
+  sections: BusinessInsightSectionBlock[];
+  note?: string;
 }
 
 export interface FaqItem {
