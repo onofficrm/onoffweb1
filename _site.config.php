@@ -8,8 +8,8 @@ if (!defined('_GNUBOARD_')) {
 }
 
 $site_config = array(
-    /* 홈(/) - 비우면 section 메인 사용 (빌더 bridge 비활성) */
-    'home_builder_bridge_id' => '',
+    /* 홈(/) - 빌더 React 랜딩 (imports/bizontop) */
+    'home_builder_bridge_id' => 'bizontop',
     'site_name'           => '비즈온탑 | 법인설립 전문 컨설팅',
     'site_desc'           => '법인설립·법인전환·정책자금·기업인증 전문 컨설팅. 비즈온탑과 함께 시작하는 기업 성장.',
     'company_name'        => '비즈온탑 경영컨설팅',

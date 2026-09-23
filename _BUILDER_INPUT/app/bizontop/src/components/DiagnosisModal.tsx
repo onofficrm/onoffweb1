@@ -1,46 +1,101 @@
 import React, { useState } from 'react';
-import { X, Sparkles, Check, ArrowRight, ArrowLeft, ShieldCheck, CheckCircle2 } from 'lucide-react';
-import { DiagnosisFormData } from '../types.ts';
+import { 
+  X, 
+  ArrowRight, 
+  ArrowLeft, 
+  CheckCircle2, 
+  Clock, 
+  ShieldCheck, 
+  Sparkles, 
+  Check, 
+  RotateCcw,
+  Phone,
+  MessageSquare,
+  Smartphone
+} from 'lucide-react';
+import { MultiStepDiagnosisData } from '../types';
 
 interface DiagnosisModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onSuccess: (data: DiagnosisFormData) => void;
-  initialBusinessType?: string;
+  onOpenConsultation?: () => void;
 }
 
 export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({
   isOpen,
   onClose,
-  onSuccess,
-  initialBusinessType,
+  onOpenConsultation,
 }) => {
   const [currentStep, setCurrentStep] = useState<number>(1);
-  const [formData, setFormData] = useState<DiagnosisFormData>({
-    businessType: initialBusinessType || '예비창업자 신규 법인설립',
-    industry: 'IT · 소프트웨어 · 플랫폼',
-    preparedness: '1,000만 ~ 3,000만 원 (일반 권장)',
-    primaryGoal: '설립 직후 초기 정책자금/정부지원금 연계',
-    applicantName: '',
-    applicantPhone: '',
-  });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
-  React.useEffect(() => {
-    if (initialBusinessType) {
-      setFormData((prev) => ({ ...prev, businessType: initialBusinessType }));
-    }
-  }, [initialBusinessType]);
+  const [formData, setFormData] = useState<MultiStepDiagnosisData>({
+    currentSituation: '',
+    primaryReason: '',
+    timeline: '',
+    name: '',
+    phone: '',
+    companyName: '',
+    contactMethod: '전화',
+    privacyAgreed: true,
+  });
 
   if (!isOpen) return null;
 
+  // Question 1 Options
+  const q1Options = [
+    '처음 사업을 시작합니다',
+    '개인사업자를 운영 중입니다',
+    '공동창업을 준비하고 있습니다',
+    '현재 법인을 운영하고 있습니다',
+    '기타',
+  ];
+
+  // Question 2 Options
+  const q2Options = [
+    '신규 사업 시작',
+    '개인사업자 → 법인전환',
+    '공동창업',
+    '투자유치 준비',
+    '정책자금',
+    '기업인증',
+    '절세 및 경영구조 검토',
+    '기타',
+  ];
+
+  // Question 3 Options
+  const q3Options = [
+    '가능한 빨리',
+    '1개월 이내',
+    '3개월 이내',
+    '아직 검토 중',
+  ];
+
   const handleNext = () => {
-    if (currentStep < 4) {
-      setCurrentStep((prev) => prev + 1);
+    setErrorMsg(null);
+    if (currentStep === 1) {
+      if (!formData.currentSituation) {
+        setErrorMsg('현재 사업 상황을 1가지 선택해주세요.');
+        return;
+      }
+      setCurrentStep(2);
+    } else if (currentStep === 2) {
+      if (!formData.primaryReason) {
+        setErrorMsg('법인설립 또는 상담을 원하는 가장 큰 이유를 선택해주세요.');
+        return;
+      }
+      setCurrentStep(3);
+    } else if (currentStep === 3) {
+      if (!formData.timeline) {
+        setErrorMsg('희망하시는 진행 시기를 선택해주세요.');
+        return;
+      }
+      setCurrentStep(4);
     }
   };
 
-  const handleBack = () => {
+  const handlePrev = () => {
+    setErrorMsg(null);
     if (currentStep > 1) {
       setCurrentStep((prev) => prev - 1);
     }
@@ -48,350 +103,402 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.applicantName || !formData.applicantPhone) {
-      alert('성함과 연락처를 입력해 주세요.');
+    if (!formData.name.trim()) {
+      setErrorMsg('성함을 입력해주세요.');
       return;
     }
-    setIsSubmitted(true);
-    onSuccess(formData);
+    if (!formData.phone.trim()) {
+      setErrorMsg('연락처를 입력해주세요.');
+      return;
+    }
+    if (!formData.privacyAgreed) {
+      setErrorMsg('개인정보 수집 및 이용에 동의해주세요.');
+      return;
+    }
+
+    setErrorMsg(null);
+    setCurrentStep(5);
   };
 
-  const handleResetAndClose = () => {
-    setIsSubmitted(false);
+  const handleReset = () => {
+    setFormData({
+      currentSituation: '',
+      primaryReason: '',
+      timeline: '',
+      name: '',
+      phone: '',
+      companyName: '',
+      contactMethod: '전화',
+      privacyAgreed: true,
+    });
     setCurrentStep(1);
-    onClose();
   };
+
+  const progressPercent = Math.min(100, Math.round((currentStep / 4) * 100));
 
   return (
     <div
-      id="diagnosis-modal-overlay"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs overflow-y-auto"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) handleResetAndClose();
-      }}
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs transition-opacity duration-200"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="diagnosis-modal-title"
     >
-      <div
-        id="diagnosis-modal-card"
-        className="relative w-full max-w-[560px] bg-white rounded-2xl shadow-2xl border border-slate-200 overflow-hidden my-8 transition-all"
-      >
-        {/* Modal Top Header */}
-        <div className="bg-[#0B1F3A] text-white px-6 py-5 flex items-center justify-between">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-amber-300">
-              <Sparkles className="w-4 h-4" />
-            </div>
-            <div>
-              <h3 className="text-[17px] font-bold tracking-tight">
-                3분 법인설립 사전 진단
-              </h3>
-              <p className="text-[12px] text-blue-200">
-                우리 회사에 가장 유리한 법인 형태와 로드맵을 진단합니다
-              </p>
-            </div>
-          </div>
-          <button
-            type="button"
-            onClick={handleResetAndClose}
-            className="p-1.5 text-slate-300 hover:text-white rounded-lg hover:bg-white/10 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+      <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative overflow-hidden max-h-[92vh] flex flex-col">
+        
+        {/* Close button */}
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="닫기"
+          className="absolute top-5 right-5 p-2 text-slate-400 hover:text-slate-700 hover:bg-slate-100 rounded-lg transition-colors focus:outline-hidden"
+        >
+          <X className="w-5 h-5" />
+        </button>
 
-        {/* Progress Bar */}
-        {!isSubmitted && (
-          <div className="bg-slate-100 h-1.5 w-full">
-            <div
-              className="bg-[#2563EB] h-full transition-all duration-300"
-              style={{ width: `${(currentStep / 4) * 100}%` }}
-            />
-          </div>
-        )}
-
-        <div className="p-6">
-          {isSubmitted ? (
-            /* Success Screen */
-            <div className="text-center py-6">
-              <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto mb-4">
-                <CheckCircle2 className="w-8 h-8" />
-              </div>
-              <h4 className="text-[20px] font-bold text-[#0B1F3A] mb-2">
-                진단 신청이 정상 접수되었습니다!
-              </h4>
-              <p className="text-[14px] text-slate-600 mb-6 leading-relaxed">
-                <span className="font-semibold text-slate-800">{formData.applicantName}</span> 대표님의 맞춤 진단 보고서와 준비 가이드를
-                <br />
-                기재해주신 연락처(<span className="font-semibold text-blue-600">{formData.applicantPhone}</span>)로 15분 내 신속히 안내해 드립니다.
-              </p>
-
-              <div className="bg-[#F7F9FC] p-4 rounded-xl text-left border border-slate-200/80 mb-6 text-[13px] space-y-2">
-                <div className="text-slate-500 font-semibold mb-1">선택하신 진단 요약:</div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">설립 형태:</span>
-                  <span className="font-medium text-slate-800">{formData.businessType}</span>
+        {currentStep <= 4 ? (
+          <div className="flex-1 overflow-y-auto pr-1">
+            {/* Header & Step Tracker */}
+            <div className="mb-6">
+              <div className="flex items-center justify-between text-xs font-bold text-slate-500 mb-2">
+                <div className="flex items-center gap-1.5 text-[#2563EB]">
+                  <Sparkles className="w-3.5 h-3.5" />
+                  <span>3분 무료 법인설립 진단</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">주요 업종:</span>
-                  <span className="font-medium text-slate-800">{formData.industry}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">자본금 규모:</span>
-                  <span className="font-medium text-slate-800">{formData.preparedness}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-slate-600">핵심 목표:</span>
-                  <span className="font-medium text-blue-700">{formData.primaryGoal}</span>
+                <div className="flex items-center gap-2 mr-6">
+                  <span className="text-sm font-black text-[#2563EB]">{currentStep}</span>
+                  <span className="text-slate-400">/ 4</span>
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={handleResetAndClose}
-                className="w-full py-3.5 px-4 rounded-xl text-[15px] font-bold text-white bg-[#2563EB] hover:bg-blue-700 transition-colors"
-              >
-                확인 및 닫기
-              </button>
-            </div>
-          ) : (
-            <div>
-              {/* Step Indicators */}
-              <div className="flex items-center justify-between text-[12.5px] font-semibold text-slate-500 mb-5">
-                <span className="text-blue-600">질문 {currentStep} / 4</span>
-                <span>
-                  {currentStep === 1 && '설립 형태 선택'}
-                  {currentStep === 2 && '사업 업종 선택'}
-                  {currentStep === 3 && '예상 자본금 규모'}
-                  {currentStep === 4 && '핵심 목표 및 결과 수령'}
-                </span>
+              {/* Progress bar */}
+              <div className="w-full bg-slate-100 h-2 rounded-full overflow-hidden">
+                <div
+                  className="bg-[#2563EB] h-full rounded-full transition-all duration-300"
+                  style={{ width: `${progressPercent}%` }}
+                />
               </div>
+            </div>
 
-              {/* Step 1: 설립 형태 */}
-              {currentStep === 1 && (
-                <div className="space-y-4">
-                  <h4 className="text-[17px] font-bold text-[#0B1F3A]">
-                    현재 준비 중이신 법인설립 형태는 무엇인가요?
-                  </h4>
-                  <div className="space-y-2.5">
-                    {[
-                      { label: '예비창업자 신규 법인설립', desc: '새로운 사업 아이템으로 첫 법인을 설립하는 경우' },
-                      { label: '개인사업자 법인전환', desc: '현재 개인사업자 매출 증가로 종합소득세 절감이 필요한 경우' },
-                      { label: '기존 법인의 신규 자회사/별도법인 설립', desc: '사업 다각화 또는 별도 브랜드를 분리하는 경우' },
-                      { label: '외국인 투자법인 또는 지사 설립', desc: '해외 본사 지사 또는 외국인 투자 형태' },
-                    ].map((item) => (
+            {/* Error Message */}
+            {errorMsg && (
+              <div className="mb-4 p-3 rounded-xl bg-red-50 border border-red-200 text-xs font-semibold text-red-600">
+                {errorMsg}
+              </div>
+            )}
+
+            {/* QUESTION 1 */}
+            {currentStep === 1 && (
+              <div>
+                <h3 id="diagnosis-modal-title" className="text-xl font-black text-[#0B1F3A] mb-1">
+                  현재 어떤 상황인가요?
+                </h3>
+                <p className="text-xs text-slate-500 mb-4">현재 가장 가까운 사업 형태를 선택해주세요.</p>
+                <div className="space-y-2.5">
+                  {q1Options.map((opt) => {
+                    const isSelected = formData.currentSituation === opt;
+                    return (
                       <button
-                        key={item.label}
+                        key={opt}
                         type="button"
-                        onClick={() => setFormData({ ...formData, businessType: item.label })}
-                        className={`w-full p-3.5 rounded-xl text-left border transition-all flex items-start justify-between ${
-                          formData.businessType === item.label
-                            ? 'bg-blue-50/90 border-blue-500 ring-2 ring-blue-500/20'
-                            : 'bg-white border-slate-200 hover:bg-slate-50'
+                        onClick={() => {
+                          setFormData((prev) => ({ ...prev, currentSituation: opt }));
+                          setErrorMsg(null);
+                        }}
+                        className={`w-full min-h-[52px] py-3.5 px-4 rounded-xl border text-left font-bold text-sm flex items-center justify-between transition-all ${
+                          isSelected
+                            ? 'border-[#2563EB] bg-blue-50/70 text-[#0B1F3A] ring-2 ring-blue-500/20'
+                            : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
                         }`}
                       >
-                        <div>
-                          <div className="text-[14.5px] font-bold text-slate-800">{item.label}</div>
-                          <div className="text-[12.5px] text-slate-500 mt-0.5">{item.desc}</div>
+                        <span>{opt}</span>
+                        <div className={`w-4 h-4 rounded-full flex items-center justify-center border ${
+                          isSelected ? 'border-[#2563EB] bg-[#2563EB] text-white' : 'border-slate-300'
+                        }`}>
+                          {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
                         </div>
-                        {formData.businessType === item.label && (
-                          <Check className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-                        )}
                       </button>
-                    ))}
-                  </div>
+                    );
+                  })}
                 </div>
-              )}
-
-              {/* Step 2: 업종 선택 */}
-              {currentStep === 2 && (
-                <div className="space-y-4">
-                  <h4 className="text-[17px] font-bold text-[#0B1F3A]">
-                    영위하실 주요 사업 업종(분야)은 무엇인가요?
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                    {[
-                      'IT · 소프트웨어 · 플랫폼',
-                      '전자상거래 · 도소매 유통',
-                      '제조업 · 하드웨어 생산',
-                      '전문 서비스 · 교육 · 컨설팅',
-                      '바이오 · 헬스케어 · 뷰티',
-                      '건설 · 부동산 · 임대업',
-                      '외식업 · 프랜차이즈',
-                      '기타 신사업 분야',
-                    ].map((ind) => (
-                      <button
-                        key={ind}
-                        type="button"
-                        onClick={() => setFormData({ ...formData, industry: ind })}
-                        className={`p-3.5 rounded-xl text-left border text-[14px] font-semibold transition-all flex items-center justify-between ${
-                          formData.industry === ind
-                            ? 'bg-blue-50 border-blue-500 text-blue-700 ring-2 ring-blue-500/20'
-                            : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
-                        }`}
-                      >
-                        <span>{ind}</span>
-                        {formData.industry === ind && <Check className="w-4 h-4 text-blue-600" />}
-                      </button>
-                    ))}
-                  </div>
-                  <p className="text-[12px] text-slate-500">
-                    * 업종에 따라 벤처기업 인증 및 중기부 초기 창업패키지 등 정책 혜택이 상이합니다.
-                  </p>
-                </div>
-              )}
-
-              {/* Step 3: 예상 자본금 */}
-              {currentStep === 3 && (
-                <div className="space-y-4">
-                  <h4 className="text-[17px] font-bold text-[#0B1F3A]">
-                    예상하시는 초기 자본금 규모는 어느 정도인가요?
-                  </h4>
-                  <div className="space-y-2.5">
-                    {[
-                      { label: '100만 ~ 500만 원 (소자본 창업)', desc: '법적 최저자본금 제한 없음, 빠른 설립에 유리' },
-                      { label: '1,000만 ~ 3,000만 원 (일반 권장)', desc: '초기 신용도 및 법인카드, 통장 개설에 가장 안정적' },
-                      { label: '5,000만 원 이상 (규모화/입찰)', desc: '공공입찰, 인허가 요건 또는 정책자금 신청 시 선호' },
-                      { label: '자본금 규모 아직 고민 중', desc: '전문가 상담 후 업종별 최적 자본금 산정 희망' },
-                    ].map((item) => (
-                      <button
-                        key={item.label}
-                        type="button"
-                        onClick={() => setFormData({ ...formData, preparedness: item.label })}
-                        className={`w-full p-3.5 rounded-xl text-left border transition-all flex items-start justify-between ${
-                          formData.preparedness === item.label
-                            ? 'bg-blue-50/90 border-blue-500 ring-2 ring-blue-500/20'
-                            : 'bg-white border-slate-200 hover:bg-slate-50'
-                        }`}
-                      >
-                        <div>
-                          <div className="text-[14.5px] font-bold text-slate-800">{item.label}</div>
-                          <div className="text-[12.5px] text-slate-500 mt-0.5">{item.desc}</div>
-                        </div>
-                        {formData.preparedness === item.label && (
-                          <Check className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {/* Step 4: 목표 및 연락처 입력 */}
-              {currentStep === 4 && (
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  <h4 className="text-[17px] font-bold text-[#0B1F3A]">
-                    설립 이후 가장 우선적으로 준비하고 싶은 사항은?
-                  </h4>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 mb-4">
-                    {[
-                      '설립 직후 초기 정책자금/정부지원금 연계',
-                      '벤처기업 확인서 및 기업부설연구소 인증',
-                      '주주 지분배분 및 정관 특약 절세 최적화',
-                      '신속한 사업자등록 및 법인통장 개설',
-                    ].map((goal) => (
-                      <button
-                        key={goal}
-                        type="button"
-                        onClick={() => setFormData({ ...formData, primaryGoal: goal })}
-                        className={`p-3 rounded-xl text-left border text-[13px] font-medium transition-all ${
-                          formData.primaryGoal === goal
-                            ? 'bg-blue-50 border-blue-500 text-blue-700 font-bold ring-2 ring-blue-500/20'
-                            : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
-                        }`}
-                      >
-                        {goal}
-                      </button>
-                    ))}
-                  </div>
-
-                  <div className="pt-3 border-t border-slate-200">
-                    <h5 className="text-[14px] font-bold text-slate-800 mb-2">
-                      진단 결과 및 맞춤 가이드를 받아보실 연락처
-                    </h5>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                      <div>
-                        <label className="block text-[12px] font-semibold text-slate-600 mb-1">
-                          대표자 성함
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder="홍길동"
-                          value={formData.applicantName}
-                          onChange={(e) => setFormData({ ...formData, applicantName: e.target.value })}
-                          className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[14px] focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-[12px] font-semibold text-slate-600 mb-1">
-                          휴대폰 번호
-                        </label>
-                        <input
-                          type="tel"
-                          required
-                          placeholder="010-1234-5678"
-                          value={formData.applicantPhone}
-                          onChange={(e) => setFormData({ ...formData, applicantPhone: e.target.value })}
-                          className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-[14px] focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-1.5 text-[12px] text-slate-500 pt-1">
-                    <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>입력하신 정보는 비즈온탑 진단 및 맞춤 상담 목적으로만 안전하게 사용됩니다.</span>
-                  </div>
-
-                  <div className="flex items-center gap-2.5 pt-2">
-                    <button
-                      type="button"
-                      onClick={handleBack}
-                      className="px-4 py-3 rounded-xl border border-slate-200 text-slate-600 font-semibold text-[14px] hover:bg-slate-50 flex items-center gap-1"
-                    >
-                      <ArrowLeft className="w-4 h-4" />
-                      <span>이전</span>
-                    </button>
-                    <button
-                      type="submit"
-                      className="flex-1 py-3.5 rounded-xl bg-[#2563EB] hover:bg-blue-700 text-white font-bold text-[15px] transition-colors flex items-center justify-center gap-2 shadow-sm"
-                    >
-                      <span>맞춤 진단 리포트 받기</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </form>
-              )}
-
-              {/* Navigation for steps 1-3 */}
-              {currentStep < 4 && (
-                <div className="flex items-center justify-between pt-5 mt-4 border-t border-slate-100">
-                  <button
-                    type="button"
-                    onClick={handleBack}
-                    disabled={currentStep === 1}
-                    className={`px-4 py-2.5 rounded-lg text-[14px] font-medium flex items-center gap-1 ${
-                      currentStep === 1
-                        ? 'text-slate-300 cursor-not-allowed'
-                        : 'text-slate-600 hover:bg-slate-100'
-                    }`}
-                  >
-                    <ArrowLeft className="w-4 h-4" />
-                    <span>이전</span>
-                  </button>
-
+                <div className="mt-6 pt-4 border-t border-slate-100 flex justify-end">
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="px-6 py-2.5 rounded-xl bg-[#2563EB] hover:bg-blue-700 text-white text-[14px] font-bold flex items-center gap-1.5 transition-colors shadow-xs"
+                    className="min-h-[52px] inline-flex items-center gap-2 bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-sm px-6 py-3 rounded-xl shadow-md transition-all"
                   >
-                    <span>다음 단계</span>
+                    <span>다음 질문으로</span>
                     <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
-              )}
+              </div>
+            )}
+
+            {/* QUESTION 2 */}
+            {currentStep === 2 && (
+              <div>
+                <h3 className="text-xl font-black text-[#0B1F3A] mb-1">
+                  법인설립 또는 상담을 원하는 가장 큰 이유는 무엇인가요?
+                </h3>
+                <p className="text-xs text-slate-500 mb-4">원하시는 핵심 목적을 선택해주세요.</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {q2Options.map((opt) => {
+                    const isSelected = formData.primaryReason === opt;
+                    return (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => {
+                          setFormData((prev) => ({ ...prev, primaryReason: opt }));
+                          setErrorMsg(null);
+                        }}
+                        className={`min-h-[52px] py-3 px-3.5 rounded-xl border text-left font-bold text-xs sm:text-sm flex items-center justify-between transition-all ${
+                          isSelected
+                            ? 'border-[#2563EB] bg-blue-50/70 text-[#0B1F3A] ring-2 ring-blue-500/20'
+                            : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
+                        }`}
+                      >
+                        <span>{opt}</span>
+                        <div className={`w-4 h-4 rounded-full flex items-center justify-center border shrink-0 ${
+                          isSelected ? 'border-[#2563EB] bg-[#2563EB] text-white' : 'border-slate-300'
+                        }`}>
+                          {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    className="min-h-[52px] px-4 py-3 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50"
+                  >
+                    이전으로
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className="min-h-[52px] inline-flex items-center gap-2 bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-sm px-6 py-3 rounded-xl shadow-md transition-all"
+                  >
+                    <span>다음 질문으로</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* QUESTION 3 */}
+            {currentStep === 3 && (
+              <div>
+                <h3 className="text-xl font-black text-[#0B1F3A] mb-1">
+                  언제쯤 진행하고 싶으신가요?
+                </h3>
+                <p className="text-xs text-slate-500 mb-4">희망하시는 예상 일정을 선택해주세요.</p>
+                <div className="space-y-2.5">
+                  {q3Options.map((opt) => {
+                    const isSelected = formData.timeline === opt;
+                    return (
+                      <button
+                        key={opt}
+                        type="button"
+                        onClick={() => {
+                          setFormData((prev) => ({ ...prev, timeline: opt }));
+                          setErrorMsg(null);
+                        }}
+                        className={`w-full min-h-[52px] py-3.5 px-4 rounded-xl border text-left font-bold text-sm flex items-center justify-between transition-all ${
+                          isSelected
+                            ? 'border-[#2563EB] bg-blue-50/70 text-[#0B1F3A] ring-2 ring-blue-500/20'
+                            : 'border-slate-200 bg-white hover:bg-slate-50 text-slate-700'
+                        }`}
+                      >
+                        <span>{opt}</span>
+                        <div className={`w-4 h-4 rounded-full flex items-center justify-center border ${
+                          isSelected ? 'border-[#2563EB] bg-[#2563EB] text-white' : 'border-slate-300'
+                        }`}>
+                          {isSelected && <Check className="w-3 h-3 stroke-[3]" />}
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    className="min-h-[52px] px-4 py-3 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50"
+                  >
+                    이전으로
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleNext}
+                    className="min-h-[52px] inline-flex items-center gap-2 bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-sm px-6 py-3 rounded-xl shadow-md transition-all"
+                  >
+                    <span>마지막 단계로</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {/* QUESTION 4 */}
+            {currentStep === 4 && (
+              <form onSubmit={handleSubmit}>
+                <h3 className="text-xl font-black text-[#0B1F3A] mb-1">
+                  상담받을 정보를 입력해주세요.
+                </h3>
+                <p className="text-xs text-slate-500 mb-4">입력하신 정보로 맞춤 진단 결과를 전달해드립니다.</p>
+
+                <div className="space-y-3.5">
+                  <div>
+                    <label className="block text-xs font-bold text-[#0B1F3A] mb-1">
+                      이름 <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.name}
+                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                      placeholder="홍길동"
+                      className="w-full min-h-[46px] px-3.5 rounded-xl border border-slate-300 focus:border-[#2563EB] text-sm outline-hidden"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#0B1F3A] mb-1">
+                      연락처 <span className="text-red-500">*</span>
+                    </label>
+                    <input
+                      type="tel"
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="010-0000-0000"
+                      className="w-full min-h-[46px] px-3.5 rounded-xl border border-slate-300 focus:border-[#2563EB] text-sm outline-hidden"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-slate-700 mb-1">
+                      회사명 또는 예정 법인명 <span className="text-slate-400 font-normal">(선택)</span>
+                    </label>
+                    <input
+                      type="text"
+                      value={formData.companyName}
+                      onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
+                      placeholder="미정시 공란"
+                      className="w-full min-h-[46px] px-3.5 rounded-xl border border-slate-300 focus:border-[#2563EB] text-sm outline-hidden"
+                    />
+                  </div>
+
+                  <div>
+                    <label className="block text-xs font-bold text-[#0B1F3A] mb-1.5">
+                      희망 상담방법
+                    </label>
+                    <div className="grid grid-cols-3 gap-2">
+                      {[
+                        { id: '전화', label: '전화', icon: <Phone className="w-3.5 h-3.5" /> },
+                        { id: '카카오톡', label: '카카오톡', icon: <MessageSquare className="w-3.5 h-3.5" /> },
+                        { id: '문자', label: '문자', icon: <Smartphone className="w-3.5 h-3.5" /> },
+                      ].map((m) => (
+                        <button
+                          key={m.id}
+                          type="button"
+                          onClick={() => setFormData({ ...formData, contactMethod: m.id as any })}
+                          className={`min-h-[44px] py-2 px-2.5 rounded-xl border text-xs font-bold flex items-center justify-center gap-1.5 ${
+                            formData.contactMethod === m.id
+                              ? 'border-[#2563EB] bg-blue-50 text-[#2563EB]'
+                              : 'border-slate-200 bg-white text-slate-700'
+                          }`}
+                        >
+                          {m.icon}
+                          <span>{m.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  <div className="pt-1">
+                    <label className="flex items-start gap-2 cursor-pointer text-xs text-slate-600">
+                      <input
+                        type="checkbox"
+                        checked={formData.privacyAgreed}
+                        onChange={(e) => setFormData({ ...formData, privacyAgreed: e.target.checked })}
+                        className="mt-0.5 rounded border-slate-300 text-[#2563EB] w-4 h-4"
+                      />
+                      <span>[필수] 개인정보 수집 및 이용에 동의합니다.</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-slate-100 flex justify-between gap-2">
+                  <button
+                    type="button"
+                    onClick={handlePrev}
+                    className="min-h-[52px] px-4 py-3 rounded-xl border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50"
+                  >
+                    이전으로
+                  </button>
+                  <button
+                    type="submit"
+                    className="min-h-[52px] flex-1 inline-flex items-center justify-center gap-2 bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-sm px-6 py-3 rounded-xl shadow-md transition-all"
+                  >
+                    <span>무료상담 신청하기</span>
+                    <ArrowRight className="w-4 h-4" />
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        ) : (
+          /* SUCCESS SCREEN */
+          <div className="text-center py-6">
+            <div className="w-16 h-16 rounded-full bg-emerald-50 border-2 border-emerald-200 flex items-center justify-center mx-auto mb-4 text-emerald-600">
+              <CheckCircle2 className="w-9 h-9 stroke-[2.5]" />
             </div>
-          )}
-        </div>
+            <h3 className="text-2xl font-black text-[#0B1F3A] mb-2">신청이 완료되었습니다.</h3>
+            <p className="text-xs sm:text-sm text-slate-600 mb-6 leading-relaxed">
+              고객님의 상황을 확인한 후 <br />
+              상담 시 아래 내용을 안내해드립니다.
+            </p>
+
+            <div className="bg-slate-50 rounded-2xl p-4 border border-slate-200 text-left mb-6 max-w-sm mx-auto">
+              <span className="block text-[11px] font-bold text-[#2563EB] uppercase mb-2">
+                상담 시 맞춤 안내 목록
+              </span>
+              <ul className="space-y-1.5">
+                {[
+                  '법인설립 준비사항',
+                  '예상 진행절차',
+                  '필요서류',
+                  '법인 구조 검토',
+                  '설립 이후 준비사항',
+                ].map((item) => (
+                  <li key={item} className="flex items-center gap-2 text-xs font-bold text-slate-700">
+                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-xs font-bold text-[#2563EB] mb-6">
+              <ShieldCheck className="w-4 h-4" />
+              <span>"담당자가 확인 후 연락드립니다."</span>
+            </div>
+
+            <div>
+              <button
+                type="button"
+                onClick={onClose}
+                className="w-full min-h-[48px] bg-slate-800 hover:bg-slate-900 text-white font-bold text-sm py-3 rounded-xl transition-all"
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );

@@ -1,222 +1,167 @@
 import React from 'react';
 import { 
-  Building2, 
-  User, 
+  Scale, 
   AlertCircle, 
-  PhoneCall, 
-  ArrowRight,
-  Sparkles
+  ArrowRight, 
+  CheckCircle, 
+  HelpCircle, 
+  User, 
+  Building, 
+  PhoneCall 
 } from 'lucide-react';
+import { ComparisonItem } from '../types';
 
 interface ComparisonSectionProps {
   onOpenConsultation: () => void;
 }
 
-interface ComparisonRow {
-  category: string;
-  categoryEn: string;
-  soleProprietor: string;
-  soleProprietorDetail: string;
-  corporation: string;
-  corporationDetail: string;
-  highlightCorporate?: boolean;
-}
+const COMPARISON_DATA: ComparisonItem[] = [
+  {
+    category: '설립',
+    soleProprietor: '상대적으로 간단',
+    corporation: '법인등기 절차 필요',
+  },
+  {
+    category: '사업주체',
+    soleProprietor: '개인',
+    corporation: '독립된 법인',
+  },
+  {
+    category: '공동사업',
+    soleProprietor: '공동사업 구조 검토 필요',
+    corporation: '주주 및 지분구조 설계 가능',
+  },
+  {
+    category: '투자',
+    soleProprietor: '투자 구조에 제약이 있을 수 있음',
+    corporation: '지분을 활용한 투자 구조 설계 가능',
+  },
+  {
+    category: '대외거래',
+    soleProprietor: '개인사업자 명의',
+    corporation: '법인 명의',
+  },
+  {
+    category: '기업 성장제도',
+    soleProprietor: '사업 및 제도별 적용 여부 확인',
+    corporation: '다양한 기업지원제도 검토 가능',
+  },
+];
 
-export const ComparisonSection: React.FC<ComparisonSectionProps> = ({ onOpenConsultation }) => {
-  const comparisonData: ComparisonRow[] = [
-    {
-      category: '설립',
-      categoryEn: 'Establishment',
-      soleProprietor: '상대적으로 간단',
-      soleProprietorDetail: '세무서 사업자등록만으로 즉시 개시 가능',
-      corporation: '법인등기 절차 필요',
-      corporationDetail: '정관 작성, 주주·임원 구성, 법원 등기소 등기 필수',
-    },
-    {
-      category: '사업주체',
-      categoryEn: 'Legal Entity',
-      soleProprietor: '개인',
-      soleProprietorDetail: '사업상 모든 채무와 법적 책임이 대표 개인에게 귀속',
-      corporation: '독립된 법인',
-      corporationDetail: '대표자와 분리된 별도 법인격 부여 (유한책임 원칙)',
-      highlightCorporate: true,
-    },
-    {
-      category: '공동사업',
-      categoryEn: 'Co-Founding',
-      soleProprietor: '공동사업 구조 검토 필요',
-      soleProprietorDetail: '공동사업자 등록은 가능하나 지분 분쟁 및 양도 시 세무 복잡',
-      corporation: '주주 및 지분구조 설계 가능',
-      corporationDetail: '주식 비율에 따른 명확한 의결권 및 이익 배분 구조 확립',
-      highlightCorporate: true,
-    },
-    {
-      category: '투자',
-      categoryEn: 'Investment',
-      soleProprietor: '투자 구조에 제약이 있을 수 있음',
-      soleProprietorDetail: '외부 엔젤/VC 지분 투자 유치가 사실상 불가능',
-      corporation: '지분을 활용한 투자 구조 설계 가능',
-      corporationDetail: '신주발행(RCPS, 보통주), 스톡옵션 등 다양한 투자 유치 가능',
-      highlightCorporate: true,
-    },
-    {
-      category: '대외거래',
-      categoryEn: 'External Trust',
-      soleProprietor: '개인사업자 명의',
-      soleProprietorDetail: '대기업 납품, 공공기관 입찰 및 대규모 계약 시 신인도 제약',
-      corporation: '법인 명의',
-      corporationDetail: '독립 회계감사 및 법인 명의 계약으로 높은 공신력 확보',
-      highlightCorporate: true,
-    },
-    {
-      category: '기업 성장제도',
-      categoryEn: 'Growth Programs',
-      soleProprietor: '사업 및 제도별 적용 여부 확인',
-      soleProprietorDetail: '일부 소상공인 정책자금 위주, R&D 및 대형 지원에 한계',
-      corporation: '다양한 기업지원제도 검토 가능',
-      corporationDetail: '벤처기업, 연구소 인증, 중기부 창업패키지, 기보·신보 대형자금',
-      highlightCorporate: true,
-    },
-  ];
-
+export const ComparisonSection: React.FC<ComparisonSectionProps> = ({
+  onOpenConsultation,
+}) => {
   return (
     <section
-      id="conversion"
-      className="w-full bg-[#F4F7FB] py-18 sm:py-24 lg:py-28 border-b border-slate-200/80 scroll-mt-20"
+      id="comparison-section"
+      className="py-16 sm:py-24 bg-[#F0F4F9] border-b border-slate-200/80 transition-colors"
+      aria-label="개인사업자 vs 법인 비교"
     >
-      <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+        
         {/* Section Header */}
-        <div className="text-center max-w-4xl mx-auto mb-14 sm:mb-18">
-          <div
-            id="comparison-eyebrow"
-            className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-100/80 border border-blue-200 text-blue-700 text-[12.5px] sm:text-[13.5px] font-semibold tracking-wider mb-4"
-          >
-            <span className="w-2 h-2 rounded-full bg-blue-600" />
+        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold tracking-wider uppercase bg-white text-[#2563EB] border border-blue-200/80 mb-3.5 shadow-2xs">
+            <Scale className="w-3.5 h-3.5" />
             <span>SOLE PROPRIETOR VS CORPORATION</span>
           </div>
-          <h2
-            id="comparison-main-title"
-            className="text-[32px] sm:text-[42px] md:text-[46px] font-black text-[#0B1F3A] tracking-tight leading-[1.2] mb-5"
-          >
-            개인사업자와 법인,
-            <br />
+
+          <h2 className="text-2xl sm:text-3xl lg:text-[34px] font-black text-[#0B1F3A] tracking-tight leading-tight">
+            개인사업자와 법인, <br className="hidden sm:inline" />
             무엇이 다를까요?
           </h2>
-          <p
-            id="comparison-description"
-            className="text-[16px] sm:text-[18px] text-slate-600 leading-relaxed max-w-3xl mx-auto"
-          >
-            무조건 법인이 좋은 것은 아닙니다.
-            <br className="hidden sm:inline" />
+
+          <p className="mt-3.5 text-base sm:text-[17px] text-slate-600 font-normal leading-relaxed">
+            무조건 법인이 좋은 것은 아닙니다. <br className="hidden sm:inline" />
             현재 사업규모와 향후 계획에 맞는 형태를 선택하는 것이 중요합니다.
           </p>
         </div>
 
-        {/* Comparison Table / Card Container */}
-        <div
-          id="comparison-container"
-          className="bg-white rounded-2xl border border-slate-200/90 shadow-sm overflow-hidden mb-8"
-        >
-          {/* Table Header (Desktop) */}
-          <div className="hidden md:grid grid-cols-12 bg-[#0B1F3A] text-white py-4 px-6 text-[14px] font-bold tracking-wide">
-            <div className="col-span-2 text-slate-300">비교 항목</div>
-            <div className="col-span-5 flex items-center gap-2 text-slate-200 border-l border-slate-700 pl-4">
-              <User className="w-4 h-4 text-slate-400" />
+        {/* Comparison Table / Box (Desktop & Tablet) */}
+        <div className="bg-white rounded-2xl border border-slate-200/90 shadow-md shadow-slate-200/40 overflow-hidden mb-8">
+          
+          {/* Header Row */}
+          <div className="grid grid-cols-12 bg-slate-50/90 border-b border-slate-200 text-sm sm:text-base font-bold text-[#0B1F3A]">
+            <div className="col-span-4 sm:col-span-3 py-4 sm:py-5 px-4 sm:px-6 flex items-center justify-center sm:justify-start text-slate-500 font-semibold text-xs sm:text-sm">
+              비교 항목
+            </div>
+            
+            <div className="col-span-4 sm:col-span-4 py-4 sm:py-5 px-3 sm:px-6 flex items-center justify-center sm:justify-start gap-2 bg-slate-100/60 border-l border-slate-200 text-slate-700">
+              <User className="w-4 h-4 text-slate-500 hidden sm:inline" />
               <span>개인사업자</span>
             </div>
-            <div className="col-span-5 flex items-center gap-2 text-blue-300 border-l border-slate-700 pl-4">
-              <Building2 className="w-4 h-4 text-blue-400" />
-              <span className="text-white">법인 (주식회사)</span>
-              <span className="text-[11px] bg-blue-600 text-white px-2 py-0.5 rounded-full font-semibold">
-                기업성장 유리
+
+            <div className="col-span-4 sm:col-span-5 py-4 sm:py-5 px-3 sm:px-6 flex items-center justify-center sm:justify-start gap-2 bg-blue-50/70 border-l border-blue-100 text-[#0B1F3A]">
+              <Building className="w-4 h-4 text-[#2563EB] hidden sm:inline" />
+              <span className="text-[#2563EB]">법인 (주식회사 등)</span>
+              <span className="hidden lg:inline text-[11px] font-semibold text-white bg-[#2563EB] px-2 py-0.5 rounded-full">
+                성장 지향
               </span>
             </div>
           </div>
 
-          {/* Table Rows */}
+          {/* Rows */}
           <div className="divide-y divide-slate-100">
-            {comparisonData.map((row, idx) => (
+            {COMPARISON_DATA.map((item, index) => (
               <div
-                key={row.category}
-                className={`grid grid-cols-1 md:grid-cols-12 p-4 sm:p-5 md:py-5 md:px-6 transition-colors ${
-                  idx % 2 === 1 ? 'bg-[#FAFCFF]' : 'bg-white'
-                } hover:bg-blue-50/30`}
+                key={item.category}
+                id={`comparison-row-${index}`}
+                className="grid grid-cols-12 hover:bg-slate-50/50 transition-colors text-xs sm:text-[15px]"
               >
-                {/* Category Column */}
-                <div className="col-span-2 flex md:flex-col items-center md:items-start justify-between md:justify-center mb-2 md:mb-0">
-                  <span className="text-[15px] font-bold text-[#0B1F3A]">
-                    {row.category}
-                  </span>
-                  <span className="text-[11.5px] text-slate-400 md:mt-0.5">
-                    {row.categoryEn}
-                  </span>
+                {/* Category Name */}
+                <div className="col-span-4 sm:col-span-3 py-4 sm:py-4.5 px-3 sm:px-6 font-bold text-[#0B1F3A] flex items-center bg-white">
+                  <span className="w-1.5 h-1.5 rounded-full bg-slate-300 mr-2 hidden sm:inline-block" />
+                  {item.category}
                 </div>
 
-                {/* Sole Proprietor Column */}
-                <div className="col-span-5 md:border-l md:border-slate-100 md:pl-5 pr-2 py-1.5 md:py-0 mb-3 md:mb-0 bg-slate-50/70 md:bg-transparent rounded-lg md:rounded-none p-3 md:p-0">
-                  <div className="md:hidden text-[12px] font-semibold text-slate-500 mb-1 flex items-center gap-1">
-                    <User className="w-3.5 h-3.5 text-slate-400" />
-                    개인사업자
-                  </div>
-                  <div className="text-[15px] font-bold text-slate-700 mb-0.5">
-                    {row.soleProprietor}
-                  </div>
-                  <div className="text-[12.5px] text-slate-500 leading-snug">
-                    {row.soleProprietorDetail}
-                  </div>
+                {/* Sole Proprietor Value */}
+                <div className="col-span-4 sm:col-span-4 py-4 sm:py-4.5 px-3 sm:px-6 text-slate-600 font-medium flex items-center border-l border-slate-100 bg-slate-50/20">
+                  {item.soleProprietor}
                 </div>
 
-                {/* Corporation Column */}
-                <div className="col-span-5 md:border-l md:border-slate-100 md:pl-5 py-1.5 md:py-0 bg-blue-50/50 md:bg-transparent rounded-lg md:rounded-none p-3 md:p-0 border border-blue-100 md:border-0">
-                  <div className="md:hidden text-[12px] font-semibold text-blue-700 mb-1 flex items-center gap-1">
-                    <Building2 className="w-3.5 h-3.5 text-blue-600" />
-                    법인 (주식회사)
-                  </div>
-                  <div className="text-[15px] font-bold text-blue-950 flex items-center gap-1.5 mb-0.5">
-                    <span>{row.corporation}</span>
-                  </div>
-                  <div className="text-[12.5px] text-slate-600 leading-snug">
-                    {row.corporationDetail}
-                  </div>
+                {/* Corporation Value */}
+                <div className="col-span-4 sm:col-span-5 py-4 sm:py-4.5 px-3 sm:px-6 font-semibold text-[#0B1F3A] flex items-center border-l border-slate-100 bg-blue-50/20">
+                  <span className="text-[#2563EB] mr-1.5 hidden sm:inline">✔</span>
+                  {item.corporation}
                 </div>
               </div>
             ))}
           </div>
+
         </div>
 
-        {/* Important Box */}
-        <div
-          id="comparison-important-box"
-          className="bg-white rounded-2xl p-6 sm:p-7 border border-amber-200/90 shadow-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-5 mb-10"
-        >
-          <div className="flex items-start gap-4">
-            <div className="w-11 h-11 rounded-xl bg-amber-100/90 text-amber-700 flex items-center justify-center shrink-0 mt-0.5">
-              <AlertCircle className="w-6 h-6" />
+        {/* Important Notice Box as requested:
+            "법인이 항상 유리한 것은 아닙니다."
+            현재 매출, 사업형태, 주주구성, 향후 투자계획 등을 함께 확인한 후 결정하는 것이 좋습니다. */}
+        <div className="bg-amber-50/80 border border-amber-200/90 rounded-2xl p-6 sm:p-7 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5 mb-8 shadow-2xs">
+          <div className="flex items-start gap-3.5">
+            <div className="p-2.5 rounded-xl bg-amber-100 text-amber-800 shrink-0 mt-0.5 sm:mt-0">
+              <AlertCircle className="w-5 h-5" />
             </div>
             <div>
-              <h4 className="text-[16.5px] sm:text-[18px] font-bold text-[#0B1F3A] mb-1 flex items-center gap-2">
-                <span>"법인이 항상 유리한 것은 아닙니다."</span>
-              </h4>
-              <p className="text-[14px] text-slate-600 leading-relaxed">
+              <h3 className="text-base sm:text-lg font-black text-amber-950 tracking-tight">
+                "법인이 항상 유리한 것은 아닙니다."
+              </h3>
+              <p className="text-xs sm:text-sm text-amber-900/90 font-medium mt-1 leading-relaxed">
                 현재 매출, 사업형태, 주주구성, 향후 투자계획 등을 함께 확인한 후 결정하는 것이 좋습니다.
-                <br className="hidden sm:inline" />
-                비즈온탑 전문 컨설턴트가 대표님의 현 사업 상황을 객관적으로 분석해 최적의 방향을 추천해 드립니다.
               </p>
             </div>
           </div>
 
-          {/* Section 2 CTA */}
-          <button
-            id="comparison-cta-btn"
-            type="button"
-            onClick={onOpenConsultation}
-            className="shrink-0 w-full md:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl text-[15px] font-bold text-white bg-[#2563EB] hover:bg-blue-700 active:bg-blue-800 shadow-sm hover:shadow-md transition-all cursor-pointer focus:ring-4 focus:ring-blue-500/20"
-          >
-            <PhoneCall className="w-4 h-4" />
-            <span>무료상담 신청하기</span>
-            <ArrowRight className="w-4 h-4" />
-          </button>
+          <div className="w-full sm:w-auto shrink-0">
+            {/* CTA Button: [법인설립 상담받기] */}
+            <button
+              type="button"
+              id="comparison-cta-consultation"
+              onClick={onOpenConsultation}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#2563EB] hover:bg-[#1d4ed8] active:bg-[#1e40af] text-white font-bold text-sm sm:text-base px-6 py-3.5 rounded-xl shadow-sm hover:shadow-md transition-all duration-200 focus:outline-hidden focus:ring-2 focus:ring-[#2563EB]/40"
+            >
+              <PhoneCall className="w-4 h-4 text-white" />
+              <span>법인설립 상담받기</span>
+            </button>
+          </div>
         </div>
+
       </div>
     </section>
   );

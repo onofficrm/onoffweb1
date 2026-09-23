@@ -1,157 +1,156 @@
 import React from 'react';
-import { Building2, ShieldCheck, Mail, Phone, Clock } from 'lucide-react';
+import { PhoneCall, ShieldCheck, ArrowRight, ExternalLink } from 'lucide-react';
 
 interface FooterProps {
   onOpenConsultation: () => void;
   onOpenDiagnosis: () => void;
 }
 
-export const Footer: React.FC<FooterProps> = ({ onOpenConsultation, onOpenDiagnosis }) => {
-  const menuLinks = [
-    { label: '법인설립', href: '#incorporation' },
-    { label: '법인전환', href: '#comparison' },
-    { label: '진행사례', href: '#cases' },
-    { label: '기업지원', href: '#post-support' },
-    { label: '3분 무료진단', href: '#diagnosis' },
-    { label: '최신정보', href: '#insights' },
-    { label: 'FAQ', href: '#faq' },
+export const Footer: React.FC<FooterProps> = ({
+  onOpenConsultation,
+  onOpenDiagnosis,
+}) => {
+  const footerNavLinks = [
+    { label: '법인설립', href: '#how-it-works-section' },
+    { label: '법인전환', href: '#consulting-cases-section' },
+    { label: '기업지원', href: '#after-incorporation-section' },
+    { label: '진행사례', href: '#consulting-cases-section' },
+    { label: '정보센터', href: '#business-insights-section' },
+    { label: '회사소개', href: '#trust-section' },
   ];
 
-  const handleScrollTo = (href: string) => {
-    const id = href.replace('#', '');
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <footer id="main-footer" className="w-full bg-[#0B1F3A] text-white pt-16 pb-24 sm:pb-16 border-t border-slate-800">
-      <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 pb-12 border-b border-slate-800/80">
-          {/* Left: 비즈온탑 로고 & 설명 */}
-          <div className="md:col-span-4">
-            <div className="flex items-center gap-2.5 mb-3.5">
-              <div className="w-9 h-9 rounded-xl bg-blue-600 flex items-center justify-center text-white font-bold shadow-xs">
-                <Building2 className="w-5 h-5" />
+    <footer 
+      id="site-footer"
+      className="bg-[#071426] text-slate-400 text-xs border-t border-slate-800/80 pt-14 pb-24 lg:pb-14"
+      aria-label="사이트 푸터 정보"
+    >
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Top: Logo, Description & Menu Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-12 border-b border-slate-800/90">
+          
+          {/* Left Block: Logo & Description (5 Cols) */}
+          <div className="lg:col-span-5 space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-xl bg-[#2563EB] flex items-center justify-center text-white shadow-sm shadow-blue-500/20">
+                <svg
+                  className="w-5 h-5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M4 19L12 5L20 19H14.5L12 14.5L9.5 19H4Z" fill="currentColor" />
+                  <path d="M12 9.5L15 15H9L12 9.5Z" fill="#F4A62A" />
+                </svg>
               </div>
-              <div className="flex items-baseline gap-1.5">
-                <span className="text-[21px] font-black tracking-tight text-white">비즈온탑</span>
-                <span className="text-[10.5px] font-bold text-blue-400 bg-blue-950/80 px-2 py-0.5 rounded-sm border border-blue-800/50">
-                  BIZ ON TOP
-                </span>
+              <div className="flex flex-col">
+                <span className="text-xl font-black text-white tracking-tight">비즈온탑</span>
+                <span className="text-[11px] text-blue-300 font-semibold tracking-wider uppercase">BIZONTOP CORP</span>
               </div>
             </div>
-            <p className="text-[15px] font-bold text-white mb-2">
-              법인설립부터 기업성장까지 비즈온탑이 함께합니다.
+
+            <p className="text-sm text-slate-300 font-normal leading-relaxed max-w-sm">
+              법인설립부터 기업성장까지 <br />
+              비즈온탑이 함께합니다.
             </p>
-            <p className="text-[13.5px] text-slate-400 leading-relaxed max-w-sm mb-4">
-              창업 초기 지분 설계와 정관 작성, 전자등기부터 설립 후 정책자금과 기업인증까지 
-              기업의 전 주기를 함께하는 전문 컨설팅 파트너입니다.
-            </p>
-            <div className="flex items-center gap-2 text-[12.5px] text-slate-400 font-medium">
-              <ShieldCheck className="w-4 h-4 text-blue-400 shrink-0" />
-              <span>법무사 · 세무사 · 전문 컨설턴트 원스톱 협력 시스템</span>
-            </div>
-          </div>
 
-          {/* Center: 메뉴 6개 (법인설립, 법인전환, 기업지원, 진행사례, 정보센터, 회사소개) */}
-          <div className="md:col-span-3 text-[14px]">
-            <h4 className="font-bold text-white mb-3.5 text-[14.5px] tracking-wide">
-              바로가기
-            </h4>
-            <ul className="space-y-2.5 text-slate-400">
-              {menuLinks.map((item) => (
-                <li key={item.label}>
-                  <button
-                    type="button"
-                    onClick={() => handleScrollTo(item.href)}
-                    className="hover:text-blue-400 text-left transition-colors cursor-pointer"
-                  >
-                    {item.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Right: 회사정보 영역 (정확한 Placeholder 처리, 임의 번호 조작 금지) */}
-          <div className="md:col-span-5 text-[13px] text-slate-400">
-            <h4 className="font-bold text-white mb-3.5 text-[14.5px] tracking-wide">
-              회사 정보
-            </h4>
-            <div className="space-y-2 mb-4 bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5">
-                <div>
-                  <span className="text-slate-500">회사명: </span>
-                  <span className="text-slate-300 font-medium">(주)비즈온탑</span>
-                </div>
-                <div>
-                  <span className="text-slate-500">대표자: </span>
-                  <span className="text-slate-300 font-medium">대표자명 [등록예정]</span>
-                </div>
-                <div>
-                  <span className="text-slate-500">사업자등록번호: </span>
-                  <span className="text-slate-300 font-medium">[사업자등록번호 준비중]</span>
-                </div>
-                <div>
-                  <span className="text-slate-500">통신판매업신고: </span>
-                  <span className="text-slate-300 font-medium">[신고 준비중]</span>
-                </div>
-              </div>
-              <div className="pt-1 text-[12.5px]">
-                <span className="text-slate-500">주소: </span>
-                <span className="text-slate-300 font-medium">서울특별시 강남구 테헤란로 일원 (사업장 소재지 준비중)</span>
-              </div>
-              <div className="pt-1 flex flex-wrap items-center gap-x-4 gap-y-1 text-[12.5px]">
-                <div>
-                  <span className="text-slate-500">대표전화: </span>
-                  <span className="text-slate-300 font-bold">1544-0000 (온라인 상담 상시 접수)</span>
-                </div>
-                <div>
-                  <span className="text-slate-500">이메일: </span>
-                  <span className="text-slate-300">support@bizontop.co.kr</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="pt-2 flex items-center gap-2.5">
               <button
                 type="button"
                 onClick={onOpenDiagnosis}
-                className="px-3.5 py-1.5 rounded-lg bg-blue-600/30 hover:bg-blue-600/50 text-blue-300 hover:text-white border border-blue-500/30 text-[12.5px] font-semibold transition-colors cursor-pointer"
+                className="px-3.5 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 hover:text-white font-bold text-xs transition-colors"
               >
                 3분 법인설립 진단하기
               </button>
               <button
                 type="button"
                 onClick={onOpenConsultation}
-                className="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 text-[12.5px] font-semibold transition-colors cursor-pointer"
+                className="px-3.5 py-2 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] text-white font-bold text-xs transition-colors"
               >
                 무료상담 신청하기
               </button>
             </div>
           </div>
-        </div>
 
-        {/* Bottom: 개인정보처리방침 / 이용약관 / Copyright © BizOnTop. */}
-        <div className="pt-6 text-[12px] text-slate-500 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <div className="flex items-center gap-4 text-slate-400 font-medium">
-            <a href="#privacy" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">
-              개인정보처리방침
-            </a>
-            <span className="text-slate-700">|</span>
-            <a href="#terms" onClick={(e) => e.preventDefault()} className="hover:text-white transition-colors">
-              이용약관
-            </a>
-            <span className="text-slate-700">|</span>
-            <span className="text-slate-500">상담운영시간: 평일 09:30 ~ 18:00</span>
+          {/* Center-Right Block: Navigation Menu (3 Cols) */}
+          <div className="lg:col-span-3">
+            <h4 className="text-white font-bold text-sm mb-3.5 tracking-tight">
+              바로가기 메뉴
+            </h4>
+            <ul className="grid grid-cols-2 gap-y-2.5 gap-x-4 text-sm">
+              {footerNavLinks.map((item) => (
+                <li key={item.label}>
+                  <a
+                    href={item.href}
+                    className="text-slate-300 hover:text-white hover:underline transition-colors"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <p className="text-slate-400 font-medium">
-            Copyright © BizOnTop. All Rights Reserved.
+          {/* Right Block: Consultation Hours (4 Cols) */}
+          <div className="lg:col-span-4 space-y-2.5">
+            <h4 className="text-white font-bold text-sm mb-3 tracking-tight">
+              전문가 상담센터
+            </h4>
+            <p className="text-xs text-slate-300 leading-relaxed">
+              온라인 3분 진단 및 무료상담 신청은 24시간 상시 접수 가능하며, 전담 매니저 확인 후 신속하게 연락드립니다.
+            </p>
+            <div className="p-3.5 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1 text-slate-300">
+              <div className="text-xs font-semibold text-white">상담 운영시간: 평일 09:30 ~ 18:30</div>
+              <div className="text-[11px] text-slate-400">점심시간: 12:00 ~ 13:00 (주말 및 공휴일 휴무)</div>
+            </div>
+          </div>
+
+        </div>
+
+        {/* Middle: Company Legal Info (Explicit Placeholders) */}
+        <div className="py-8 border-b border-slate-800/80 space-y-3">
+          <h4 className="text-slate-200 font-bold text-xs uppercase tracking-wider">
+            회사 정보
+          </h4>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-1.5 text-xs text-slate-400 leading-relaxed">
+            <div><span className="text-slate-500 font-medium">회사명:</span> 주식회사 비즈온탑 (사업자 등록 준비 중)</div>
+            <div><span className="text-slate-500 font-medium">대표자:</span> 대표이사 (설립 등기 준비 중)</div>
+            <div><span className="text-slate-500 font-medium">사업자등록번호:</span> 등록 심사 중 (Placeholder)</div>
+            <div><span className="text-slate-500 font-medium">주소:</span> 서울특별시 강남구 테헤란로 (사업장 등록 준비 중)</div>
+            <div><span className="text-slate-500 font-medium">대표전화:</span> 1600-0000 (온라인 상담 접수 중)</div>
+            <div><span className="text-slate-500 font-medium">이메일:</span> contact@bizontop.co.kr (임시 문의 창구)</div>
+          </div>
+          <p className="text-[11px] text-slate-500 pt-2 leading-relaxed">
+            ※ 비즈온탑은 기업 고객의 설립 지원 및 경영 컨설팅을 제공하며, 법무사 및 세무사의 전담 법정 업무(등기 대리, 세무 대리)는 관련 법률에 의거하여 제휴된 법무사 및 세무사가 적법하게 수행합니다.
           </p>
         </div>
+
+        {/* Bottom: Policies & Copyright */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+          <div className="flex items-center gap-4">
+            <button 
+              type="button" 
+              onClick={() => alert('개인정보처리방침: 고객의 개인정보는 상담 목적 외에 제3자에게 제공되지 않으며 관련 법령에 따라 안전하게 파기됩니다.')}
+              className="text-slate-400 hover:text-white underline underline-offset-2 transition-colors"
+            >
+              개인정보처리방침
+            </button>
+            <span>•</span>
+            <button 
+              type="button" 
+              onClick={() => alert('이용약관: 본 서비스의 이용에 관한 권리와 의무를 규정합니다.')}
+              className="text-slate-400 hover:text-white underline underline-offset-2 transition-colors"
+            >
+              이용약관
+            </button>
+          </div>
+
+          <div className="font-medium text-slate-400">
+            Copyright © BizOnTop. All rights reserved.
+          </div>
+        </div>
+
       </div>
     </footer>
   );

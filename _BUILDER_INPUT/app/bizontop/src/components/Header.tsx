@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, PhoneCall, Building2, ChevronRight, Search } from 'lucide-react';
+import { Menu, X, ArrowRight, ShieldCheck, ChevronRight, PhoneCall } from 'lucide-react';
 
 interface HeaderProps {
   onOpenConsultation: () => void;
@@ -7,207 +7,171 @@ interface HeaderProps {
 }
 
 export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenDiagnosis }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [activeMenu, setActiveMenu] = useState('법인설립');
-  const [searchKeyword, setSearchKeyword] = useState('');
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setScrolled(window.scrollY > 15);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleSearchSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const faqSection = document.getElementById('faq');
-    if (faqSection) {
-      faqSection.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const menuItems = [
-    { label: '법인설립', href: '#incorporation', isPrimary: true },
-    { label: '법인전환', href: '#comparison' },
-    { label: '진행사례', href: '#cases' },
-    { label: '기업지원', href: '#post-support' },
-    { label: '3분 무료진단', href: '#diagnosis' },
-    { label: '최신정보', href: '#insights' },
-    { label: 'FAQ', href: '#faq' },
+  const navItems = [
+    { label: '법인설립', href: '#how-it-works-section', isHot: true },
+    { label: '진행사례', href: '#consulting-cases-section' },
+    { label: '기업지원', href: '#after-incorporation-section' },
+    { label: '3분진단', href: '#diagnosis-section' },
+    { label: '기업정보', href: '#business-insights-section' },
+    { label: 'FAQ', href: '#faq-section' },
   ];
 
   return (
     <header
       id="main-header"
       className={`sticky top-0 z-40 w-full transition-all duration-200 ${
-        isScrolled
-          ? 'bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-200/80 py-3 sm:py-3.5'
-          : 'bg-white border-b border-slate-100 py-4 sm:py-4.5'
+        scrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-xs border-b border-slate-200/80'
+          : 'bg-white border-b border-slate-100'
       }`}
     >
-      <div className="w-full max-w-[1560px] 2xl:max-w-[1680px] mx-auto px-4 sm:px-8 lg:px-12 flex items-center justify-between gap-4">
+      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
         {/* Left: Brand Logo */}
         <a
-          href="/"
-          id="brand-logo"
-          className="flex items-center gap-3 shrink-0 group focus:outline-hidden focus:ring-2 focus:ring-blue-500 rounded-lg p-1"
+          href="#"
+          id="header-brand-logo"
+          className="flex items-center gap-3 group focus:outline-hidden"
+          aria-label="비즈온탑 홈으로 이동"
         >
-          <div className="w-10 h-10 rounded-xl bg-[#0B1F3A] flex items-center justify-center text-white shadow-xs group-hover:bg-[#2563EB] transition-colors">
-            <Building2 className="w-5 h-5 text-blue-400 group-hover:text-white transition-colors" />
+          {/* Stylized Modern Corporate Icon */}
+          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-[#0B1F3A] to-[#2563EB] flex items-center justify-center text-white shadow-md shadow-blue-900/15 group-hover:scale-105 transition-transform duration-200">
+            <svg
+              className="w-6 h-6"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M4 19L12 5L20 19H14.5L12 14.5L9.5 19H4Z"
+                fill="currentColor"
+              />
+              <path
+                d="M12 9.5L15 15H9L12 9.5Z"
+                fill="#F4A62A"
+              />
+            </svg>
           </div>
           <div className="flex flex-col">
-            <div className="flex items-baseline gap-1.5">
-              <span className="font-extrabold text-[21px] tracking-tight text-[#0B1F3A]">
+            <div className="flex items-center gap-1.5">
+              <span className="text-xl sm:text-2xl font-black tracking-tight text-[#0B1F3A]">
                 비즈온탑
               </span>
-              <span className="text-[10px] font-bold tracking-wider text-blue-600 bg-blue-50 px-1.5 py-0.5 rounded-sm">
+              <span className="hidden sm:inline-block text-[11px] font-semibold text-[#2563EB] bg-blue-50 border border-blue-100 px-1.5 py-0.5 rounded-sm">
                 BIZ ON TOP
               </span>
             </div>
-            <span className="text-[11px] text-slate-500 font-medium tracking-tight">
-              법인설립 · 기업성장 전문 컨설팅
+            <span className="text-[11px] font-medium text-slate-500 tracking-tight">
+              법인설립 전문 컨설팅
             </span>
           </div>
         </a>
 
         {/* Center: Navigation Menu (Desktop) */}
         <nav
-          id="desktop-nav"
-          className="hidden xl:flex items-center gap-1.5 2xl:gap-2 text-[15px] font-medium text-slate-700"
+          id="desktop-navigation"
+          aria-label="주요 메뉴"
+          className="hidden md:flex items-center gap-1 lg:gap-2"
         >
-          {menuItems.map((item) => {
-            const isActive = activeMenu === item.label;
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActiveMenu(item.label);
-                  const targetId = item.href.replace('#', '');
-                  const targetEl = document.getElementById(targetId);
-                  if (targetEl) {
-                    targetEl.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                className={`relative px-3.5 py-2 rounded-lg transition-colors whitespace-nowrap ${
-                  isActive
-                    ? 'text-blue-600 font-bold bg-blue-50/80'
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-                }`}
-              >
-                {item.label}
-                {item.isPrimary && (
-                  <span className="absolute -top-1 -right-0.5 w-1.5 h-1.5 rounded-full bg-blue-600" />
-                )}
-              </a>
-            );
-          })}
+          {navItems.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              id={`nav-link-${item.label}`}
+              className="relative px-3.5 py-2 text-[15px] font-medium text-slate-700 hover:text-[#2563EB] hover:bg-slate-50 rounded-lg transition-colors duration-150 flex items-center gap-1"
+            >
+              <span>{item.label}</span>
+              {item.isHot && (
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2563EB] animate-pulse"></span>
+              )}
+            </a>
+          ))}
         </nav>
 
-        {/* Search Bar for Desktop */}
-        <form
-          onSubmit={handleSearchSubmit}
-          className="hidden lg:flex items-center relative w-52 xl:w-64"
-        >
-          <input
-            type="text"
-            placeholder="궁금한 내용 검색..."
-            value={searchKeyword}
-            onChange={(e) => setSearchKeyword(e.target.value)}
-            className="w-full pl-9 pr-3 py-2 rounded-xl border border-slate-200 bg-slate-50 hover:bg-white focus:bg-white text-[13px] text-slate-800 placeholder:text-slate-400 focus:outline-hidden focus:border-blue-600 focus:ring-2 focus:ring-blue-100 transition-all"
-          />
-          <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-        </form>
-
-        {/* Right: CTA Buttons */}
-        <div className="hidden sm:flex items-center gap-3 shrink-0">
+        {/* Right: Primary Action Button */}
+        <div className="flex items-center gap-3">
+          {/* Quick 3-Min Diagnosis button on larger screens */}
           <button
-            id="header-diagnosis-btn"
             type="button"
             onClick={onOpenDiagnosis}
-            className="text-[14.5px] font-semibold text-slate-700 hover:text-blue-600 px-3.5 py-2 rounded-lg hover:bg-slate-50 transition-colors cursor-pointer whitespace-nowrap"
+            id="header-diagnosis-btn"
+            className="hidden lg:inline-flex items-center gap-1.5 text-sm font-semibold text-slate-700 hover:text-[#2563EB] bg-slate-100 hover:bg-blue-50 px-3.5 py-2 rounded-lg border border-slate-200 hover:border-blue-200 transition-colors"
           >
-            3분 법인설립 진단
+            <span className="w-2 h-2 rounded-full bg-[#F4A62A]"></span>
+            <span>3분 진단</span>
           </button>
+
+          {/* Blue Filled Button for 무료상담 */}
           <button
-            id="header-consultation-btn"
             type="button"
             onClick={onOpenConsultation}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-[14.5px] font-bold text-white bg-[#2563EB] hover:bg-blue-700 active:bg-blue-800 shadow-sm hover:shadow-md transition-all focus:ring-2 focus:ring-blue-500/20 cursor-pointer whitespace-nowrap"
+            id="header-consultation-btn"
+            className="inline-flex items-center justify-center gap-2 bg-[#2563EB] hover:bg-[#1d4ed8] active:bg-[#1e40af] text-white font-semibold text-sm sm:text-[15px] px-5 py-2.5 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 focus:outline-hidden focus:ring-2 focus:ring-[#2563EB]/40"
           >
             <PhoneCall className="w-4 h-4" />
-            <span>무료상담 신청하기</span>
+            <span>무료상담</span>
           </button>
-        </div>
 
-        {/* Mobile Hamburger Button */}
-        <div className="flex sm:hidden items-center gap-2">
+          {/* Mobile Hamburger Toggle Button */}
           <button
-            id="mobile-quick-consultation-btn"
-            type="button"
-            onClick={onOpenConsultation}
-            className="px-3 py-1.5 text-[13px] font-bold text-white bg-[#2563EB] rounded-lg"
-          >
-            무료상담
-          </button>
-          <button
-            id="mobile-menu-toggle-btn"
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 focus:outline-hidden"
-            aria-label="메뉴 열기"
+            id="mobile-menu-toggle-btn"
+            aria-label="메뉴 열기/닫기"
+            aria-expanded={mobileMenuOpen}
+            className="md:hidden p-2 text-slate-700 hover:text-[#0B1F3A] hover:bg-slate-100 rounded-lg transition-colors focus:outline-hidden"
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? (
+              <X className="w-6 h-6" />
+            ) : (
+              <Menu className="w-6 h-6" />
+            )}
           </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Mobile Menu Dropdown Drawer */}
       {mobileMenuOpen && (
         <div
-          id="mobile-drawer"
-          className="sm:hidden border-t border-slate-100 bg-white px-4 pt-3 pb-6 shadow-lg"
+          id="mobile-menu-drawer"
+          className="md:hidden border-t border-slate-200 bg-white px-4 pt-3 pb-6 space-y-3 shadow-xl"
         >
-          <div className="space-y-1">
-            {menuItems.map((item) => (
+          <div className="grid grid-cols-2 gap-2 pt-1 pb-3">
+            {navItems.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setActiveMenu(item.label);
-                  setMobileMenuOpen(false);
-                  const targetId = item.href.replace('#', '');
-                  const targetEl = document.getElementById(targetId);
-                  if (targetEl) {
-                    targetEl.scrollIntoView({ behavior: 'smooth' });
-                  }
-                }}
-                className={`flex items-center justify-between px-3 py-2.5 rounded-lg text-[15px] ${
-                  activeMenu === item.label
-                    ? 'text-blue-600 bg-blue-50 font-semibold'
-                    : 'text-slate-700 hover:bg-slate-50'
-                }`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="flex items-center justify-between p-2.5 text-sm font-medium text-slate-800 hover:bg-slate-50 rounded-lg border border-slate-100"
               >
                 <span>{item.label}</span>
-                <ChevronRight className="w-4 h-4 text-slate-400" />
+                <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
               </a>
             ))}
           </div>
 
-          <div className="mt-4 pt-4 border-t border-slate-100 grid grid-cols-2 gap-2">
+          <div className="pt-2 border-t border-slate-100 flex flex-col gap-2">
             <button
               type="button"
               onClick={() => {
                 setMobileMenuOpen(false);
                 onOpenDiagnosis();
               }}
-              className="w-full py-2.5 text-[13.5px] font-bold text-slate-700 bg-slate-100 rounded-lg text-center"
+              id="mobile-diagnosis-btn"
+              className="w-full flex items-center justify-center gap-2 bg-[#0B1F3A] text-white py-3 rounded-lg text-sm font-semibold hover:bg-slate-800 transition"
             >
-              3분 진단하기
+              <span>3분 법인설립 진단하기</span>
+              <ArrowRight className="w-4 h-4 text-[#F4A62A]" />
             </button>
             <button
               type="button"
@@ -215,9 +179,10 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenDiagno
                 setMobileMenuOpen(false);
                 onOpenConsultation();
               }}
-              className="w-full py-2.5 text-[13.5px] font-bold text-white bg-[#2563EB] rounded-lg text-center"
+              id="mobile-consultation-btn"
+              className="w-full flex items-center justify-center gap-2 bg-[#2563EB] text-white py-3 rounded-lg text-sm font-semibold hover:bg-[#1d4ed8] transition shadow-xs"
             >
-              무료상담 신청
+              <span>무료상담 신청하기</span>
             </button>
           </div>
         </div>

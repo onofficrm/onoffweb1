@@ -1,6 +1,6 @@
 {
-  "name": "비즈온탑 | 법인설립 전문 컨설팅",
-  "description": "사업에 맞는 법인 구조부터 설립 이후 기업 성장까지, 비즈온탑 법인설립 전문 컨설팅",
+  "name": "비즈온탑 - 법인설립 전문 컨설팅",
+  "description": "사업에 맞는 법인 구조부터 설립 이후 기업 성장까지 함께하는 비즈온탑 법인설립 전문 컨설팅",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
