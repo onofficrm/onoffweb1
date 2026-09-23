@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ArrowRight, CheckCircle2, PhoneCall } from 'lucide-react';
 import { InteractiveProcessCard } from './InteractiveProcessCard';
 
@@ -13,12 +13,20 @@ const TRUST_ITEMS = [
   '창업세액감면 검토',
 ];
 
-const MOBILE_STEPS = ['준비', '구조', '등기', '사업자', '성장'];
+const MOBILE_STEPS = [
+  { label: '준비', tip: '상호·사업목적·서류 준비' },
+  { label: '구조', tip: '자본금·주주·임원 구성' },
+  { label: '등기', tip: '전자등기 접수·완료' },
+  { label: '사업자', tip: '세무서 사업자등록' },
+  { label: '성장', tip: '인증·정책자금 연계' },
+];
 
 export const HeroSection: React.FC<HeroSectionProps> = ({
   onOpenDiagnosis,
   onOpenConsultation,
 }) => {
+  const [activeMobileStep, setActiveMobileStep] = useState(0);
+
   return (
     <section
       id="hero-section"
@@ -57,28 +65,49 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               정책자금과 기업인증까지 이어서 검토합니다.
             </p>
 
-            {/* Mobile visual anchor: compact 5-step strip */}
+            {/* Mobile visual anchor: compact 5-step strip (tappable) */}
             <div className="mt-6 lg:hidden rounded-2xl border border-slate-200/90 bg-white/80 backdrop-blur-sm p-3.5 shadow-sm">
               <div className="flex items-center justify-between mb-2.5 px-0.5">
                 <span className="text-[11px] font-bold text-[#0B1F3A]">설립 5단계</span>
                 <span className="text-[10px] font-medium text-slate-500">평균 5~7일 흐름</span>
               </div>
-              <div className="grid grid-cols-5 gap-1.5">
-                {MOBILE_STEPS.map((label, i) => (
-                  <div key={label} className="flex flex-col items-center gap-1.5">
-                    <span
-                      className={`w-8 h-8 rounded-full text-[11px] font-black flex items-center justify-center ${
-                        i === 0
-                          ? 'bg-[#2563EB] text-white'
-                          : 'bg-slate-100 text-slate-600'
-                      }`}
+              <div className="grid grid-cols-5 gap-1.5" role="tablist" aria-label="법인설립 5단계">
+                {MOBILE_STEPS.map((step, i) => {
+                  const isActive = activeMobileStep === i;
+                  return (
+                    <button
+                      key={step.label}
+                      type="button"
+                      role="tab"
+                      aria-selected={isActive}
+                      aria-label={`${i + 1}단계 ${step.label}`}
+                      onClick={() => setActiveMobileStep(i)}
+                      className="flex flex-col items-center gap-1.5 py-1 rounded-xl transition-colors active:scale-[0.97] focus:outline-hidden focus-visible:ring-2 focus-visible:ring-[#2563EB]/40"
                     >
-                      {String(i + 1).padStart(2, '0')}
-                    </span>
-                    <span className="text-[10px] font-semibold text-slate-600">{label}</span>
-                  </div>
-                ))}
+                      <span
+                        className={`w-9 h-9 rounded-full text-[11px] font-black flex items-center justify-center transition-colors ${
+                          isActive
+                            ? 'bg-[#2563EB] text-white shadow-sm shadow-blue-600/30'
+                            : 'bg-slate-100 text-slate-600'
+                        }`}
+                      >
+                        {String(i + 1).padStart(2, '0')}
+                      </span>
+                      <span
+                        className={`text-[10px] font-semibold transition-colors ${
+                          isActive ? 'text-[#2563EB]' : 'text-slate-600'
+                        }`}
+                      >
+                        {step.label}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
+              <p className="mt-3 text-center text-[12px] font-semibold text-slate-700 bg-slate-50 rounded-xl px-3 py-2 border border-slate-100">
+                {String(activeMobileStep + 1).padStart(2, '0')}. {MOBILE_STEPS[activeMobileStep].label}
+                <span className="text-slate-500 font-medium"> · {MOBILE_STEPS[activeMobileStep].tip}</span>
+              </p>
             </div>
 
             {/* Trust chips */}
