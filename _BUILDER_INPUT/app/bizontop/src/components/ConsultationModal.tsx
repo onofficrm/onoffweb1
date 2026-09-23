@@ -75,7 +75,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
       aria-modal="true"
       aria-labelledby="consultation-modal-title"
     >
-      <div className="bg-white rounded-2xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative overflow-hidden max-h-[90vh] flex flex-col">
+      <div className="bg-white rounded-2xl max-w-lg w-full p-5 sm:p-8 shadow-2xl border border-slate-200 relative overflow-hidden max-h-[min(90vh,90dvh)] flex flex-col overscroll-contain">
         
         {/* Close Button */}
         <button

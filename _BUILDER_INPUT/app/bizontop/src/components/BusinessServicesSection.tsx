@@ -379,21 +379,21 @@ export const BusinessServicesSection: React.FC<BusinessServicesSectionProps> = (
                 }`}
               >
                 <div className="p-6 sm:p-7 pb-4">
-                  <div className="flex items-center justify-between gap-2 mb-4">
-                    <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <div className="flex items-center gap-2 min-w-0">
                       <span
-                        className={`text-xs font-bold px-2 py-0.5 rounded-md ${
+                        className={`text-xs font-bold px-2 py-0.5 rounded-md shrink-0 ${
                           isPrimary ? 'bg-[#2563EB] text-white' : 'bg-slate-100 text-slate-700'
                         }`}
                       >
                         SERVICE {srv.serviceNo}
                       </span>
-                      <span className="text-sm font-bold text-[#0B1F3A]">{srv.categoryName}</span>
+                      <span className="text-sm font-bold text-[#0B1F3A] truncate">{srv.categoryName}</span>
                     </div>
 
                     {srv.badgeText && (
                       <span
-                        className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full ${
+                        className={`text-[11px] font-bold px-2.5 py-0.5 rounded-full max-w-full ${
                           isPrimary
                             ? 'bg-blue-50 text-[#2563EB] border border-blue-200'
                             : 'bg-slate-100 text-slate-600'
@@ -467,7 +467,7 @@ export const BusinessServicesSection: React.FC<BusinessServicesSectionProps> = (
           onClick={() => setSelected(null)}
         >
           <div
-            className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative max-h-[90vh] flex flex-col"
+            className="bg-white rounded-3xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl border border-slate-200 relative max-h-[min(90vh,90dvh)] flex flex-col overscroll-contain"
             onClick={(e) => e.stopPropagation()}
           >
             <button

@@ -44,7 +44,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F9FC] text-[#0B1F3A] flex flex-col antialiased selection:bg-blue-100 selection:text-[#0B1F3A]">
+    <div className="min-h-screen bg-[#F7F9FC] text-[#0B1F3A] flex flex-col antialiased selection:bg-blue-100 selection:text-[#0B1F3A] overflow-x-hidden pb-24 lg:pb-0">
       {/* 1. Header (Sticky) */}
       <Header
         onOpenConsultation={() => handleOpenConsultation('법인설립 상담')}

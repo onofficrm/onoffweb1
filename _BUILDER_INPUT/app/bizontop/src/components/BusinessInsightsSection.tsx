@@ -303,7 +303,7 @@ export const BusinessInsightsSection: React.FC<BusinessInsightsSectionProps> = (
           onClick={() => setSelectedArticle(null)}
         >
           <div
-            className="bg-white rounded-3xl max-w-2xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative overflow-hidden max-h-[90vh] flex flex-col"
+            className="bg-white rounded-3xl max-w-2xl w-full p-5 sm:p-8 shadow-2xl border border-slate-200 relative overflow-hidden max-h-[min(90vh,90dvh)] flex flex-col overscroll-contain"
             onClick={(e) => e.stopPropagation()}
           >
             <button

@@ -116,10 +116,11 @@ export const Header: React.FC<HeaderProps> = ({ onOpenConsultation, onOpenDiagno
             type="button"
             onClick={onOpenConsultation}
             id="header-consultation-btn"
-            className="inline-flex items-center justify-center gap-2 bg-[#2563EB] hover:bg-[#1d4ed8] active:bg-[#1e40af] text-white font-semibold text-sm sm:text-[15px] px-5 py-2.5 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 focus:outline-hidden focus:ring-2 focus:ring-[#2563EB]/40"
+            className="inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-[#2563EB] hover:bg-[#1d4ed8] active:bg-[#1e40af] text-white font-semibold text-sm sm:text-[15px] px-3 sm:px-5 py-2.5 rounded-lg shadow-sm hover:shadow-md transition-all duration-200 focus:outline-hidden focus:ring-2 focus:ring-[#2563EB]/40 min-h-[44px]"
           >
-            <PhoneCall className="w-4 h-4" />
-            <span>무료상담</span>
+            <PhoneCall className="w-4 h-4 shrink-0" />
+            <span className="sm:hidden">상담</span>
+            <span className="hidden sm:inline">무료상담</span>
           </button>
 
           {/* Mobile Hamburger Toggle Button */}

@@ -143,7 +143,7 @@ export const DiagnosisModal: React.FC<DiagnosisModalProps> = ({
       aria-modal="true"
       aria-labelledby="diagnosis-modal-title"
     >
-      <div className="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 relative overflow-hidden max-h-[92vh] flex flex-col">
+      <div className="bg-white rounded-3xl max-w-xl w-full p-5 sm:p-8 shadow-2xl border border-slate-200 relative overflow-hidden max-h-[min(92vh,92dvh)] flex flex-col overscroll-contain">
         
         {/* Close button */}
         <button

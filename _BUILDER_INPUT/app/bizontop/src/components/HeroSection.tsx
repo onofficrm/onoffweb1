@@ -29,12 +29,16 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <div className="lg:col-span-7 flex flex-col justify-center text-left">
             
             {/* Small Eyebrow: CORPORATE STARTUP CONSULTING | 법인설립 전문 컨설팅 */}
-            <div className="inline-flex items-center gap-2 mb-4">
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-[13px] font-bold tracking-wide uppercase bg-blue-50 text-[#2563EB] border border-blue-200/70 shadow-2xs">
-                <span className="w-2 h-2 rounded-full bg-[#2563EB]" />
-                CORPORATE STARTUP CONSULTING
-                <span className="text-slate-300 font-light">|</span>
-                <span className="text-[#0B1F3A] font-semibold">법인설립 전문 컨설팅</span>
+            <div className="inline-flex items-center gap-2 mb-4 max-w-full">
+              <span className="inline-flex flex-wrap items-center gap-1.5 px-3 py-1 rounded-full text-xs sm:text-[13px] font-bold tracking-wide bg-blue-50 text-[#2563EB] border border-blue-200/70 shadow-2xs max-w-full">
+                <span className="w-2 h-2 rounded-full bg-[#2563EB] shrink-0" />
+                <span className="hidden sm:inline uppercase tracking-wide">
+                  CORPORATE STARTUP CONSULTING
+                </span>
+                <span className="hidden sm:inline text-slate-300 font-light">|</span>
+                <span className="text-[#0B1F3A] font-semibold tracking-tight">
+                  법인설립 전문 컨설팅
+                </span>
               </span>
             </div>
 
