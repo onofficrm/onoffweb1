@@ -69,6 +69,7 @@ g5_page_start($page['title'].' | 비즈온탑');
         <span aria-hidden="true">/</span>
         <a href="<?php echo htmlspecialchars(bizontop_service_url($group['hub']), ENT_QUOTES, 'UTF-8'); ?>"><?php echo get_text($group['label']); ?></a>
       </p>
+      <p class="svc-kicker svc-kicker--light">핵심메시지</p>
       <h1><?php echo get_text($page['title']); ?></h1>
       <p class="svc-lead"><?php echo get_text($page['message']); ?></p>
       <?php if (!empty($page['points'])) { ?>
@@ -82,25 +83,25 @@ g5_page_start($page['title'].' | 비즈온탑');
   </header>
 
   <section class="svc-block">
-    <div class="page-inner svc-split">
-      <div class="svc-copy">
-        <p class="svc-kicker"><?php echo get_text($group['label']); ?></p>
-        <h2>대상 및 자격</h2>
-        <p class="svc-prose"><?php echo get_text($page['summary']); ?></p>
-        <ul class="svc-who">
-          <?php foreach ($page['who'] as $line) { ?>
-          <li><?php echo get_text($line); ?></li>
-          <?php } ?>
-        </ul>
-      </div>
-      <aside class="svc-panel">
-        <h2><i class="fa fa-check-square-o" aria-hidden="true"></i> 주요 혜택</h2>
-        <ul class="svc-checks">
-          <?php foreach ($page['benefits'] as $line) { ?>
-          <li><?php echo get_text($line); ?></li>
-          <?php } ?>
-        </ul>
-      </aside>
+    <div class="page-inner">
+      <h2 class="svc-heading">대상 및 자격</h2>
+      <p class="svc-prose"><?php echo get_text($page['summary']); ?></p>
+      <ul class="svc-who">
+        <?php foreach ($page['who'] as $line) { ?>
+        <li><?php echo get_text($line); ?></li>
+        <?php } ?>
+      </ul>
+    </div>
+  </section>
+
+  <section class="svc-block svc-block--muted">
+    <div class="page-inner">
+      <h2 class="svc-heading">주요 혜택</h2>
+      <ul class="svc-checks svc-checks--block">
+        <?php foreach ($page['benefits'] as $line) { ?>
+        <li><?php echo get_text($line); ?></li>
+        <?php } ?>
+      </ul>
     </div>
   </section>
 
@@ -134,38 +135,47 @@ g5_page_start($page['title'].' | 비즈온탑');
   </section>
 
   <section class="svc-block svc-block--muted">
-    <div class="page-inner svc-split">
-      <div class="svc-copy">
-        <h2>비용 또는 지원 내용</h2>
-        <p class="svc-prose">상담과 안내는 범위를 정한 뒤 비용이 생기면 미리 말씀드립니다. 기관 금리·한도·심사비는 공고와 사업장 조건에 따릅니다.</p>
-      </div>
-      <aside class="svc-panel">
-        <h2>안내</h2>
-        <ul class="svc-checks">
-          <?php foreach ($page['cost'] as $line) { ?>
-          <li><?php echo get_text($line); ?></li>
-          <?php } ?>
-        </ul>
-      </aside>
+    <div class="page-inner">
+      <h2 class="svc-heading">비용 또는 지원 내용</h2>
+      <ul class="svc-checks svc-checks--block">
+        <?php foreach ($page['cost'] as $line) { ?>
+        <li><?php echo get_text($line); ?></li>
+        <?php } ?>
+      </ul>
     </div>
   </section>
 
-  <section class="svc-block svc-center">
+  <section class="svc-block" id="svc-faq">
     <div class="page-inner">
-      <p class="svc-kicker">FAQ</p>
-      <h2 class="svc-heading"><?php echo get_text($page['title']); ?> 자주 묻는 질문</h2>
+      <h2 class="svc-heading">자주 묻는 질문</h2>
       <div class="svc-faq">
         <?php foreach ($page['faqs'] as $faq) { ?>
-        <details>
-          <summary><?php echo get_text($faq['q']); ?></summary>
+        <article class="svc-faq__item">
+          <h3>Q. <?php echo get_text($faq['q']); ?></h3>
           <p><?php echo get_text($faq['a']); ?></p>
-        </details>
+        </article>
         <?php } ?>
       </div>
     </div>
   </section>
 
-  <section class="svc-block svc-block--muted svc-center">
+  <section class="svc-block svc-block--muted" id="page-consult">
+    <div class="page-inner">
+      <h2 class="svc-heading">상담 신청</h2>
+      <div class="svc-banner">
+        <div>
+          <h3><?php echo get_text($page['title']); ?>, 우리 회사에 맞는지 확인해 보세요.</h3>
+          <p><?php echo get_text($page['summary']); ?></p>
+        </div>
+        <div class="svc-banner__actions">
+          <a class="svc-banner__primary" href="<?php echo G5_URL; ?>/#section-contact">무료 상담 신청하기</a>
+          <a class="svc-banner__ghost" href="<?php echo htmlspecialchars($tel, ENT_QUOTES, 'UTF-8'); ?>"><?php echo get_text($phone); ?> 전화상담</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="svc-block svc-center">
     <div class="page-inner">
       <h2 class="svc-heading">함께 확인하면 좋은 페이지</h2>
       <div class="svc-related">
@@ -202,21 +212,6 @@ g5_page_start($page['title'].' | 비즈온탑');
     </div>
   </section>
   <?php } ?>
-
-  <section class="svc-block" id="page-consult">
-    <div class="page-inner">
-      <div class="svc-banner">
-        <div>
-          <h2><?php echo get_text($page['title']); ?>, 우리 회사에 맞는지 확인해 보세요.</h2>
-          <p><?php echo get_text($page['summary']); ?></p>
-        </div>
-        <div class="svc-banner__actions">
-          <a class="svc-banner__primary" href="<?php echo G5_URL; ?>/#section-contact">무료 상담 신청하기</a>
-          <a class="svc-banner__ghost" href="<?php echo htmlspecialchars($tel, ENT_QUOTES, 'UTF-8'); ?>"><?php echo get_text($phone); ?> 전화상담</a>
-        </div>
-      </div>
-    </div>
-  </section>
 </div>
 <?php
 g5_page_end();
