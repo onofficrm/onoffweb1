@@ -5103,6 +5103,14 @@ html.page-site body {
   background: #eff6ff;
 }
 
+html.page-site:has(.page-service--detail) #container_title,
+html.page-site:has(.page-service--detail) .site-aside {
+  display: none !important;
+}
+html.page-site:has(.page-service--detail) #container_wr {
+  display: block;
+}
+
 .page-template.page-service--detail {
   background: #f4f7fb;
   color: #1e293b;
