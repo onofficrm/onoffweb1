@@ -24,9 +24,12 @@ if (!defined('_GNUBOARD_')) {
 function g5_page_start($title)
 {
     $GLOBALS['g5']['title'] = $title;
-    $scope = $GLOBALS;
-    unset($scope['GLOBALS']);
-    extract($scope, EXTR_REFS | EXTR_SKIP);
+    foreach (array_keys($GLOBALS) as $g5_global_key) {
+        if ($g5_global_key === 'GLOBALS' || $g5_global_key === 'g5_global_key') {
+            continue;
+        }
+        global $$g5_global_key;
+    }
     include_once(G5_PATH.'/head.php');
 }
 
@@ -35,8 +38,11 @@ function g5_page_start($title)
  */
 function g5_page_end()
 {
-    $scope = $GLOBALS;
-    unset($scope['GLOBALS']);
-    extract($scope, EXTR_REFS | EXTR_SKIP);
+    foreach (array_keys($GLOBALS) as $g5_global_key) {
+        if ($g5_global_key === 'GLOBALS' || $g5_global_key === 'g5_global_key') {
+            continue;
+        }
+        global $$g5_global_key;
+    }
     include_once(G5_PATH.'/tail.php');
 }
