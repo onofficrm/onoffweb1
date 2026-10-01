@@ -1517,12 +1517,13 @@
 
 .site-header__inner {
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-lg);
+  gap: 0.75rem;
   max-width: var(--container);
   margin: 0 auto;
-  padding: 0 var(--container-padding);
+  padding: 0.65rem var(--container-padding);
   min-height: var(--header-height);
 }
 
@@ -1613,9 +1614,10 @@
 
 .site-header__gnb-list {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
-  gap: var(--space-xs) var(--space-lg);
+  justify-content: center;
+  gap: 0.1rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -1627,9 +1629,9 @@
 
 .site-header__gnb-link {
   display: block;
-  padding: 0.5rem 0.85rem;
-  font-size: 0.9375rem;
-  font-weight: 500;
+  padding: 0.4rem 0.55rem;
+  font-size: 0.875rem;
+  font-weight: 600;
   color: #475569;
   text-decoration: none;
   border-radius: 0.5rem;
@@ -1688,10 +1690,17 @@
   flex-shrink: 0;
 }
 
-.site-header__search fieldset {
+.site-header__search fieldset,
+#hd .site-header__search #hd_sch {
   margin: 0;
   padding: 0;
   border: 0;
+  float: none;
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
 }
 
 .site-header__search form {
@@ -1699,29 +1708,44 @@
   display: block;
 }
 
+#hd .site-header__search #sch_stx,
 .site-header__search-input {
-  width: 13rem;
-  padding: 0.5rem 0.75rem 0.5rem 2.25rem;
-  font-size: 0.8125rem;
-  color: #1e293b;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.75rem;
-  background: #f8fafc;
+  float: none !important;
+  width: 11.5rem !important;
+  height: 2.4rem !important;
+  margin: 0 !important;
+  padding: 0 0.75rem 0 2.15rem !important;
+  font-size: 0.8125rem !important;
+  line-height: 1.2 !important;
+  color: #1e293b !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 0.75rem !important;
+  background: #f8fafc !important;
+  box-shadow: none !important;
 }
 
 .site-header__search {
   position: relative;
 }
 
+#hd .site-header__search #sch_submit,
 .site-header__search-btn {
-  position: absolute;
-  left: 0.55rem;
-  top: 50%;
-  transform: translateY(-50%);
-  padding: 0;
-  border: 0;
-  background: transparent;
-  color: #94a3b8;
+  position: absolute !important;
+  left: 0.65rem !important;
+  top: 50% !important;
+  right: auto !important;
+  transform: translateY(-50%) !important;
+  width: 1rem !important;
+  height: 1rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  float: none !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #94a3b8 !important;
+  font-size: 0.85rem !important;
+  line-height: 1 !important;
   cursor: pointer;
 }
 
@@ -2239,8 +2263,24 @@ html:has(.site-dock) {
   background: var(--color-secondary);
 }
 
-.site-dock__btn--top {
-  background: var(--color-text);
+.site-dock__btn--top,
+#top_btn.site-dock__btn {
+  position: static;
+  width: auto;
+  height: auto;
+  line-height: 1.2;
+  border: 0;
+  background: #0f172a;
+  color: #fff;
+  text-align: center;
+  font-size: var(--font-size-sm);
+  z-index: auto;
+}
+
+.site-dock .fa {
+  font-family: FontAwesome;
+  font-style: normal;
+  line-height: 1;
 }
 
 .site-dock__btn span:not(.sound_only) {

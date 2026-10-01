@@ -29,7 +29,7 @@ $cmp_diagnosis_url = defined('_INDEX_') ? G5_URL . '/#section-diagnosis' : G5_UR
     </a>
     <?php } ?>
     <a href="<?php echo htmlspecialchars($cmp_diagnosis_url, ENT_QUOTES, 'UTF-8'); ?>" class="site-dock__btn site-dock__btn--inquiry cmp-floating__btn cmp-floating__btn--consult">
-        <i class="fa fa-check-square-o" aria-hidden="true"></i>
+        <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
         <span>무료진단</span>
     </a>
     <button type="button" id="top_btn" class="site-dock__btn site-dock__btn--top cmp-floating__btn cmp-floating__btn--top" title="상단으로">
