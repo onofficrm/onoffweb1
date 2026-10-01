@@ -9,7 +9,7 @@ if (isset($_SERVER['SCRIPT_FILENAME']) && basename($_SERVER['SCRIPT_FILENAME']) 
 }
 
 if (!defined('_GNUBOARD_')) {
-    include_once(dirname(__FILE__).'/../_common.php');
+    include_once(dirname(__DIR__).'/_common.php');
 }
 
 if (!defined('_GNUBOARD_')) {

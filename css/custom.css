@@ -5078,6 +5078,30 @@ html.page-site body {
 .site-main .service-incorp-grid--home .service-incorp-card:nth-child(n+4) {
   grid-column: span 3;
 }
+.site-main .service-incorp-card__links {
+  list-style: none;
+  margin: 0 0 1rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+.site-main .service-incorp-card__links a {
+  display: inline-block;
+  padding: 0.28rem 0.55rem;
+  border-radius: 999px;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #334155;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.site-main .service-incorp-card__links a:hover {
+  color: #2563eb;
+  border-color: #bfdbfe;
+  background: #eff6ff;
+}
 
 .page-service__hero-actions,
 .page-service__midcta,

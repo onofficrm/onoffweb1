@@ -1,5 +1,6 @@
 <?php
-include_once(dirname(__FILE__).'/_init.php');
+include_once(dirname(__DIR__).'/_common.php');
+include_once(__DIR__.'/_init.php');
 include_once(G5_PATH.'/lib/bizontop-board.php');
 
 $ready = bizontop_ensure_column_board();
