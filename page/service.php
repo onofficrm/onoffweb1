@@ -1,120 +1,157 @@
 <?php
 include_once(dirname(__FILE__).'/_init.php');
-include_once(G5_PATH.'/section/_helpers.php');
+include_once(G5_PATH.'/lib/bizontop-catalog.php');
 
-$cat = isset($_GET['cat']) ? preg_replace('/[^a-z0-9_-]/i', '', $_GET['cat']) : 'funding';
-
-$catalog = array(
-    'funding' => array(
-        'title' => '정책자금',
-        'desc'  => '기업 규모와 목적에 부합하는 최적의 정부 정책자금을 매칭합니다.',
-        'items' => array(
-            array('title' => '소상공인 정책자금', 'desc' => '소상공인시장진흥공단 및 지역신용보증재단 저금리 지원'),
-            array('title' => '중소기업 정책자금', 'desc' => '중진공, 기보, 신보 연계 성장 동력 맞춤형 융자'),
-            array('title' => '창업기업 정책자금', 'desc' => '예비창업자 및 7년 이내 초기 창업기업 특화 자금'),
-            array('title' => '운전자금', 'desc' => '원부자재 구매, 인건비, 마케팅 등 기업 운영 유동성 확보'),
-            array('title' => '시설자금', 'desc' => '공장 신축, 기계설비 매입, 사업장 확장용 중장기 자금'),
-        ),
-    ),
-    'startup' => array(
-        'title' => '창업기업자금',
-        'desc'  => '업력 7년 미만 초기 창업기업의 안정적 데스밸리 극복을 지원합니다.',
-        'items' => array(
-            array('title' => '창업기업 정책자금', 'desc' => '무담보 신용 위주 정책자금 매칭'),
-            array('title' => '청년창업 특화', 'desc' => '청년창업사관학교·기보 청년보증 연계'),
-        ),
-    ),
-    'venture' => array(
-        'title' => '벤처기업확인',
-        'desc'  => '법인세·취득세 감면과 정부 지원 가점을 확보하는 벤처인증 컨설팅입니다.',
-        'items' => array(
-            array('title' => '벤처기업확인', 'desc' => '법인세 50% 감면, 취득세 75% 감면'),
-            array('title' => '인증 패키지', 'desc' => '연구소 설립과 병행 시 세제 혜택 극대화'),
-        ),
-    ),
-    'rnd' => array(
-        'title' => '기업부설연구소',
-        'desc'  => '연구개발비 세액공제와 연구전담인력 비과세 체계를 구축합니다.',
-        'items' => array(
-            array('title' => '기업부설연구소', 'desc' => '연구개발비 25% 세액공제'),
-            array('title' => '연구개발전담부서', 'desc' => '소규모 연구인력 세제·기술평가 우대'),
-        ),
-    ),
-    'corp' => array(
-        'title' => '법인설립·전환',
-        'desc'  => '절세형 법인 전환과 정관·주주구조 최적화를 지원합니다.',
-        'items' => array(
-            array('title' => '법인설립 컨설팅', 'desc' => '개인사업자 법인전환, 정관 정비'),
-            array('title' => '재무구조 개선', 'desc' => '가지급금 정리, 신용등급 개선'),
-        ),
-    ),
-    'facility' => array(
-        'title' => '시설자금',
-        'desc'  => '공장·사옥 매입 및 설비 도입을 위한 장기 저리 자금 조달입니다.',
-        'items' => array(
-            array('title' => '시설자금', 'desc' => '소요 자금의 최대 80~90% 장기 저리 조달'),
-            array('title' => '부동산 시설자금', 'desc' => '사옥·공장 부지 매입·건축 자금'),
-        ),
-    ),
-    'cert' => array(
-        'title' => '기업인증',
-        'desc'  => '세제 혜택과 공공입찰 가점을 확보하는 국가 공인 인증 컨설팅입니다.',
-        'items' => array(
-            array('title' => '벤처기업확인', 'desc' => '법인세·취득세 감면 및 정부 가점'),
-            array('title' => '기업부설연구소', 'desc' => 'R&D 세액공제·연구인력 비과세'),
-            array('title' => '이노비즈·메인비즈', 'desc' => '기술·경영혁신 인증 및 금융 우대'),
-            array('title' => 'ISO 인증', 'desc' => '품질·환경·안전보건 국제표준'),
-        ),
-    ),
-    'consulting' => array(
-        'title' => '경영컨설팅',
-        'desc'  => '기업 생애주기 전반의 재무구조 개선과 지속 성장 전략을 제안합니다.',
-        'items' => array(
-            array('title' => '법인설립·전환', 'desc' => '정관 정비 및 주주구조 최적화'),
-            array('title' => '통합경영자문', 'desc' => '노무·세무·법률 리스크 예방'),
-            array('title' => '부동산·시설자금', 'desc' => '사옥·공장 매입 원스톱 지원'),
-            array('title' => '성장전략 수립', 'desc' => '신사업·BM 재정비·스케일업'),
-        ),
-    ),
-);
-
-if (!isset($catalog[$cat])) {
-    $cat = 'funding';
+$id = isset($_GET['id']) ? preg_replace('/[^a-z0-9_-]/', '', $_GET['id']) : '';
+if ($id === '' && isset($_GET['cat'])) {
+    $legacy = array(
+        'funding' => 'funding',
+        'startup' => 'funding-small',
+        'venture' => 'cert-venture',
+        'rnd' => 'cert-lab',
+        'corp' => 'corp',
+        'facility' => 'funding-sme',
+        'cert' => 'cert',
+        'consulting' => 'corp-consult',
+    );
+    $cat = preg_replace('/[^a-z0-9_-]/', '', $_GET['cat']);
+    $id = isset($legacy[$cat]) ? $legacy[$cat] : 'funding';
 }
-$page = $catalog[$cat];
+if ($id === '' || !bizontop_service($id)) {
+    $id = 'funding';
+}
 
-g5_page_start($page['title']);
+$page = bizontop_service($id);
+$page['slug'] = $id;
+$groups = bizontop_groups();
+$group = $groups[$page['group']];
+$catalog = bizontop_catalog();
+
+$phone = function_exists('g5site_cfg') ? g5site_cfg('phone', '02-0000-0000') : '02-0000-0000';
+$tel = function_exists('g5site_tel_link') ? g5site_tel_link($phone) : 'tel:0200000000';
+$kakao = function_exists('g5site_cfg') ? g5site_cfg('kakao_url', '') : '';
+
+g5_page_start($page['title'].' | 비즈온탑');
 ?>
-<div class="page-template page-service">
-  <header class="page-hero reveal">
-    <div class="page-inner">
-      <p class="page-eyebrow">Service</p>
+<div class="page-template page-service page-service--detail">
+  <header class="page-hero">
+    <div class="page-inner page-service__hero">
+      <p class="page-eyebrow"><?php echo get_text($group['label']); ?></p>
       <h1 class="page-title"><?php echo get_text($page['title']); ?></h1>
-      <p class="page-desc"><?php echo get_text($page['desc']); ?></p>
+      <p class="page-desc"><?php echo get_text($page['message']); ?></p>
+      <div class="page-service__hero-actions">
+        <a href="#page-consult" class="btn btn-primary">무료 상담 신청</a>
+        <a href="<?php echo htmlspecialchars($tel, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-outline">전화 상담</a>
+        <?php if ($kakao !== '' && $kakao !== '#') { ?>
+        <a href="<?php echo htmlspecialchars($kakao, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-outline" target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
+        <?php } ?>
+      </div>
     </div>
   </header>
 
-  <section class="page-section reveal">
+  <section class="page-section">
     <div class="page-inner">
-      <h2 class="page-section__title">대표 서비스</h2>
+      <h2 class="page-section__title">대상 및 자격</h2>
+      <ul class="page-service__list">
+        <?php foreach ($page['who'] as $line) { ?>
+        <li><?php echo get_text($line); ?></li>
+        <?php } ?>
+      </ul>
+    </div>
+  </section>
+
+  <section class="page-section page-section--alt">
+    <div class="page-inner">
+      <h2 class="page-section__title">주요 혜택</h2>
+      <ul class="page-service__list">
+        <?php foreach ($page['benefits'] as $line) { ?>
+        <li><?php echo get_text($line); ?></li>
+        <?php } ?>
+      </ul>
+      <div class="page-service__midcta">
+        <p>우리 회사에 해당하는지 3분이면 방향을 잡을 수 있습니다.</p>
+        <a href="#page-consult" class="btn btn-primary">상담 신청하기</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="page-inner">
+      <h2 class="page-section__title">주요 내용</h2>
       <div class="card-grid card-grid--auto">
-        <?php foreach ($page['items'] as $item) { ?>
+        <?php foreach ($page['points'] as $point) { ?>
         <article class="base-card">
-          <h3 class="base-card-title"><?php echo get_text($item['title']); ?></h3>
-          <p class="base-card-desc"><?php echo get_text($item['desc']); ?></p>
+          <h3 class="base-card-title"><?php echo get_text($point['title']); ?></h3>
+          <p class="base-card-desc"><?php echo get_text($point['desc']); ?></p>
         </article>
         <?php } ?>
       </div>
     </div>
   </section>
 
-  <section class="page-section page-cta reveal">
+  <section class="page-section page-section--alt">
+    <div class="page-inner">
+      <h2 class="page-section__title">진행 절차</h2>
+      <ol class="page-service__steps">
+        <?php foreach ($page['steps'] as $i => $step) { ?>
+        <li><span><?php echo sprintf('%02d', $i + 1); ?></span><?php echo get_text($step); ?></li>
+        <?php } ?>
+      </ol>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="page-inner">
+      <h2 class="page-section__title">비용 또는 지원 내용</h2>
+      <ul class="page-service__list">
+        <?php foreach ($page['cost'] as $line) { ?>
+        <li><?php echo get_text($line); ?></li>
+        <?php } ?>
+      </ul>
+    </div>
+  </section>
+
+  <section class="page-section page-section--alt">
+    <div class="page-inner">
+      <h2 class="page-section__title">함께 보면 좋은 서비스</h2>
+      <p class="page-section__desc">설립 이후 자금, 인증, 세제는 순서를 두고 이어지는 경우가 많습니다.</p>
+      <div class="page-service__related">
+        <?php foreach ($page['related'] as $rel) {
+            if (!isset($catalog[$rel])) {
+                continue;
+            }
+        ?>
+        <a class="page-service__related-card" href="<?php echo htmlspecialchars(bizontop_service_url($rel), ENT_QUOTES, 'UTF-8'); ?>">
+          <strong><?php echo get_text($catalog[$rel]['title']); ?></strong>
+          <span><?php echo get_text($catalog[$rel]['summary']); ?></span>
+        </a>
+        <?php } ?>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section">
+    <div class="page-inner">
+      <h2 class="page-section__title">자주 묻는 질문</h2>
+      <div class="page-service__faq">
+        <?php foreach ($page['faqs'] as $faq) { ?>
+        <details>
+          <summary><?php echo get_text($faq['q']); ?></summary>
+          <p><?php echo get_text($faq['a']); ?></p>
+        </details>
+        <?php } ?>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-section page-cta" id="page-consult">
     <div class="page-inner page-cta__inner">
-      <h2 class="page-cta__title">우리 기업에 맞는 솔루션이 궁금하신가요?</h2>
-      <p class="page-cta__desc">무료 사전 진단으로 최적 트랙을 안내해 드립니다.</p>
+      <h2 class="page-cta__title"><?php echo get_text($page['title']); ?>, 어디부터 보면 될지 함께 정리합니다.</h2>
+      <p class="page-cta__desc"><?php echo get_text($page['summary']); ?></p>
       <div class="page-cta__actions">
         <a href="<?php echo G5_URL; ?>/#section-contact" class="btn btn-primary">무료 상담 신청</a>
-        <a href="<?php echo G5_BBS_URL; ?>/login.php" class="btn btn-outline">회원 로그인</a>
+        <a href="<?php echo htmlspecialchars($tel, ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-outline">전화 상담</a>
+        <a href="<?php echo G5_URL; ?>/#section-diagnosis" class="btn btn-outline">무료 진단</a>
       </div>
     </div>
   </section>

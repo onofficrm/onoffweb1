@@ -7,24 +7,29 @@ include_once(G5_PATH.'/section/_helpers.php');
  * 메인 최신글 — 법인설립/기업성장 인사이트 (news) / 기업인증·성장 (cert)
  * 관리자에서 게시판 ID를 동일하게 생성하세요. (스킨: basic-notice 또는 basic-modern 권장)
  */
+include_once G5_PATH.'/lib/bizontop-board.php';
+bizontop_ensure_column_board();
+
 $g5_latest_boards = array(
     array(
-        'bo_table'    => 'news',
-        'label'       => '법인설립 · 기업성장 인사이트',
+        'bo_table'    => 'column',
+        'label'       => '정책자금 · 법인 칼럼',
         'rows'        => 3,
         'subject_len' => 48,
         'skin'        => 'card',
         'tone'        => 'blue',
-        'more_label'  => '인사이트 게시판 바로가기 →',
+        'more_url'    => G5_URL.'/page/column.php?sca='.rawurlencode('정책자금'),
+        'more_label'  => '정책자금 칼럼 보기 →',
     ),
     array(
-        'bo_table'    => 'cert',
-        'label'       => '기업인증 · 정책자금 정보',
+        'bo_table'    => 'column',
+        'label'       => '기업인증 · 절세 칼럼',
         'rows'        => 3,
         'subject_len' => 48,
         'skin'        => 'card',
         'tone'        => 'gold',
-        'more_label'  => '기업인증·정책자금 전체보기 →',
+        'more_url'    => G5_URL.'/page/column.php?sca='.rawurlencode('기업인증'),
+        'more_label'  => '기업인증 칼럼 보기 →',
     ),
 );
 ?>
@@ -38,10 +43,7 @@ $g5_latest_boards = array(
     <div class="section-content">
       <div class="latest-grid latest-grid--2">
         <?php foreach ($g5_latest_boards as $board_cfg) {
-            $board_url = get_pretty_url($board_cfg['bo_table']);
-            if (!$board_url) {
-                $board_url = G5_BBS_URL.'/board.php?bo_table='.urlencode($board_cfg['bo_table']);
-            }
+            $board_url = !empty($board_cfg['more_url']) ? $board_cfg['more_url'] : G5_URL.'/page/column.php';
             $tone = isset($board_cfg['tone']) ? $board_cfg['tone'] : 'blue';
         ?>
         <div class="latest-panel latest-panel--<?php echo htmlspecialchars($tone, ENT_QUOTES, 'UTF-8'); ?> reveal">
@@ -69,11 +71,10 @@ $g5_latest_boards = array(
         <?php } ?>
       </div>
       <div class="latest-board-links">
-        <a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=notice" class="btn btn-outline">공지사항</a>
-        <a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=news" class="btn btn-outline">법인설립 인사이트</a>
-        <a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=cert" class="btn btn-outline">기업인증 · 정책자금</a>
-        <a href="<?php echo G5_BBS_URL; ?>/board.php?bo_table=faq" class="btn btn-outline">FAQ</a>
-        <a href="<?php echo G5_BBS_URL; ?>/login.php" class="btn btn-primary">회원 로그인</a>
+        <a href="<?php echo G5_URL; ?>/page/column.php" class="btn btn-primary">정보/칼럼 전체</a>
+        <a href="<?php echo G5_URL; ?>/page/column.php?sca=<?php echo rawurlencode('법인'); ?>" class="btn btn-outline">법인</a>
+        <a href="<?php echo G5_URL; ?>/page/column.php?sca=<?php echo rawurlencode('절세'); ?>" class="btn btn-outline">절세</a>
+        <a href="<?php echo G5_URL; ?>/#section-faq" class="btn btn-outline">FAQ</a>
       </div>
     </div>
   </div>

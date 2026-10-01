@@ -110,33 +110,14 @@ $g5_inquiry_url = defined('_INDEX_') ? G5_URL.'/#section-contact' : G5_URL.'/#se
 $g5_diagnosis_url = defined('_INDEX_') ? G5_URL.'/#section-diagnosis' : G5_URL.'/#section-diagnosis';
 $g5_consult_label = function_exists('g5site_cfg') ? g5site_cfg('consultation_text', '무료상담 신청하기') : '무료상담 신청하기';
 
-// 빌더 헤더 메뉴 (관리자 메뉴 비어 있어도 랜딩과 동일하게 표시)
-$g5_bizontop_nav = array(
-    array('me_name' => '법인설립', 'me_link' => G5_URL.'/#section-hero', 'me_target' => 'self'),
-    array('me_name' => '법인전환', 'me_link' => G5_URL.'/#section-comparison', 'me_target' => 'self'),
-    array('me_name' => '진행사례', 'me_link' => G5_URL.'/#section-cases', 'me_target' => 'self'),
-    array('me_name' => '기업지원', 'me_link' => G5_URL.'/#section-support', 'me_target' => 'self'),
-    array('me_name' => '3분 무료진단', 'me_link' => G5_URL.'/#section-diagnosis', 'me_target' => 'self'),
-    array('me_name' => '최신정보', 'me_link' => G5_URL.'/#section-latest', 'me_target' => 'self'),
-    array('me_name' => 'FAQ', 'me_link' => G5_URL.'/#section-faq', 'me_target' => 'self'),
-);
-
-// 메뉴 (PC / 모바일) — 관리자 메뉴 없으면 빌더 메뉴 사용
-$menu_datas_pc = get_menu_db(0, true);
-$menu_datas_mo = get_menu_db(1, true);
-$g5_menu_pc_count = 0;
-foreach ((array) $menu_datas_pc as $g5_menu_row) {
-    if (!empty($g5_menu_row)) {
-        $g5_menu_pc_count++;
-    }
+// 상단 메뉴 — 정책자금/기업인증/벤처투자/법인 + 정보칼럼
+if (!function_exists('bizontop_nav')) {
+    include_once G5_PATH.'/lib/bizontop-catalog.php';
 }
-if ($g5_menu_pc_count === 0) {
-    $menu_datas_pc = $g5_bizontop_nav;
-}
-if (!is_array($menu_datas_mo) || !count($menu_datas_mo)) {
-    $menu_datas_mo = $menu_datas_pc;
-}
+$menu_datas_pc = bizontop_nav();
+$menu_datas_mo = $menu_datas_pc;
 ?>
+<script>document.documentElement.classList.add('<?php echo defined('_INDEX_') ? 'page-index' : 'page-site'; ?>');</script>
 
 <!-- 상단 시작 { -->
 <div id="hd">
