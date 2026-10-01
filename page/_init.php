@@ -18,12 +18,15 @@ if (!defined('_GNUBOARD_')) {
 
 /**
  * 서브페이지 시작 (head.php)
+ * include는 함수 지역 범위라 $config 등을 여기서 다시 끌어온다.
  * @param string $title 브라우저·container_title용
  */
 function g5_page_start($title)
 {
-    global $g5;
-    $g5['title'] = $title;
+    $GLOBALS['g5']['title'] = $title;
+    $scope = $GLOBALS;
+    unset($scope['GLOBALS']);
+    extract($scope, EXTR_REFS | EXTR_SKIP);
     include_once(G5_PATH.'/head.php');
 }
 
@@ -32,5 +35,8 @@ function g5_page_start($title)
  */
 function g5_page_end()
 {
+    $scope = $GLOBALS;
+    unset($scope['GLOBALS']);
+    extract($scope, EXTR_REFS | EXTR_SKIP);
     include_once(G5_PATH.'/tail.php');
 }
