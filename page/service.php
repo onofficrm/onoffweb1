@@ -50,25 +50,26 @@ g5_page_start($page['title'].' | 비즈온탑');
     </div>
   </header>
 
-  <section class="page-section">
-    <div class="page-inner">
-      <h2 class="page-section__title">대상 및 자격</h2>
-      <ul class="page-service__list">
-        <?php foreach ($page['who'] as $line) { ?>
-        <li><?php echo get_text($line); ?></li>
-        <?php } ?>
-      </ul>
+  <section class="page-section page-service__split">
+    <div class="page-inner page-service__split-grid">
+      <div>
+        <h2 class="page-section__title">대상 및 자격</h2>
+        <ul class="page-service__list">
+          <?php foreach ($page['who'] as $line) { ?>
+          <li><?php echo get_text($line); ?></li>
+          <?php } ?>
+        </ul>
+      </div>
+      <div>
+        <h2 class="page-section__title">주요 혜택</h2>
+        <ul class="page-service__list">
+          <?php foreach ($page['benefits'] as $line) { ?>
+          <li><?php echo get_text($line); ?></li>
+          <?php } ?>
+        </ul>
+      </div>
     </div>
-  </section>
-
-  <section class="page-section page-section--alt">
     <div class="page-inner">
-      <h2 class="page-section__title">주요 혜택</h2>
-      <ul class="page-service__list">
-        <?php foreach ($page['benefits'] as $line) { ?>
-        <li><?php echo get_text($line); ?></li>
-        <?php } ?>
-      </ul>
       <div class="page-service__midcta">
         <p>우리 회사에 해당하는지 3분이면 방향을 잡을 수 있습니다.</p>
         <a href="#page-consult" class="btn btn-primary">상담 신청하기</a>
