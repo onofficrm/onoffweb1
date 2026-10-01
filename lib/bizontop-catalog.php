@@ -449,7 +449,20 @@ function bizontop_service_url($slug)
 function bizontop_service($slug)
 {
     $items = bizontop_catalog();
-    return isset($items[$slug]) ? $items[$slug] : null;
+    if (!isset($items[$slug])) {
+        return null;
+    }
+    $page = $items[$slug];
+    if (!function_exists('bizontop_service_detail')) {
+        include_once dirname(__FILE__).'/bizontop-detail.php';
+    }
+    $extra = bizontop_service_detail($slug);
+    if (is_array($extra)) {
+        foreach ($extra as $key => $value) {
+            $page[$key] = $value;
+        }
+    }
+    return $page;
 }
 
 function bizontop_nav()

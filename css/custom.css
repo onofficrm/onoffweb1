@@ -5233,22 +5233,7 @@ html.page-site:has(.page-service--detail) #container_wr {
   gap: 0.65rem;
 }
 .page-template.page-service--detail .page-service__steps {
-  grid-template-columns: repeat(5, 1fr);
-}
-.page-template.page-service--detail .page-service__steps li {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.55rem;
-  min-height: 7.2rem;
-  padding: 0.95rem;
-  background: #fff;
-  border-radius: 0.75rem;
-  border: 1px solid #dbe3ee;
-  color: #1e293b;
-  font-size: 14.5px;
-  font-weight: 700;
-  line-height: 1.45;
+  grid-template-columns: 1fr;
 }
 .page-service__steps span {
   width: 2rem;
@@ -5454,7 +5439,8 @@ html.page-site:has(.page-service--detail) #container_wr {
   background: #fff;
   box-shadow: 0 8px 30px rgba(15, 23, 42, 0.04);
 }
-.page-service--detail .svc-panel h2 {
+.page-service--detail .svc-panel h2,
+.page-service--detail .svc-panel h3 {
   display: flex;
   align-items: center;
   gap: 0.45rem;
@@ -5529,24 +5515,34 @@ html.page-site:has(.page-service--detail) #container_wr {
 }
 .page-service--detail .svc-steps {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0.75rem;
+  grid-template-columns: 1fr;
+  gap: 0.7rem;
   margin: 0;
   padding: 0;
   list-style: none;
 }
 .page-service--detail .svc-steps li {
-  display: flex;
-  flex-direction: column;
-  gap: 0.7rem;
-  min-height: 8.5rem;
-  padding: 1.1rem 1rem;
+  display: grid;
+  grid-template-columns: 2.6rem 1fr;
+  column-gap: 0.9rem;
+  row-gap: 0.2rem;
+  align-items: start;
+  min-height: 0;
+  padding: 1rem 1.1rem;
   border: 1px solid #e6ebf2;
   border-radius: 1rem;
   background: #fff;
 }
 .page-service--detail .svc-steps span {
-  color: #2563eb;
+  grid-row: 1 / span 2;
+  width: 2.4rem;
+  height: 2.4rem;
+  border-radius: 0.65rem;
+  background: #2563eb;
+  color: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 13px;
   font-weight: 800;
 }
@@ -5554,6 +5550,82 @@ html.page-site:has(.page-service--detail) #container_wr {
   color: #0b1f3a;
   font-size: 16px;
   line-height: 1.45;
+}
+.page-service--detail .svc-steps p {
+  margin: 0;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.55;
+}
+.page-service--detail .svc-prose--lead {
+  max-width: 46rem;
+}
+.page-service--detail .svc-benefit-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.page-service--detail .svc-benefit-grid li {
+  display: grid;
+  gap: 0.35rem;
+  padding: 1.15rem 1.15rem 1.15rem 2.6rem;
+  position: relative;
+  border: 1px solid #e6ebf2;
+  border-radius: 1rem;
+  background: #fff;
+}
+.page-service--detail .svc-benefit-grid li::before {
+  content: "✓";
+  position: absolute;
+  left: 1rem;
+  top: 1.15rem;
+  color: #16a34a;
+  font-weight: 800;
+}
+.page-service--detail .svc-benefit-grid strong {
+  color: #0b1f3a;
+  font-size: 16px;
+  line-height: 1.45;
+}
+.page-service--detail .svc-benefit-grid span {
+  color: #475569;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.page-service--detail .svc-story {
+  display: grid;
+  gap: 1rem;
+}
+.page-service--detail .svc-story__row {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 1.5rem;
+  align-items: start;
+  padding: 1.6rem 1.5rem;
+  border: 1px solid #e6ebf2;
+  border-radius: 1.15rem;
+  background: #f8fafc;
+}
+.page-service--detail .svc-story__row h3 {
+  margin: 0 0 0.65rem;
+  color: #0b1f3a;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.35;
+}
+.page-service--detail .svc-story__row > div > p {
+  margin: 0;
+  color: #334155;
+  font-size: 15.5px;
+  line-height: 1.75;
+}
+.page-service--detail .svc-story__row .svc-panel {
+  background: #fff;
 }
 .page-service--detail .svc-center {
   text-align: center;
@@ -5563,7 +5635,7 @@ html.page-site:has(.page-service--detail) #container_wr {
   margin-right: auto;
 }
 .page-service--detail .svc-faq {
-  max-width: 760px;
+  max-width: 860px;
   margin: 0;
   display: grid;
   gap: 0.75rem;
@@ -5753,7 +5825,9 @@ html.page-site:has(.page-service--detail) #container_wr {
   .page-service--detail .svc-split,
   .page-service--detail .svc-points,
   .page-service--detail .svc-steps,
-  .page-service--detail .svc-columns {
+  .page-service--detail .svc-columns,
+  .page-service--detail .svc-benefit-grid,
+  .page-service--detail .svc-story__row {
     grid-template-columns: 1fr;
   }
   .page-service--detail .svc-banner {

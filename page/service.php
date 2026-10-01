@@ -69,7 +69,6 @@ g5_page_start($page['title'].' | 비즈온탑');
         <span aria-hidden="true">/</span>
         <a href="<?php echo htmlspecialchars(bizontop_service_url($group['hub']), ENT_QUOTES, 'UTF-8'); ?>"><?php echo get_text($group['label']); ?></a>
       </p>
-      <p class="svc-kicker svc-kicker--light">핵심메시지</p>
       <h1><?php echo get_text($page['title']); ?></h1>
       <p class="svc-lead"><?php echo get_text($page['message']); ?></p>
       <?php if (!empty($page['points'])) { ?>
@@ -83,65 +82,103 @@ g5_page_start($page['title'].' | 비즈온탑');
   </header>
 
   <section class="svc-block">
-    <div class="page-inner">
-      <h2 class="svc-heading">대상 및 자격</h2>
-      <p class="svc-prose"><?php echo get_text($page['summary']); ?></p>
-      <ul class="svc-who">
-        <?php foreach ($page['who'] as $line) { ?>
-        <li><?php echo get_text($line); ?></li>
-        <?php } ?>
-      </ul>
+    <div class="page-inner svc-split">
+      <div class="svc-copy">
+        <h2>대상 및 자격</h2>
+        <p class="svc-prose"><?php echo get_text(!empty($page['who_intro']) ? $page['who_intro'] : $page['summary']); ?></p>
+      </div>
+      <aside class="svc-panel">
+        <h3>이런 경우 확인해 보세요</h3>
+        <ul class="svc-checks">
+          <?php foreach ($page['who'] as $line) { ?>
+          <li><?php echo get_text($line); ?></li>
+          <?php } ?>
+        </ul>
+      </aside>
     </div>
   </section>
 
   <section class="svc-block svc-block--muted">
     <div class="page-inner">
       <h2 class="svc-heading">주요 혜택</h2>
-      <ul class="svc-checks svc-checks--block">
-        <?php foreach ($page['benefits'] as $line) { ?>
-        <li><?php echo get_text($line); ?></li>
+      <?php if (!empty($page['benefit_intro'])) { ?>
+      <p class="svc-prose svc-prose--lead"><?php echo get_text($page['benefit_intro']); ?></p>
+      <?php } ?>
+      <ul class="svc-benefit-grid">
+        <?php foreach ($page['benefits'] as $line) {
+            $benefit_title = is_array($line) ? $line['title'] : $line;
+            $benefit_desc = is_array($line) && isset($line['desc']) ? $line['desc'] : '';
+        ?>
+        <li>
+          <strong><?php echo get_text($benefit_title); ?></strong>
+          <?php if ($benefit_desc !== '') { ?><span><?php echo get_text($benefit_desc); ?></span><?php } ?>
+        </li>
         <?php } ?>
       </ul>
     </div>
   </section>
 
-  <section class="svc-block svc-block--muted">
+  <section class="svc-block">
     <div class="page-inner">
       <h2 class="svc-heading">주요 내용</h2>
-      <div class="svc-points">
-        <?php foreach ($page['points'] as $i => $point) { ?>
-        <article class="svc-point">
-          <p class="svc-kicker"><?php echo sprintf('%02d', $i + 1); ?></p>
-          <h3><?php echo get_text($point['title']); ?></h3>
-          <p><?php echo get_text($point['desc']); ?></p>
+      <div class="svc-story">
+        <?php foreach ($page['points'] as $i => $point) {
+            $features = isset($point['features']) && is_array($point['features']) ? $point['features'] : array();
+        ?>
+        <article class="svc-story__row">
+          <div>
+            <p class="svc-kicker"><?php echo sprintf('%02d', $i + 1); ?></p>
+            <h3><?php echo get_text($point['title']); ?></h3>
+            <p><?php echo get_text($point['desc']); ?></p>
+          </div>
+          <?php if ($features) { ?>
+          <aside class="svc-panel">
+            <h3>특징</h3>
+            <ul class="svc-checks">
+              <?php foreach ($features as $feature) { ?>
+              <li><?php echo get_text($feature); ?></li>
+              <?php } ?>
+            </ul>
+          </aside>
+          <?php } ?>
         </article>
         <?php } ?>
       </div>
     </div>
   </section>
 
-  <section class="svc-block">
+  <section class="svc-block svc-block--muted">
     <div class="page-inner">
       <h2 class="svc-heading">진행 절차</h2>
       <ol class="svc-steps">
-        <?php foreach ($page['steps'] as $i => $step) { ?>
+        <?php foreach ($page['steps'] as $i => $step) {
+            $step_title = is_array($step) ? $step['title'] : $step;
+            $step_desc = is_array($step) && isset($step['desc']) ? $step['desc'] : '';
+        ?>
         <li>
           <span><?php echo sprintf('%02d', $i + 1); ?></span>
-          <strong><?php echo get_text($step); ?></strong>
+          <strong><?php echo get_text($step_title); ?></strong>
+          <?php if ($step_desc !== '') { ?><p><?php echo get_text($step_desc); ?></p><?php } ?>
         </li>
         <?php } ?>
       </ol>
     </div>
   </section>
 
-  <section class="svc-block svc-block--muted">
-    <div class="page-inner">
-      <h2 class="svc-heading">비용 또는 지원 내용</h2>
-      <ul class="svc-checks svc-checks--block">
-        <?php foreach ($page['cost'] as $line) { ?>
-        <li><?php echo get_text($line); ?></li>
-        <?php } ?>
-      </ul>
+  <section class="svc-block">
+    <div class="page-inner svc-split">
+      <div class="svc-copy">
+        <h2>비용 또는 지원 내용</h2>
+        <p class="svc-prose"><?php echo get_text(!empty($page['cost_intro']) ? $page['cost_intro'] : '기관 금리·한도·심사비는 공고와 사업장 조건에 따라 달라집니다. 컨설팅 비용이 있으면 진행 범위를 정한 뒤 미리 안내합니다.'); ?></p>
+      </div>
+      <aside class="svc-panel">
+        <h3>안내</h3>
+        <ul class="svc-checks">
+          <?php foreach ($page['cost'] as $line) { ?>
+          <li><?php echo get_text($line); ?></li>
+          <?php } ?>
+        </ul>
+      </aside>
     </div>
   </section>
 
