@@ -14,6 +14,7 @@ $write_url = G5_BBS_URL.'/write.php?bo_table=column';
 
 g5_page_start('정보/칼럼 | 비즈온탑');
 ?>
+<style>#container_title,.site-aside{display:none !important}#container_wr{display:block !important}</style>
 <div class="page-template page-column">
   <header class="page-hero">
     <div class="page-inner">
