@@ -5987,3 +5987,33 @@ html.page-column-board #container_wr {
   .page-template.page-column .page-column__list { grid-template-columns: 1fr; }
   .page-template.page-column .page-title { font-size: 30px; }
 }
+
+html.page-column-board #container {
+  width: 100% !important;
+  max-width: 1040px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 2.5rem 1.75rem 4rem !important;
+  box-sizing: border-box;
+}
+html.page-column-board #bo_v_title .bo_v_tit {
+  color: #0b1f3a;
+  font-size: 32px;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+html.page-column-board #bo_v_con {
+  overflow: visible;
+  padding: 0.25rem 0 0.5rem;
+  color: #1e293b;
+  font-size: 16px;
+  line-height: 1.8;
+  word-break: keep-all;
+}
+html.page-column-board #bo_v_con ul,
+html.page-column-board #bo_v_con ol {
+  padding-left: 1.25rem;
+}
+html.page-column-board #bo_v_con li {
+  list-style-position: outside;
+}
