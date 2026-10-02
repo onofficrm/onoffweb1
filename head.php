@@ -54,7 +54,7 @@ if (function_exists('g5site_cfg')) {
 // Pretendard (빌더 index.html 과 동일 CDN)
 add_stylesheet('<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">', 5);
 // 템플릿 전용 CSS/JS (default.css·common.js 이후 로드)
-add_stylesheet('<link rel="stylesheet" href="'.G5_CSS_URL.'/custom.css?v=20261002o">', 10);
+add_stylesheet('<link rel="stylesheet" href="'.G5_CSS_URL.'/custom.css?v=20261002p">', 10);
 if ($g5_css_brand !== '') {
     add_stylesheet('<style>:root{'.$g5_css_brand.'}</style>', 11);
 }
