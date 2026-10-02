@@ -5252,14 +5252,14 @@ html.page-site body {
   }
   .site-main .section-hero--incorp .section-eyebrow--accent {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     gap: 0.05rem;
     max-width: 100%;
     height: auto;
     padding: 0.4rem 0.8rem;
     line-height: 1.35;
     white-space: normal;
-    text-align: center;
+    text-align: left;
   }
   .site-main .section-hero--incorp .section-eyebrow__en,
   .site-main .section-hero--incorp .section-eyebrow__ko {
