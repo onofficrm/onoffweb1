@@ -6163,11 +6163,27 @@ html.page-column-board #container {
   padding: 2.5rem 1.75rem 4rem !important;
   box-sizing: border-box;
 }
+html.page-column-board .btn_top {
+  display: none !important;
+}
+html.page-column-board #bo_v_title {
+  display: block;
+  margin: 0 0 0.85rem;
+}
 html.page-column-board #bo_v_title .bo_v_tit {
+  display: block;
   color: #0b1f3a;
   font-size: 32px;
-  line-height: 1.4;
+  line-height: 1.45;
   word-break: keep-all;
+}
+@media (max-width: 768px) {
+  html.page-column-board #container {
+    padding: 1.25rem 1rem 5.5rem !important;
+  }
+  html.page-column-board #bo_v_title .bo_v_tit {
+    font-size: 26px;
+  }
 }
 html.page-column-board #bo_v_con {
   overflow: visible;
