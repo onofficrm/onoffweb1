@@ -6218,21 +6218,42 @@ html.page-column-board #bo_v_con li {
   line-height: 1.2;
   text-decoration: none;
 }
-.consult-actions__btn--primary {
+.site-main .consult-actions__btn--primary,
+.page-template .consult-actions__btn--primary,
+.site-main .consult-actions__btn--primary:hover,
+.site-main .consult-actions__btn--primary:focus,
+.page-template .consult-actions__btn--primary:hover,
+.page-template .consult-actions__btn--primary:focus {
   background: #2563eb;
   color: #fff;
 }
-.consult-actions__btn--kakao {
+.site-main .consult-actions__btn--primary:hover,
+.page-template .consult-actions__btn--primary:hover {
+  background: #1d4ed8;
+}
+.site-main .consult-actions__btn--kakao,
+.page-template .consult-actions__btn--kakao,
+.site-main .consult-actions__btn--kakao:hover,
+.site-main .consult-actions__btn--kakao:focus,
+.page-template .consult-actions__btn--kakao:hover,
+.page-template .consult-actions__btn--kakao:focus {
   background: #fee500;
   color: #3c1e1e;
 }
-.consult-actions--on-dark .consult-actions__btn--primary {
+.consult-actions--on-dark .consult-actions__btn--primary,
+.consult-actions--on-dark .consult-actions__btn--primary:hover,
+.consult-actions--on-dark .consult-actions__btn--primary:focus {
   background: #fff;
   color: #0b1f3a;
 }
-.consult-actions--on-dark .consult-actions__btn--kakao {
+.consult-actions--on-dark .consult-actions__btn--kakao,
+.consult-actions--on-dark .consult-actions__btn--kakao:hover,
+.consult-actions--on-dark .consult-actions__btn--kakao:focus {
   background: #fee500;
   color: #3c1e1e;
+}
+.consult-bridge .consult-actions__btn {
+  width: 100%;
 }
 .page-service--detail .svc-hero .consult-actions {
   margin-top: 1.6rem;
