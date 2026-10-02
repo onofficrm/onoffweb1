@@ -2769,12 +2769,44 @@ html:has(.site-dock) {
   margin: 0 0 var(--space-sm);
   font-size: var(--font-size-xl);
   font-weight: var(--font-weight-bold);
+  line-height: 1.4;
+  word-break: keep-all;
+  overflow-wrap: break-word;
 }
 
 .cmp-popup__desc {
   margin: 0 0 var(--space-lg);
-  font-size: var(--font-size-sm);
+  font-size: 15px;
+  line-height: 1.55;
   color: var(--color-muted);
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+.cmp-popup .btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: auto;
+  min-height: 48px;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: 0.65rem;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 1.35;
+  text-align: center;
+  white-space: normal;
+  word-break: keep-all;
+}
+.cmp-popup__cta {
+  background: #2563eb;
+  color: #fff;
+}
+.cmp-popup__close-btn {
+  background: #f1f5f9;
+  color: #0b1f3a;
 }
 
 .cmp-popup__actions {
