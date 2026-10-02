@@ -78,6 +78,7 @@ g5_page_start($page['title'].' | 비즈온탑');
         <?php } ?>
       </ul>
       <?php } ?>
+      <?php $consult_on_dark = true; include G5_PATH.'/components/consult-actions.php'; ?>
     </div>
   </header>
 
@@ -147,6 +148,13 @@ g5_page_start($page['title'].' | 비즈온탑');
     </div>
   </section>
 
+  <section class="svc-block svc-consult-mid">
+    <div class="page-inner consult-bridge">
+      <p>여기까지 우리 회사에 해당하는지 바로 판단하기 어렵다면, 상담으로 순서를 정해 드립니다.</p>
+      <?php include G5_PATH.'/components/consult-actions.php'; ?>
+    </div>
+  </section>
+
   <section class="svc-block svc-block--muted">
     <div class="page-inner">
       <h2 class="svc-heading">진행 절차</h2>
@@ -205,8 +213,7 @@ g5_page_start($page['title'].' | 비즈온탑');
           <p><?php echo get_text($page['summary']); ?></p>
         </div>
         <div class="svc-banner__actions">
-          <a class="svc-banner__primary" href="<?php echo G5_URL; ?>/#section-contact">무료 상담 신청하기</a>
-          <a class="svc-banner__ghost" href="<?php echo htmlspecialchars($tel, ENT_QUOTES, 'UTF-8'); ?>"><?php echo get_text($phone); ?> 전화상담</a>
+          <?php $consult_on_dark = true; include G5_PATH.'/components/consult-actions.php'; ?>
         </div>
       </div>
     </div>

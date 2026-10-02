@@ -1946,7 +1946,10 @@
 /* Header — mobile */
 @media (max-width: 768px) {
   .site-header__cta {
-    display: none;
+    display: inline-flex;
+    min-height: 36px;
+    padding: 0.4rem 0.7rem;
+    font-size: 13px;
   }
 
   .site-header__brand-sub {
@@ -2350,16 +2353,26 @@ html:has(.site-dock) {
     display: block;
   }
 
+  .site-dock__btn--tel,
+  .site-dock__btn--kakao,
+  .site-dock__btn--inquiry {
+    flex: 1;
+  }
+
+  .site-dock__btn--top {
+    flex: 0 0 44px;
+  }
+
   .site-dock__btn--top span.sound_only {
-    position: static;
-    width: auto;
-    height: auto;
-    clip: auto;
-    font-size: var(--font-size-xs);
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
   }
 
   .site-dock__btn--top .fa {
-    display: none;
+    display: block;
   }
 
   html:has(.site-dock) body {
@@ -6016,4 +6029,92 @@ html.page-column-board #bo_v_con ol {
 }
 html.page-column-board #bo_v_con li {
   list-style-position: outside;
+}
+
+.consult-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+.consult-actions__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.75rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 800;
+  line-height: 1.2;
+  text-decoration: none;
+}
+.consult-actions__btn--primary {
+  background: #2563eb;
+  color: #fff;
+}
+.consult-actions__btn--tel {
+  background: #0b1f3a;
+  color: #fff;
+}
+.consult-actions__btn--kakao {
+  background: #fee500;
+  color: #3c1e1e;
+}
+.consult-actions__btn--ghost {
+  background: #fff;
+  color: #0b1f3a;
+  border: 1px solid #dbe3ee;
+}
+.consult-actions--on-dark .consult-actions__btn--primary {
+  background: #fff;
+  color: #0b1f3a;
+}
+.consult-actions--on-dark .consult-actions__btn--tel,
+.consult-actions--on-dark .consult-actions__btn--ghost {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+.consult-actions--on-dark .consult-actions__btn--kakao {
+  border: 0;
+  background: #fee500;
+  color: #3c1e1e;
+}
+.page-service--detail .svc-hero .consult-actions {
+  margin-top: 1.6rem;
+}
+.page-service--detail .svc-consult-mid {
+  padding: 0 0 0.4rem;
+  background: #fff;
+}
+.page-service--detail .svc-banner__actions .consult-actions {
+  justify-content: flex-end;
+}
+.consult-bridge {
+  margin-top: 1.5rem;
+  padding: 1.25rem 1.3rem;
+  border: 1px solid #e6ebf2;
+  border-radius: 1rem;
+  background: #fff;
+}
+.consult-bridge p {
+  margin: 0 0 0.85rem;
+  color: #334155;
+  font-size: 16px;
+  font-weight: 700;
+}
+.consult-bridge--home {
+  margin-top: 1.75rem;
+}
+.consult-bridge--board {
+  max-width: 1040px;
+  margin: 1.5rem auto 2.5rem;
+}
+@media (max-width: 800px) {
+  .consult-actions__btn {
+    flex: 1 1 calc(50% - 0.55rem);
+  }
+  .page-service--detail .svc-banner__actions .consult-actions {
+    justify-content: stretch;
+  }
 }

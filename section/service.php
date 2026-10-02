@@ -47,6 +47,10 @@ $tones = array('blue', 'indigo', 'sky', 'teal', 'gold');
         </article>
         <?php } ?>
       </div>
+      <div class="consult-bridge consult-bridge--home">
+        <p>어떤 서비스부터 볼지 모르겠다면, 상담으로 순서를 정해 드립니다.</p>
+        <?php include G5_PATH.'/components/consult-actions.php'; ?>
+      </div>
     </div>
   </div>
 </section>

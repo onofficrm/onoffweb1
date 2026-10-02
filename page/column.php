@@ -88,6 +88,10 @@ g5_page_start('정보/칼럼 | 비즈온탑');
         <p>관리자에서 게시판을 하나 만든 뒤 이 페이지를 다시 열면 정보/칼럼 게시판이 준비됩니다.</p>
       </div>
       <?php } ?>
+      <div class="consult-bridge">
+        <p>칼럼만으로 결정하기 어렵다면, 회사 상황을 듣고 다음에 볼 페이지를 같이 정합니다.</p>
+        <?php include G5_PATH.'/components/consult-actions.php'; ?>
+      </div>
     </div>
   </section>
 </div>

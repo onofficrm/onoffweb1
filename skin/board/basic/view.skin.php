@@ -218,6 +218,12 @@ add_stylesheet('<link rel="stylesheet" href="'.$board_skin_url.'/style.css">', 0
     include_once(G5_BBS_PATH.'/view_comment.php');
 	?>
 </article>
+<?php if (isset($bo_table) && $bo_table === 'column') { ?>
+<div class="page-inner consult-bridge consult-bridge--board">
+  <p>이 글이 우리 회사에 해당하는지 상담으로 확인해 보세요.</p>
+  <?php include G5_PATH.'/components/consult-actions.php'; ?>
+</div>
+<?php } ?>
 <!-- } 게시판 읽기 끝 -->
 
 <script>
