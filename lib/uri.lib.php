@@ -105,6 +105,10 @@ function short_url_clean($string_url, $add_qry=''){
 
     if( isset($config['cf_bbs_rewrite']) && $config['cf_bbs_rewrite'] ){
 
+        if (strpos(str_replace('&amp;', '&', $string_url), 'bo_table=column') !== false) {
+            return $string_url;
+        }
+
         $string_url = str_replace('&amp;', '&', $string_url);
         $url=parse_url($string_url);
         $page_name = isset($url['path']) ? basename($url['path'],".php") : '';
