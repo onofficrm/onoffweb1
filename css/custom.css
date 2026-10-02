@@ -5104,10 +5104,16 @@ html.page-site body {
 }
 
 html.page-site:has(.page-service--detail) #container_title,
-html.page-site:has(.page-service--detail) .site-aside {
+html.page-site:has(.page-service--detail) .site-aside,
+html.page-site:has(.page-column) #container_title,
+html.page-site:has(.page-column) .site-aside,
+html.page-column-board #container_title,
+html.page-column-board .site-aside {
   display: none !important;
 }
-html.page-site:has(.page-service--detail) #container_wr {
+html.page-site:has(.page-service--detail) #container_wr,
+html.page-site:has(.page-column) #container_wr,
+html.page-column-board #container_wr {
   display: block;
 }
 
@@ -5838,4 +5844,146 @@ html.page-site:has(.page-service--detail) #container_wr {
   .page-service--detail .svc-faq details[open] {
     border-radius: 1rem;
   }
+}
+
+.page-template.page-column {
+  background: #f5f7fb;
+  color: #1e293b;
+  font-size: 16px;
+  line-height: 1.7;
+}
+.page-template.page-column .page-inner {
+  max-width: 1040px;
+}
+.page-template.page-column .page-hero {
+  padding: 3.2rem 0 1.6rem;
+  text-align: left;
+  background: #fff;
+  border-bottom: 0;
+}
+.page-template.page-column .page-title {
+  color: #0b1f3a;
+  font-size: 40px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.page-template.page-column .page-desc {
+  max-width: 40rem;
+  margin: 0;
+  color: #334155;
+  font-size: 17px;
+}
+.page-template.page-column .page-section {
+  padding: 1.5rem 0 4rem;
+  background: #f5f7fb;
+}
+.page-column__bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.page-template.page-column .page-column__cats {
+  margin: 0;
+  gap: 0.5rem;
+}
+.page-template.page-column .page-column__cats a {
+  padding: 0.45rem 0.85rem;
+  font-size: 14px;
+  font-weight: 700;
+}
+.page-column__write {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.5rem;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  background: #2563eb;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.page-template.page-column .page-column__list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem;
+  margin-top: 0;
+}
+.page-template.page-column .page-column__item {
+  position: relative;
+  display: block;
+  min-height: 11rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.page-template.page-column .page-column__item > a:first-child {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  height: 100%;
+  padding: 1.25rem 1.2rem 1.15rem;
+  border: 1px solid #e6ebf2;
+  border-radius: 1rem;
+  background: #fff;
+  text-decoration: none;
+  color: inherit;
+}
+.page-template.page-column .page-column__item em {
+  font-size: 13px;
+  font-weight: 800;
+}
+.page-template.page-column .page-column__item strong {
+  color: #0b1f3a;
+  font-size: 18px;
+  line-height: 1.45;
+}
+.page-template.page-column .page-column__item span {
+  color: #475569;
+  font-size: 14.5px;
+  line-height: 1.6;
+}
+.page-template.page-column .page-column__item small {
+  margin-top: auto;
+  color: #94a3b8;
+  font-size: 13px;
+}
+.page-column__edit {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.85rem;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 800;
+  text-decoration: none;
+}
+.page-template.page-column .page-column__empty {
+  grid-column: 1 / -1;
+  padding: 2rem 1.4rem;
+  border: 1px solid #e6ebf2;
+  border-radius: 1rem;
+  background: #fff;
+  color: #334155;
+}
+.page-template.page-column .page-column__empty strong {
+  display: block;
+  margin-bottom: 0.4rem;
+  color: #0b1f3a;
+  font-size: 18px;
+}
+.page-template.page-column .page-column__empty p {
+  margin: 0;
+  color: #475569;
+  font-size: 15px;
+}
+@media (max-width: 800px) {
+  .page-column__bar { flex-direction: column; }
+  .page-template.page-column .page-column__list { grid-template-columns: 1fr; }
+  .page-template.page-column .page-title { font-size: 30px; }
 }

@@ -117,7 +117,7 @@ if (!function_exists('bizontop_nav')) {
 $menu_datas_pc = bizontop_nav();
 $menu_datas_mo = $menu_datas_pc;
 ?>
-<script>document.documentElement.classList.add('<?php echo defined('_INDEX_') ? 'page-index' : 'page-site'; ?>');</script>
+<script>document.documentElement.classList.add('<?php echo defined('_INDEX_') ? 'page-index' : 'page-site'; ?>'<?php echo (isset($bo_table) && $bo_table === 'column') ? ", 'page-column-board'" : ''; ?>);</script>
 
 <!-- 상단 시작 { -->
 <div id="hd">
