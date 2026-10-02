@@ -33,12 +33,6 @@ if (defined('G5_THEME_PATH')) {
     return;
 }
 
-// 모바일은 mobile/index.php 사용 (기존 동작 유지)
-if (G5_IS_MOBILE) {
-    include_once(G5_MOBILE_PATH.'/index.php');
-    return;
-}
-
 include_once(G5_PATH.'/head.php');
 
 /**

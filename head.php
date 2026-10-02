@@ -12,10 +12,6 @@ if (defined('G5_THEME_PATH')) {
     return;
 }
 
-if (G5_IS_MOBILE) {
-    include_once(G5_MOBILE_PATH.'/head.php');
-    return;
-}
 
 // SEO 메타 (파일 없어도 fatal 방지)
 if (is_file(G5_PATH.'/components/seo-meta.php')) {
@@ -58,7 +54,7 @@ if (function_exists('g5site_cfg')) {
 // Pretendard (빌더 index.html 과 동일 CDN)
 add_stylesheet('<link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">', 5);
 // 템플릿 전용 CSS/JS (default.css·common.js 이후 로드)
-add_stylesheet('<link rel="stylesheet" href="'.G5_CSS_URL.'/custom.css?v=20261002e">', 10);
+add_stylesheet('<link rel="stylesheet" href="'.G5_CSS_URL.'/custom.css?v=20261002f">', 10);
 if ($g5_css_brand !== '') {
     add_stylesheet('<style>:root{'.$g5_css_brand.'}</style>', 11);
 }
@@ -109,6 +105,7 @@ if ($g5_site_title === '') {
 $g5_inquiry_url = defined('_INDEX_') ? G5_URL.'/#section-contact' : G5_URL.'/#section-contact';
 $g5_diagnosis_url = defined('_INDEX_') ? G5_URL.'/#section-diagnosis' : G5_URL.'/#section-diagnosis';
 $g5_consult_label = function_exists('g5site_cfg') ? g5site_cfg('consultation_text', '무료상담 신청하기') : '무료상담 신청하기';
+$g5_kakao_url = function_exists('g5site_cfg') ? g5site_cfg('kakao_url', '') : '';
 
 // 상단 메뉴 — 정책자금/기업인증/벤처투자/법인 + 정보칼럼
 if (!function_exists('bizontop_nav')) {
@@ -218,6 +215,9 @@ $menu_datas_mo = $menu_datas_pc;
                     <?php } ?>
                 </ul>
 
+                <?php if ($g5_kakao_url !== '' && $g5_kakao_url !== '#') { ?>
+                <a href="<?php echo htmlspecialchars($g5_kakao_url, ENT_QUOTES, 'UTF-8'); ?>" class="site-header__kakao" target="_blank" rel="noopener noreferrer">카카오톡 상담</a>
+                <?php } ?>
                 <a href="<?php echo $g5_inquiry_url; ?>" class="btn btn-primary site-header__cta"><?php echo get_text($g5_consult_label); ?></a>
 
                 <button type="button" class="site-header__menu-btn" aria-controls="siteMobileNav" aria-expanded="false" title="전체메뉴">

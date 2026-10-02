@@ -6,10 +6,6 @@ if (defined('G5_THEME_PATH')) {
     return;
 }
 
-if (G5_IS_MOBILE) {
-    include_once(G5_MOBILE_PATH.'/tail.php');
-    return;
-}
 
 if (!isset($site_config) && is_file(G5_PATH.'/_site.config.php')) {
     include_once(G5_PATH.'/_site.config.php');

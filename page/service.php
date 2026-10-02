@@ -78,7 +78,7 @@ g5_page_start($page['title'].' | 비즈온탑');
         <?php } ?>
       </ul>
       <?php } ?>
-      <?php $consult_on_dark = true; include G5_PATH.'/components/consult-actions.php'; ?>
+      <?php $consult_on_dark = true; $consult_show_kakao = true; include G5_PATH.'/components/consult-actions.php'; ?>
     </div>
   </header>
 
