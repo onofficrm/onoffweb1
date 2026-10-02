@@ -19,9 +19,9 @@ $cmp_site_name = g5site_cfg('site_name', '샘플 사이트');
         <button type="button" class="cmp-popup__close" aria-label="팝업 닫기">
             <i class="fa fa-times" aria-hidden="true"></i>
         </button>
-        <p class="cmp-popup__badge">이벤트</p>
+        <p class="cmp-popup__badge">안내</p>
         <h2 id="cmpPopupTitle" class="cmp-popup__title"><?php echo htmlspecialchars($cmp_site_name, ENT_QUOTES, 'UTF-8'); ?> 오픈 안내</h2>
-        <p class="cmp-popup__desc">샘플 팝업입니다. 이벤트·공지·<?php echo htmlspecialchars($cmp_consult_label, ENT_QUOTES, 'UTF-8'); ?> 유도 문구를 넣어 사용하세요.</p>
+        <p class="cmp-popup__desc">법인설립 준비부터 설립 이후 정책자금·기업인증까지, 회사 상황에 맞는 순서를 상담으로 정리해 드립니다.</p>
         <div class="cmp-popup__actions">
             <button type="button" class="btn btn-primary consult-modal-open cmp-popup__cta" data-target="#cmpConsultModal"><?php echo htmlspecialchars($cmp_consult_label, ENT_QUOTES, 'UTF-8'); ?></button>
             <button type="button" class="btn btn-outline cmp-popup__close-btn">닫기</button>
