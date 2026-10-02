@@ -6040,10 +6040,10 @@ html.page-column-board #bo_v_con li {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 2.75rem;
-  padding: 0.55rem 0.95rem;
-  border-radius: 999px;
-  font-size: 14px;
+  min-height: 2.9rem;
+  padding: 0.65rem 1.15rem;
+  border-radius: 0.65rem;
+  font-size: 15px;
   font-weight: 800;
   line-height: 1.2;
   text-decoration: none;
@@ -6052,33 +6052,9 @@ html.page-column-board #bo_v_con li {
   background: #2563eb;
   color: #fff;
 }
-.consult-actions__btn--tel {
-  background: #0b1f3a;
-  color: #fff;
-}
-.consult-actions__btn--kakao {
-  background: #fee500;
-  color: #3c1e1e;
-}
-.consult-actions__btn--ghost {
-  background: #fff;
-  color: #0b1f3a;
-  border: 1px solid #dbe3ee;
-}
 .consult-actions--on-dark .consult-actions__btn--primary {
   background: #fff;
   color: #0b1f3a;
-}
-.consult-actions--on-dark .consult-actions__btn--tel,
-.consult-actions--on-dark .consult-actions__btn--ghost {
-  background: transparent;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-}
-.consult-actions--on-dark .consult-actions__btn--kakao {
-  border: 0;
-  background: #fee500;
-  color: #3c1e1e;
 }
 .page-service--detail .svc-hero .consult-actions {
   margin-top: 1.6rem;
@@ -6111,10 +6087,7 @@ html.page-column-board #bo_v_con li {
   margin: 1.5rem auto 2.5rem;
 }
 @media (max-width: 800px) {
-  .consult-actions__btn {
-    flex: 1 1 calc(50% - 0.55rem);
-  }
   .page-service--detail .svc-banner__actions .consult-actions {
-    justify-content: stretch;
+    justify-content: flex-start;
   }
 }
