@@ -4,6 +4,9 @@ include_once(__DIR__.'/_init.php');
 include_once(G5_PATH.'/lib/bizontop-board.php');
 
 $ready = bizontop_ensure_column_board();
+if ($ready) {
+    bizontop_seed_column_posts();
+}
 $sca = isset($_GET['sca']) ? clean_xss_tags($_GET['sca']) : '';
 $categories = bizontop_column_categories();
 if ($sca !== '' && !in_array($sca, $categories, true)) {

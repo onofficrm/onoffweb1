@@ -103,3 +103,90 @@ function bizontop_column_categories()
 {
     return array('정책자금', '기업인증', '법인', '절세', '벤처투자', '경영');
 }
+
+/**
+ * 칼럼 게시판이 비어 있을 때만 카테고리별 안내 글을 한 번씩 넣습니다.
+ */
+function bizontop_seed_column_posts()
+{
+    global $g5;
+
+    if (!bizontop_ensure_column_board()) {
+        return false;
+    }
+
+    $bo_table = 'column';
+    $write_table = $g5['write_prefix'].$bo_table;
+    $count = sql_fetch(" select count(*) as cnt from {$write_table} where wr_is_comment = 0 ", false);
+    if (!empty($count['cnt'])) {
+        return false;
+    }
+
+    if (!function_exists('bizontop_column_seed_posts')) {
+        include_once dirname(__FILE__).'/bizontop-column-seed.php';
+    }
+    $posts = bizontop_column_seed_posts();
+    if (!$posts) {
+        return false;
+    }
+
+    $name = sql_real_escape_string('비즈온탑');
+    $ip = isset($_SERVER['REMOTE_ADDR']) ? sql_real_escape_string($_SERVER['REMOTE_ADDR']) : '127.0.0.1';
+    $inserted = 0;
+
+    foreach ($posts as $post) {
+        $subject = sql_real_escape_string($post['subject']);
+        $content = sql_real_escape_string($post['content']);
+        $category = sql_real_escape_string($post['category']);
+        $when = sql_real_escape_string($post['datetime']);
+        $seo = sql_real_escape_string($post['seo']);
+        $num = sql_fetch(" select IFNULL(MIN(wr_num) - 1, -1) as n from {$write_table} ", false);
+        $wr_num = isset($num['n']) ? (int) $num['n'] : -1;
+
+        $sql = " insert into {$write_table}
+            set wr_num = '{$wr_num}',
+                wr_reply = '',
+                wr_parent = 0,
+                wr_is_comment = 0,
+                wr_comment = 0,
+                ca_name = '{$category}',
+                wr_option = 'html1',
+                wr_subject = '{$subject}',
+                wr_content = '{$content}',
+                wr_seo_title = '{$seo}',
+                wr_link1 = '',
+                wr_link2 = '',
+                wr_link1_hit = 0,
+                wr_link2_hit = 0,
+                wr_hit = 0,
+                wr_good = 0,
+                wr_nogood = 0,
+                mb_id = '',
+                wr_password = '',
+                wr_name = '{$name}',
+                wr_email = '',
+                wr_homepage = '',
+                wr_datetime = '{$when}',
+                wr_last = '{$when}',
+                wr_ip = '{$ip}',
+                wr_1 = '', wr_2 = '', wr_3 = '', wr_4 = '', wr_5 = '',
+                wr_6 = '', wr_7 = '', wr_8 = '', wr_9 = '', wr_10 = 'seed' ";
+        $ok = sql_query($sql, false);
+        if (!$ok) {
+            continue;
+        }
+        $wr_id = sql_insert_id();
+        if (!$wr_id) {
+            continue;
+        }
+        sql_query(" update {$write_table} set wr_parent = '{$wr_id}' where wr_id = '{$wr_id}' ", false);
+        sql_query(" insert into {$g5['board_new_table']} ( bo_table, wr_id, wr_parent, bn_datetime, mb_id ) values ( '{$bo_table}', '{$wr_id}', '{$wr_id}', '{$when}', '' ) ", false);
+        $inserted++;
+    }
+
+    if ($inserted > 0) {
+        sql_query(" update {$g5['board_table']} set bo_count_write = bo_count_write + {$inserted} where bo_table = '{$bo_table}' ", false);
+    }
+
+    return $inserted > 0;
+}

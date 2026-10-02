@@ -9,6 +9,7 @@ include_once(G5_PATH.'/section/_helpers.php');
  */
 include_once G5_PATH.'/lib/bizontop-board.php';
 bizontop_ensure_column_board();
+bizontop_seed_column_posts();
 
 $g5_latest_boards = array(
     array(
