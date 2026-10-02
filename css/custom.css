@@ -1968,13 +1968,6 @@
 
 /* Header — mobile */
 @media (max-width: 768px) {
-  .site-header__cta {
-    display: inline-flex;
-    min-height: 36px;
-    padding: 0.4rem 0.7rem;
-    font-size: 13px;
-  }
-
   .site-header__brand-sub {
     display: none;
   }
@@ -5151,17 +5144,50 @@ html.page-site body {
     padding-left: 0.85rem;
     padding-right: 0.85rem;
   }
+  .site-header__logo {
+    flex: 1 1 auto;
+    min-width: 0;
+  }
+  .site-header__brand,
+  .site-header__logo-link {
+    max-width: 100%;
+    min-width: 0;
+  }
+  .site-header__brand-text {
+    min-width: 0;
+  }
+  .site-header__brand-name {
+    white-space: nowrap;
+    font-size: 1.15rem;
+  }
   .site-header__brand-badge,
   .site-header__brand-sub {
     display: none;
   }
-  .site-header__cta {
+  .site-header .btn.site-header__cta {
     display: none;
+  }
+  .site-header__utils {
+    flex: 0 0 auto;
+    gap: 0.4rem;
+  }
+  .site-header__menu-btn {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
   }
   .site-header__kakao {
     min-height: 36px;
     padding: 0.4rem 0.7rem;
     font-size: 13px;
+  }
+  .site-main .section-hero--incorp .section-eyebrow--accent {
+    max-width: 100%;
+    height: auto;
+    line-height: 1.45;
+    white-space: normal;
+    word-break: keep-all;
+    text-align: center;
   }
   .site-main .service-incorp-grid--home,
   .site-main .service-incorp-grid--home .service-incorp-card {
