@@ -27,6 +27,10 @@ function latest($skin_dir='', $bo_table='', $rows=10, $subject_len=40, $cache_ti
         if(G5_IS_MOBILE) {
             $latest_skin_path = G5_MOBILE_PATH.'/'.G5_SKIN_DIR.'/latest/'.$skin_dir;
             $latest_skin_url  = G5_MOBILE_URL.'/'.G5_SKIN_DIR.'/latest/'.$skin_dir;
+            if (!is_file($latest_skin_path.'/latest.skin.php')) {
+                $latest_skin_path = G5_SKIN_PATH.'/latest/'.$skin_dir;
+                $latest_skin_url  = G5_SKIN_URL.'/latest/'.$skin_dir;
+            }
         } else {
             $latest_skin_path = G5_SKIN_PATH.'/latest/'.$skin_dir;
             $latest_skin_url  = G5_SKIN_URL.'/latest/'.$skin_dir;
@@ -103,6 +107,10 @@ function latest($skin_dir='', $bo_table='', $rows=10, $subject_len=40, $cache_ti
     } else {
         $list = $cache_list;
         $bo_subject = (is_array($caches) && isset($caches['bo_subject'])) ? $caches['bo_subject'] : '';
+    }
+
+    if (!is_file($latest_skin_path.'/latest.skin.php')) {
+        return '';
     }
 
     ob_start();
