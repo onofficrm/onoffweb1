@@ -277,10 +277,6 @@ $menu_datas_mo = $menu_datas_pc;
             <ul class="site-header__mobile-utils">
                 <li><a href="<?php echo G5_BBS_URL; ?>/faq.php">FAQ</a></li>
                 <li><a href="<?php echo G5_BBS_URL; ?>/qalist.php">Q&amp;A</a></li>
-                <li><a href="<?php echo G5_BBS_URL; ?>/new.php">새글</a></li>
-                <?php if (defined('G5_USE_SHOP') && G5_USE_SHOP) { ?>
-                <li><a href="<?php echo G5_SHOP_URL; ?>">쇼핑몰</a></li>
-                <?php } ?>
             </ul>
             <div class="site-header__mobile-account">
                 <?php if ($is_member) { ?>
