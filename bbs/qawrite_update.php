@@ -237,6 +237,15 @@ for ($i=1; $i<=$upload_count; $i++) {
     }
 }
 
+if ($w != 'a') {
+    include_once(G5_PATH.'/lib/bizontop-qa.php');
+    $qa_privacy = bizontop_qa_privacy_store($w, isset($write) ? $write : array());
+    if ($qa_privacy === false) {
+        alert('비공개로 작성하려면 숫자 4자리 비밀번호를 입력해 주십시오.');
+    }
+    $qa_1 = addslashes($qa_privacy);
+}
+
 if($w == '' || $w == 'a' || $w == 'r') {
     if($w == '' || $w == 'r') {
         $row = sql_fetch(" select MIN(qa_num) as min_qa_num from {$g5['qa_content_table']} ");

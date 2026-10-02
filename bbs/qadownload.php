@@ -11,10 +11,15 @@ $no = isset($_REQUEST['no']) ? (int) $_REQUEST['no'] : 0;
 if (!get_session('ss_qa_view_'.$qa_id))
     alert('잘못된 접근입니다.');
 
-$sql = " select qa_subject, qa_file{$no}, qa_source{$no} from {$g5['qa_content_table']} where qa_id = '$qa_id' ";
+$sql = " select qa_subject, qa_1, mb_id, qa_file{$no}, qa_source{$no} from {$g5['qa_content_table']} where qa_id = '$qa_id' ";
 $file = sql_fetch($sql);
 if (!$file['qa_file'.$no])
     alert_close('파일 정보가 존재하지 않습니다.');
+
+include_once(G5_PATH.'/lib/bizontop-qa.php');
+if (!$is_admin && bizontop_qa_is_private(isset($file['qa_1']) ? $file['qa_1'] : '') && get_session('ss_qa_pin_'.$qa_id) !== '1') {
+    alert('비밀번호 확인 후 다운로드할 수 있습니다.');
+}
 
 if($is_guest) {
     alert('다운로드 권한이 없습니다.\\n회원이시라면 로그인 후 이용해 보십시오.', G5_BBS_URL.'/login.php?url='.urlencode(G5_BBS_URL.'/qaview.php?qa_id='.$qa_id));

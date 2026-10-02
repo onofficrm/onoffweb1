@@ -175,8 +175,30 @@ if(is_file($skin_file)) {
     $editor_js .= get_editor_js('qa_content', $is_dhtml_editor);
     $editor_js .= chk_editor_js('qa_content', $is_dhtml_editor);
 
+    include_once(G5_PATH.'/lib/bizontop-qa.php');
+    $qa_locked = false;
+    $qa_pin_error = '';
+    if (!$is_admin && bizontop_qa_is_private(isset($view['qa_1']) ? $view['qa_1'] : '')) {
+        $ss_pin = 'ss_qa_pin_'.$view['qa_id'];
+        if (isset($_POST['qa_pin'])) {
+            $pin = preg_replace('/[^0-9]/', '', $_POST['qa_pin']);
+            if (strlen($pin) === 4 && password_verify($pin, $view['qa_1'])) {
+                set_session($ss_pin, '1');
+            } else {
+                $qa_pin_error = '비밀번호가 맞지 않습니다.';
+            }
+        }
+        if (get_session($ss_pin) !== '1') {
+            $qa_locked = true;
+            $view['email'] = '';
+            $view['hp'] = '';
+            $view['content'] = '';
+            $answer = array();
+        }
+    }
+
     $ss_name = 'ss_qa_view_'.$qa_id;
-    if(!get_session($ss_name))
+    if(!$qa_locked && !get_session($ss_name))
         set_session($ss_name, TRUE);
 
     // 첨부파일
@@ -211,7 +233,25 @@ if(is_file($skin_file)) {
             $html_value = 2;
     }
 
-    include_once($skin_file);
+    if ($qa_locked) {
+        $qa_subject_text = get_text($view['qa_subject']);
+        echo '<section class="qa-lock" id="bo_w">';
+        echo '<h2>'. $qa_subject_text .'</h2>';
+        echo '<p>비밀번호로 보호된 글입니다. 작성할 때 넣은 숫자 4자리를 입력하면 내용과 연락처를 볼 수 있습니다.</p>';
+        if ($qa_pin_error) {
+            echo '<p class="qa-lock__error">'.get_text($qa_pin_error).'</p>';
+        }
+        echo '<form method="post" action="'.G5_BBS_URL.'/qaview.php?qa_id='.$qa_id.'">';
+        echo '<input type="hidden" name="qa_id" value="'.$qa_id.'">';
+        echo '<label for="qa_pin" class="sound_only">비밀번호 4자리</label>';
+        echo '<input type="password" name="qa_pin" id="qa_pin" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" autocomplete="off" placeholder="비밀번호 4자리" required>';
+        echo '<button type="submit">확인</button>';
+        echo '</form>';
+        echo '<a class="qa-lock__back" href="'.$list_href.'">목록으로</a>';
+        echo '</section>';
+    } else {
+        include_once($skin_file);
+    }
 } else {
     echo '<div>'.str_replace(G5_PATH.'/', '', $skin_file).'이 존재하지 않습니다.</div>';
 }

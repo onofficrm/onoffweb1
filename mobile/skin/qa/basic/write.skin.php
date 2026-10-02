@@ -109,9 +109,14 @@ add_stylesheet('<link rel="stylesheet" href="'.$qa_skin_url.'/style.css">', 0);
         </ul>
     </div>
 
-    <div class="btn_confirm">
-        <a href="<?php echo $list_href; ?>" class="btn_cancel">취소</a>
+    <?php
+    include_once(G5_PATH.'/lib/bizontop-qa.php');
+    bizontop_qa_privacy_fields($w, isset($write) ? $write : array());
+    ?>
+
+    <div class="btn_confirm qa-submit">
         <button type="submit" id="btn_submit" accesskey="s" class="btn_submit">작성완료</button>
+        <a href="<?php echo $list_href; ?>" class="qa-back">목록으로</a>
     </div>
     </form>
 
@@ -131,6 +136,7 @@ add_stylesheet('<link rel="stylesheet" href="'.$qa_skin_url.'/style.css">', 0);
 
     function fwrite_submit(f)
     {
+        if (typeof bizontopQaPinOk === 'function' && !bizontopQaPinOk(f)) return false;
         <?php echo $editor_js; // 에디터 사용시 자바스크립트에서 내용을 폼필드로 넣어주며 내용이 입력되었는지 검사함   ?>
 
         var subject = "";
