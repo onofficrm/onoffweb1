@@ -6071,6 +6071,16 @@ html.page-column-board #container_wr {
     word-break: keep-all;
     overflow-wrap: break-word;
   }
+  .page-service--detail .svc-banner {
+    padding: 1.2rem 1.1rem;
+  }
+  .page-service--detail .svc-banner h2,
+  .page-service--detail .svc-banner h3 {
+    font-size: 18px;
+    line-height: 1.4;
+    word-break: keep-all;
+    overflow-wrap: break-word;
+  }
   .page-service--detail .svc-lead,
   .page-service--detail .svc-prose,
   .page-service--detail .svc-who li,
