@@ -34,7 +34,7 @@ function bizontop_catalog()
                 array('q' => '정책자금은 대출인가요?', 'a' => '상당수는 보증 또는 융자 형태입니다. 지원금·출연과 다르므로 상환 조건까지 함께 확인해야 합니다.'),
                 array('q' => '여러 곳에 동시에 넣어도 되나요?', 'a' => '가능 여부는 기관과 기존 채무에 따라 다릅니다. 조회가 겹치면 오히려 불리할 수 있어 순서를 먼저 정합니다.'),
             ),
-            'related' => array('funding-small', 'funding-sme', 'funding-kosmes', 'funding-kodit', 'funding-kibo', 'cert-venture'),
+            'related' => array('funding-small', 'funding-sme', 'cert-venture', 'cert-lab', 'cert-innobiz', 'cert-mainbiz', 'tax-deduction'),
         ),
         'funding-small' => array(
             'group' => 'funding', 'title' => '소상공인 정책자금',
@@ -161,7 +161,7 @@ function bizontop_catalog()
             'faqs' => array(
                 array('q' => '설립한 지 얼마 안 된 법인도 가능한가요?', 'a' => '유형별 업력 요건이 있습니다. 짧은 업력은 연구개발·투자 자료가 더 중요할 수 있습니다.'),
             ),
-            'related' => array('tax-deduction', 'cert-lab', 'funding', 'corp-setup'),
+            'related' => array('cert-lab', 'cert-innobiz', 'cert-mainbiz', 'tax-deduction', 'funding', 'corp-setup'),
         ),
         'cert-innobiz' => array(
             'group' => 'cert', 'title' => '이노비즈',
@@ -178,7 +178,7 @@ function bizontop_catalog()
             'faqs' => array(
                 array('q' => '메인비즈와 같이 받을 수 있나요?', 'a' => '목적과 평가 축이 다릅니다. 기술 중심이면 이노비즈, 경영혁신 중심이면 메인비즈를 먼저 보는 경우가 많습니다.'),
             ),
-            'related' => array('cert-mainbiz', 'cert-lab', 'cert-ip', 'funding-sme'),
+            'related' => array('cert-mainbiz', 'tax-deduction', 'cert-lab', 'cert-venture', 'funding'),
         ),
         'cert-mainbiz' => array(
             'group' => 'cert', 'title' => '메인비즈',
@@ -195,7 +195,7 @@ function bizontop_catalog()
             'faqs' => array(
                 array('q' => '제조업만 가능한가요?', 'a' => '서비스·유통 등도 대상인 경우가 있습니다. 업종 제한은 공고 기준으로 확인합니다.'),
             ),
-            'related' => array('cert-innobiz', 'cert-iso', 'corp-consult'),
+            'related' => array('cert-innobiz', 'tax-deduction', 'cert-lab', 'cert-venture'),
         ),
         'cert-lab' => array(
             'group' => 'cert', 'title' => '기업부설연구소',
@@ -213,7 +213,7 @@ function bizontop_catalog()
             'faqs' => array(
                 array('q' => '1인 기업도 가능한가요?', 'a' => '연구전담 인력 수 요건이 있습니다. 대표만으로 충족되지 않는 경우가 많아 사전 확인이 필요합니다.'),
             ),
-            'related' => array('cert-venture', 'cert-innobiz', 'corp-tax', 'funding-kibo'),
+            'related' => array('cert-innobiz', 'cert-mainbiz', 'tax-deduction', 'cert-venture', 'funding', 'corp-setup'),
         ),
         'cert-iso' => array(
             'group' => 'cert', 'title' => 'ISO인증',
@@ -283,7 +283,7 @@ function bizontop_catalog()
             'faqs' => array(
                 array('q' => '기존 주식을 양도받아도 되나요?', 'a' => '일반적으로 요건에 맞는 신규 출자인지가 중요합니다. 개별 계약은 별도 확인이 필요합니다.'),
             ),
-            'related' => array('cert-venture', 'tax-fund', 'corp-structure', 'corp-setup'),
+            'related' => array('cert-venture', 'cert-lab', 'cert-innobiz', 'cert-mainbiz', 'funding', 'corp-setup'),
         ),
         'tax-fund' => array(
             'group' => 'tax', 'title' => '개인투자조합',
