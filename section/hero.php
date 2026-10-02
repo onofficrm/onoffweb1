@@ -19,7 +19,7 @@ $g5_hero_steps = array(
 <section class="section section-hero section-hero--incorp" id="section-hero">
   <div class="section-inner section-hero__inner">
     <div class="section-hero__content reveal">
-      <p class="section-eyebrow section-eyebrow--accent">CORPORATE STARTUP CONSULTING | 법인설립 전문 컨설팅</p>
+      <p class="section-eyebrow section-eyebrow--accent"><span class="section-eyebrow__en">CORPORATE STARTUP CONSULTING</span><span class="section-eyebrow__bar" aria-hidden="true">|</span><span class="section-eyebrow__ko">법인설립 전문 컨설팅</span></p>
       <h2 class="section-title">법인설립,<br><span class="section-title__accent">어렵게 시작하지 마세요.</span></h2>
       <p class="section-hero__emphasis">사업에 맞는 법인 구조부터 설립 이후 <em>기업 성장까지</em> 함께합니다.</p>
       <p class="section-desc">상호, 자본금, 주주, 임원, 사업목적 등 법인설립에 필요한 준비사항을 알기 쉽게 안내하고, 설립 이후 필요한 정책자금과 기업인증까지 함께 검토합니다.</p>

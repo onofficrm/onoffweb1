@@ -4024,6 +4024,7 @@ html:has(.site-dock) {
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.04em;
+  white-space: nowrap;
 }
 .site-main .section-hero__emphasis {
   margin: 0.75rem 0 0.85rem;
@@ -5250,12 +5251,32 @@ html.page-site body {
     font-size: 13px;
   }
   .site-main .section-hero--incorp .section-eyebrow--accent {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.05rem;
     max-width: 100%;
     height: auto;
-    line-height: 1.45;
+    padding: 0.4rem 0.8rem;
+    line-height: 1.35;
     white-space: normal;
-    word-break: keep-all;
     text-align: center;
+  }
+  .site-main .section-hero--incorp .section-eyebrow__en,
+  .site-main .section-hero--incorp .section-eyebrow__ko {
+    display: block;
+    white-space: nowrap;
+    line-height: 1.35;
+  }
+  .site-main .section-hero--incorp .section-eyebrow__en {
+    font-size: 11px !important;
+    letter-spacing: 0.02em;
+  }
+  .site-main .section-hero--incorp .section-eyebrow__ko {
+    font-size: 13px !important;
+    letter-spacing: 0;
+  }
+  .site-main .section-hero--incorp .section-eyebrow__bar {
+    display: none;
   }
   .site-main .service-incorp-grid--home,
   .site-main .service-incorp-grid--home .service-incorp-card {
