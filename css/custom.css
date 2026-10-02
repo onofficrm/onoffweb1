@@ -188,10 +188,13 @@
 
 .site-main .section-title,
 .page-template .section-title {
+  max-width: 100%;
   margin: 0 0 var(--space-md);
   font-family: var(--font-main);
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
+  white-space: normal;
+  overflow-wrap: break-word;
   line-height: var(--line-height-tight);
   color: inherit;
 }
@@ -2107,8 +2110,8 @@ html.page-index .is-sub-only {
   min-width: 0;
   height: auto;
   margin-top: 0;
-  background: var(--color-bg-dark);
-  color: rgba(255, 255, 255, 0.88);
+  background: transparent;
+  color: #172033;
 }
 
 .site-footer {
@@ -4820,11 +4823,13 @@ html:has(.site-dock) {
 }
 .site-main .support-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   margin-bottom: 1.5rem;
+  min-width: 0;
 }
 .site-main .support-card {
+  min-width: 0;
   background: rgba(255,255,255,0.05);
   border: 1px solid rgba(255,255,255,0.12);
   border-radius: 1rem;
@@ -4840,32 +4845,49 @@ html:has(.site-dock) {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 0.65rem;
+  min-width: 0;
   margin-bottom: 0.85rem;
 }
 .site-main .support-card__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
   width: 2.6rem;
   height: 2.6rem;
   border-radius: 0.75rem;
   background: rgba(37, 99, 235, 0.25);
   border: 1px solid rgba(96, 165, 250, 0.35);
+  color: #bfdbfe;
+}
+.site-main .support-card__icon svg {
+  width: 1.35rem;
+  height: 1.35rem;
 }
 .site-main .support-card__en {
+  min-width: 0;
   font-size: 0.72rem;
   font-weight: 700;
   color: #94a3b8;
   letter-spacing: 0.03em;
+  line-height: 1.35;
+  text-align: right;
+  overflow-wrap: anywhere;
 }
 .site-main .support-card__title {
   margin: 0 0 0.45rem;
   font-size: 1.15rem;
   font-weight: 800;
   color: #fff;
+  overflow-wrap: break-word;
 }
 .site-main .support-card__desc {
   margin: 0 0 0.85rem;
   font-size: 0.84rem;
   color: #cbd5e1;
   line-height: 1.55;
+  overflow-wrap: break-word;
 }
 .site-main .support-card__benefit {
   margin: 0;
@@ -6171,5 +6193,56 @@ html.page-column-board #bo_v_con li {
 @media (max-width: 800px) {
   .page-service--detail .svc-banner__actions .consult-actions {
     justify-content: flex-start;
+  }
+}
+
+/* 그누보드 기본 폭(1200px)과 푸터 위젯이 화면 왼쪽을 비우거나 글을 자르지 않게 */
+html.page-index,
+html.page-site,
+html.page-index body,
+html.page-site body {
+  overflow-x: hidden;
+  background: #f7f9fc;
+}
+html.page-index #ft_copy,
+html.page-site #ft_copy,
+#ft_copy.site-footer__copyright {
+  width: auto !important;
+  max-width: 100% !important;
+}
+html.page-index .site-g5-widgets--tail,
+html.page-site .site-g5-widgets--tail {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+.site-main .section-desc,
+.site-main .support-card__benefit {
+  overflow-wrap: break-word;
+}
+@media (max-width: 768px) {
+  html.page-index #aside,
+  html.page-site #aside,
+  html.page-index .site-aside,
+  html.page-site .site-aside {
+    display: none !important;
+  }
+  html.page-index #container_wr,
+  html.page-site #container_wr,
+  html.page-index #container,
+  html.page-site #container {
+    display: block !important;
+    float: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 }

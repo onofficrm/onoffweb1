@@ -39,6 +39,14 @@ $g5_support_cards = array(
         'benefit' => '신보 보증료율 감면 및 금리우대 혜택',
     ),
 );
+$g5_support_icons = array(
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16M6 10v7M10 10v7M14 10v7M18 10v7M3 19h18M12 3l9 5H3l9-5z"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12l2.5 2.5L16 9"/><circle cx="12" cy="12" r="8"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3h6M10 3v5l-4 7a4 4 0 003.5 6h5a4 4 0 003.5-6l-4-7V3"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="16" cy="9" r="2.2"/><path d="M3.5 19c.6-2.6 2.8-4 5.5-4s4.9 1.4 5.5 4M14 15.2c1.6-.3 3.2.2 4.2 1.3.7.8 1.1 1.7 1.3 2.5"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.6 4.4L18 9l-4.4 1.6L12 15l-1.6-4.4L6 9l4.4-1.6L12 3zM18 14l.8 2.2L21 17l-2.2.8L18 20l-.8-2.2L15 17l2.2-.8L18 14z"/></svg>',
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="11" rx="2"/><path d="M8 8V6a2 2 0 012-2h4a2 2 0 012 2v2M3 13h18"/></svg>',
+);
 ?>
 <section class="section section-support section--dark" id="section-support">
   <div class="section-inner">
@@ -49,10 +57,10 @@ $g5_support_cards = array(
     </div>
     <div class="section-content">
       <div class="support-grid">
-        <?php foreach ($g5_support_cards as $item) { ?>
+        <?php foreach ($g5_support_cards as $g5_support_idx => $item) { ?>
         <article class="support-card reveal">
           <div class="support-card__top">
-            <span class="support-card__icon" aria-hidden="true"></span>
+            <span class="support-card__icon" aria-hidden="true"><?php echo $g5_support_icons[$g5_support_idx]; ?></span>
             <span class="support-card__en"><?php echo get_text($item['en']); ?></span>
           </div>
           <h3 class="support-card__title"><?php echo get_text($item['name']); ?></h3>
